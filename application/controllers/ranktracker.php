@@ -39,6 +39,7 @@ class Ranktracker extends CI_Controller
 
         $this->pgsql = $this->load->database('pgsql', true);
         $this->lang->load('ranktracker');
+        $this->lang->load('rankdash');
     }
 
     /**
