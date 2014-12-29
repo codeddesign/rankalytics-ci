@@ -1,0 +1,127 @@
+/**************************************************
+*
+*	CONTAINER STYLES
+*
+**************************************************/
+
+#horiz_container_outer
+{
+	width:725px;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	position:relative;
+	height:416px;
+	padding: 0;
+	margin: 0;
+}
+
+#horiz_container
+{
+	width:3780px;
+	margin:0px;
+	padding:0px;
+	height:300px;
+}
+
+#horiz_container ul
+{
+	margin:0px; padding:0px;
+	float:left;
+}
+
+li#horiz_container_inner
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#horiz_container_inner
+{
+	padding:5px;
+	padding-left:0px;
+}
+
+#horiz_container li
+{
+	list-style:none;
+	display: inline-table;
+	margin:0px;
+	list-style-type: none;
+}
+
+#horiz_container li img
+{
+	padding:0px;
+	margin:0px;
+}
+
+
+
+
+/**************************************************
+*
+*	SCROLLING STYLES
+*
+**************************************************/
+
+#scrollbar 
+{ 
+    position:relative; 
+    width:815px; height:12px;
+    display:block;
+    font-size:1px;
+    top:0px;
+    margin:0px auto;
+    margin-left:9px;
+}
+
+#track 
+{ 
+    position:absolute; left:0px; top:0;
+    width:704px;
+    height:8px; 
+    background: #EEEEEE;
+}
+
+#dragBar 
+{
+    position:absolute; left:0px; top:0px;
+    width:20px;
+    height:8px; 
+	background: #FEAF00;
+	cursor: pointer;
+	top:0px !important;
+}  
+  
+#left_scroll
+{ 
+	position:absolute; 
+	border-color: transparent gray transparent transparent;
+	border-style: solid;
+	border-width: 5px;
+	width: 0;
+	height: 0px;
+	cursor:pointer;
+	top:1px;
+	left:-15px;
+}  
+
+#right_scroll 
+{ 
+	position:absolute; 
+	right:-15px; 
+	top:1px;
+	border-color: transparent transparent transparent gray;
+	border-style: solid;
+	border-width: 5px;
+	width: 0;
+	height: 0px;
+	cursor:pointer;
+}
+
+/* Prevent selection problem */
+#scrollbar, #track, #dragBar, #left, #right {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+}

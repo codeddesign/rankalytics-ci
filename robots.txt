@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /images/
+Disallow: /cgi-bin/
+Disallow: /ranktracker/dashboard/
+Disallow: /users/
+Disallow: /rankings/
+Disallow: /user_guide/

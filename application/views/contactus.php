@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+    
+<!-- favicon -->
+<link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
+<link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
+<!-- end favicon -->    
+    
+    <title>Kontakt Rankalytics Heute</title>
+    <meta name="description" content="">
+
+    <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
+    <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
+
+    <meta name="DC.title" content="Kontakt Rankalytics Heute"/>
+    <META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
+    <META NAME="Language" CONTENT="Deutsch">
+    <META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
+    <META NAME="distribution" CONTENT="Global">
+    <META NAME="zipcode" CONTENT="82216">
+    <META NAME="city" CONTENT="Maisach">
+    <META NAME="country" CONTENT="Deutschland">
+    <meta name="coverage" content="Worldwide">
+    <meta name="rating" content="General">
+    <meta name="revisit-after" content="7 days">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <!-- facebook meta -->
+    <meta name="go:title" content="Kontakt Rankalytics Heute"/>
+    <meta name="go:type" content="website"/>
+    <meta name="go:url" content="https://www.rankalytics.com/"/>
+    <meta name="go:image" content="https://rankalytics.com/assets/images/facebookmeta.jpg"/>
+    <meta name="go:site_name" content="Rankalytics"/>
+    <meta name="go:description" content="Haben Sie Fragen zu unseren SEO Tools oder benötigen Sie Unterstützung brauchen? Rufen Sie uns heute an 0800-181-8613"/>
+    <!-- end Facebook meta -->
+    <!-- open graph contact info -->
+    <meta name="go:email" content="support@rankalytics.com"/>
+    <meta name="go:phone_number" content="+49(8141)-3150375"/>
+    <!-- end go contact info -->
+    <!-- go address info -->
+    <meta name="go:street-address" content="Linde Street 2d"/>
+    <meta name="go:locality" content="Maisach"/>
+    <meta name="go:region" content="Deutschland"/>
+    <meta name="go:postal-code" content="82216"/>
+    <meta name="go:country-name" content="DE"/>
+    <!-- end go address info -->
+
+
+    <link href="<?php echo base_url(); ?>assets/home.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>assets/css/radiobuttons.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
+    <script type="text/javascript">try {
+            Typekit.load();
+        } catch (e) {
+        }</script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+<?php $this->load->view('home/page-navplacement.php'); ?>
+
+<div class="ranktracker-topline"></div>
+
+</div>
+</div>
+
+<div class="contactmap"></div>
+<span itemscope itemtype="https://schema.org/LocalBusiness">
+<div class="bodywrapper">
+    <div class="ranktracker-bottomwhitetitle">We look forward to hearing from you!</div>
+    <div class="ranktracker-bottomwhitewrapper">
+        <div class="ranktracker-bottomwhitesubcontent">At Rankalytics, questions, feedback, and ideas are at the center of our highest priority to our customers. Whether you have a simple
+            question about our products, we are missing a feature that you would like to see, or just want to say "hello"; we would love to hear from you!
+        </div>
+        <div class="payment-monthlycharge">Get in touch with us.</div>
+        <div id="form-msgs" class="form-errors"></div>
+        <?php echo form_open("ranktracker/contactussave", array("id" => "contactus-form", "class" => "contactus-form"));
+        echo form_input(array('name' => 'fullName', 'id' => 'fullName', 'class' => "billing-forminputleft", 'placeholder' => "FULL NAME*"));
+        echo form_input(array('name' => 'emailAddress', 'id' => 'emailAddress1', 'class' => "billing-forminputleft", 'placeholder' => "EMAIL ADDRESS*"));
+        echo form_input(array('name' => 'phoneNumber', 'id' => 'phoneNumber', 'class' => "billing-forminputleft", 'placeholder' => "TELEPHONE NUMBER"));
+        echo form_textarea(array('name' => 'message', 'id' => 'message', 'class' => "contactus-textarealeft", 'placeholder' => "COMMENT*"));?>
+        <div style="float: left" id="contactus-loading" align="left" class="save-loading">
+            <div class="spinner"></div>
+        </div>
+        <?php
+        echo form_submit(array('name' => 'submit-contact', 'id' => 'submit-contact', 'class' => "contactusbutton", 'value' => "Senden"));
+        echo form_close();?>
+        <div class="contactus-right">
+            <div itemprop="name" class="contactus-righttitle">Rankalytics.com</div>
+			<span itemprop="location" itemscope itemtype="https://schema.org/Place">
+			<span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+				<div itemprop="streetAddress" class="contactus-righttitlesub">Lindenstrasse 2d</div>
+			<div class="contactus-righttitlesub"><span itemprop="postalCode">82216</span> <span itemprop="addressLocality">Maisach</span></div>
+			<span itemprop="addressRegion" style="position:absolute;text-indent:-9999px;">Deutschland</span></span></span>
+
+            <div class="contactus-iconwraps" style="margin-top:30px;">
+                <div class="contactus-telephoneicon"></div>
+                <div
+                <div itemprop="telephone" class="contactus-icontext">+49(8141)-3150375</div>
+				<span itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
+<span itemprop="dayOfWeek" itemscope itemtype="https://schema.org/DayOfWeek"><div itemprop="name" class="contactus-hours">Mo - Fr 09:00 - 18:00</div></span></span>
+            </div>
+			</span><!-- end item prop business address -->
+<div class="contactus-iconwraps">
+    <div class="contactus-emailicon"></div>
+    <div itemprop="email" class="contactus-icontext">support@<span itemprop="url">rankalytics.com</span></div>
+</div>
+<a href="#" class="contactus-supportbutton">Support / FAQ</a>
+</div>
+</div>
+<div class="homefeatures-smallline"></div>
+<div class="checkoutfeatures">There are many great reasons to choose Rankalytics. <a href="/features"><span>View all modules now</span></a></div>
+<a href="/features" class="featurescheck"></a>
+</div>
+<script>
+    $(document).ready(function () {
+        $("input[type=text],textarea").blur(function () {
+            if ($(this).val() != '') {
+                $(this).removeClass("validationError");
+            }
+        });
+
+        $("#contactus-form").on('submit', function (e) {
+            e.preventDefault();
+
+            var formMsgs = $("#form-msgs"), loading = $("#contactus-loading"), theForm = $(this);
+
+            formMsgs.html('').hide();
+            loading.show();
+
+            $.post($(this).attr('action'), theForm.serialize(), function (data) {
+                loading.hide();
+
+                if (!parseInt(data.error)) {
+                    window.scrollTo(0,0);
+                    formMsgs.show().removeClass("form-errors").addClass("form-success").html("Contact Request Sent!");
+                    theForm[0].reset();
+                }
+                else {
+                    formMsgs.show().removeClass("form-success").addClass("form-errors");
+
+                    $.each(data.msg, function (key, val) {
+                        $('#form-msgs').append(val);
+                        $('#' + key).addClass('validationError');
+                    });
+                }
+            }, 'json');
+        });
+    });
+</script>
+
+<?php $this->load->view('include/mainfooter'); ?>
+
+<?php $this->load->view('include/login-signup'); ?>
+
+
+</body>
+</html>

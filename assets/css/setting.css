@@ -1,0 +1,23 @@
+.subscription-accountlevel {
+    
+    margin-left: 5px;
+}
+.subscription-billingrenewal {
+    margin-left: 5px; 
+    
+}
+
+.subscription-keywordsused {
+   margin-left: 5px;  
+   width: 170px;
+}
+.subscription-keywordlimit {
+    margin-left: 5px;  
+    width: 170px;
+}
+    .block-display{
+        display:block;
+    }
+    .none-display{
+        display:none;
+    }

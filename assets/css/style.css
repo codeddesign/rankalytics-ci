@@ -1,0 +1,320 @@
+
+body {
+	margin: 0;
+	background: #EFF4F7;
+}
+
+
+/** REPORTS PDF PAGE **/
+
+.reportspdfwrap {
+	width: 735px;
+	margin: 0 auto;
+	margin-top: 45px;
+}
+
+.reportspdf-logo {
+	float: left;
+	color: #3F4C5D;
+	font-size: 21px;
+	font-family: Helvetica, Arial, Sans-serif;
+}
+
+.reportspdf-rightreport {
+	float: right;
+	width: 354px;
+	border-bottom:4px solid #404C5D;
+	height: 74px;
+}
+
+.reportspdf-rightreporttext {
+	float: left;
+	color: #3F4C5D;
+	font-size: 21px;
+	font-family: Helvetica, Arial, Sans-serif;
+	width: 100%;
+	margin-left: 2px;
+}
+
+.reportspdf-rightreportdate {
+	float: left;
+	color: #3F4C5D;
+	font-size: 14px;
+	font-family: Helvetica, Arial, Sans-serif;
+	width: 100%;
+	margin-top: 8px;
+	margin-left: 2px;
+}
+
+.reportspdf-rightbottomline {
+	float: left;
+	width: 100%;
+	height: 4px;
+	background: #404C5D;
+	margin-top: 10px;
+}
+
+#pdfchart {
+	border: 1px solid #EEEEEE;
+    float: left;
+    height: 300px;
+    margin-top: 56px;
+    width: 100%;
+    font-family: Helvetica, Arial, Sans-serif;
+}
+
+.reportspdf-boxwrap {
+	float: left;
+	margin-top:40px;
+	width: 100%;
+	border: 1px solid #DDDDDD;
+	height: 108px;	
+	margin-bottom: 100px;
+}
+
+.reportspdf-boxwrapinner {
+	float: left;
+	width: 245px;
+	margin-top: 26px;
+}
+
+.reportspdf-boxwraptitle {
+	float: left;
+	width: 100%;
+	text-align:center;
+	color: #000000;
+	font-size: 12px;
+	font-weight: 600;
+	font-family: Helvetica, Arial, Sans-serif;
+	margin-bottom: 8px;
+}
+
+.reportspdf-boxwrapsub {
+	float: left;
+	width: 100%;
+	text-align:center;
+	color: #000000;
+	font-size: 40px;
+	font-weight: 600;
+	font-family: Helvetica, Arial, Sans-serif;
+}
+
+.reportspdf-clientname {
+	float: left;
+	margin-top: 60px;
+	width: 100%;
+	font-size: 11px;
+	color: #545454;
+	font-family: Helvetica, Arial, Sans-serif;
+	margin-bottom: 15px;
+	font-weight: 600;
+}
+
+.reportspdf-infoline {
+	float: left;
+	border-bottom: 29px solid #DDDDDD;
+	height: 1px;
+	width: 100%;
+}
+
+.reportpdf-datetitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 350px;
+    line-height: 33px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.reportpdf-chantitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 110px;
+    line-height: 33px;
+    text-align: center;
+}
+
+.reportpdf-camptitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 114px;
+    line-height: 33px;
+    text-align: center;
+}
+
+.reportpdf-adgrouptitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 114px;
+    line-height: 33px;
+    text-align: center;
+}
+
+.reportpdf-cpctitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 106px;
+    line-height: 29px;
+    text-align: center;
+}
+
+.reportpdf-clickstitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 59px;
+    line-height: 29px;
+    text-align: center;
+}
+
+.reportpdf-imptitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 58px;
+    line-height: 29px;
+    text-align: center;
+}
+
+.reportpdf-ctrtitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    width: 58px;
+    line-height: 29px;
+    text-align: center;
+}
+
+.reportspdf-list {
+	float: left;
+	width: 100%;
+	height: 30px;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.reportspdf-list ul {
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 25px;
+	float: left;
+	width: 100%;
+}
+
+.reportspdf-list ul li {
+	float: left;
+	width: 100%;
+	height: 38px;
+	background: #FFFFFF;
+	list-style-type: none;
+}
+
+.reportspdf-list ul li:nth-child(even) {
+	background: #F5F5F5;
+}
+
+.reportpdf-keywordtitle {
+    color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 38px;
+    margin-left: 20px;
+    text-align: left;
+    width: 350px;
+}
+
+.reportpdf-keywordstart {
+    color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 38px;
+    text-align: center;
+    width: 110px;
+}
+
+.reportpdf-keywordcurrent {
+    color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 38px;
+    text-align: center;
+    width: 114px;
+}
+
+.reportpdf-keywordchange {
+    color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 38px;
+    text-align: center;
+    width: 114px;
+}
+
+.reportspdf-createdby {
+	float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    margin-top: 8px;
+    width: 100%;
+    margin-left: 2px;
+}
+
+.reportslogo {
+	background: url('/assets/images/reportslogo.png');
+	width: 204px;
+	height: 36px;
+	float: left
+}
+/******** DETAILED REPORTS PAGE ***********/
+
+.reportpdf-erttitle {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 33px;
+    text-align: center;
+    width: 75px;
+}
+
+.reportpdf-keywordert {
+	color: #545454;
+    float: left;
+    font-family: Helvetica,Arial,Sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 38px;
+    text-align: center;
+    width: 75px;
+}

@@ -1,0 +1,196 @@
+
+@font-face {
+    font-family: 'novecento_sans_widemedium';
+    src: url('../font/Novecentosanswide-Medium-webfont.eot');
+    src: url('../font/Novecentosanswide-Medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/Novecentosanswide-Medium-webfont.woff') format('woff'),
+         url('../font/Novecentosanswide-Medium-webfont.ttf') format('truetype'),
+         url('../font/Novecentosanswide-Medium-webfont.svg#novecento_sans_widemedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* HTML css */
+body {
+  font: 12px Arial, Helvetica, sans-serif;
+}
+svg:not(:root) {
+  overflow: hidden;
+  cursor: grab;
+}
+.condensed {
+	font-family: "Arial Narrow", Arial, sans-serif;
+}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#viz {
+  margin: 0 auto;
+}
+#chartTitle {
+  	border-bottom: 1px solid #EEEEEE;
+    color: #464652;
+    float: left;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 27px;
+    margin-top: -4px;
+    padding-left: 20px;
+    width: 107px;
+    font-family: 'novecento_sans_widemedium';
+}
+#dateImg, #startDate, #endDate, #dateButton, div.button {
+  float: right;
+  margin-left: -16px;
+  margin-right: 30px;
+}
+#dateImg {
+  margin: 6px 27px 6px 6px;
+}
+div.button {
+  cursor: pointer;
+  margin: 5px;
+  position: relative;
+  height: 42px !important;
+  width: 130px !important;
+}
+div.button.btnSelect {
+  background: #f6f6f6;
+  height: 42px !important;
+  width: 130px !important;
+}
+.leftBtn, .rightBtn, .leftTt, .rightTt, .topLeft, .btmLeft, .topRight, .btmRight {
+  position: absolute;
+}
+.leftBtn .btmLeft {
+  	color: #BBBBBB;
+    font-family: 'novecento_sans_widemedium';
+    font-size: 10px;
+    line-height: 27px;
+    text-align: right;
+}
+.rightBtn .btmRight {
+  	font-weight: 500;
+	text-align: center;
+    color: #999;
+    font-size: 15px;
+    font-family: 'novecento_sans_widemedium';
+}
+.rightBtn .topRight {
+  text-align: center;
+}
+.leftBtn .topLeft {
+  	color: #464652;
+    font-family: 'novecento_sans_widemedium';
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 23px;
+    text-align: right;
+}
+.toolGroup {
+  position: relative;
+  display: inline-block;
+}
+.leftTt .btmLeft {
+  font-size: 10px;
+  text-align: right;
+}
+.rightTt .btmRight {
+  font-weight: bold;
+  text-align: center;
+}
+.rightTt .topRight {
+  text-align: center;
+}
+.leftTt .topLeft {
+  text-align: right;
+  font-weight: bold;
+  font-size: 13px;
+}
+#chart {
+  position: relative;
+}
+div.tooltip {
+  z-index: 10;
+  position: absolute;
+  padding: 10px;
+  color: white;
+  border: thin solid black;
+  -webkit-border-radius:  3px;
+  -moz-border-radius:     3px;
+  border-radius:          3px;
+  -webkit-box-shadow: 0 0px 3px #999999, inset 0 1px 0px #03C2F0;
+  -moz-box-shadow:    0 0px 3px #999999, inset 0 1px 0px #03C2F0;
+  box-shadow:         0 0px 3px #999999, inset 0 1px 0px #03C2F0;
+  pointer-events: none;
+  
+}
+
+/* SVG css*/
+.axis text {
+  font-size: 10px;
+  fill: #bbbbbb;
+  pointer-events: none;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke: #f1f1f1;
+  /*stroke-width:8px;*/
+  shape-rendering: crispEdges;
+  pointer-events: none;
+}
+g.lineGroup path.line {
+  fill: none;
+  pointer-events: none;
+}
+g.lineGroup path.area {
+  stroke: none;
+  fill-opacity: 0.2;
+  pointer-events: none;
+}
+rect.dragBrush {
+  cursor: move;
+  fill-opacity: 0;
+}
+circle.point {
+  stroke: white;
+  stroke-width: 2px;
+  pointer-events: none;
+}
+.selector {
+  opacity: 0;
+}
+
+#ui {
+	position: relative;
+	z-index: 99;
+}
+.fiveday li {
+    color: rgb(86, 179, 217);
+    font: bold 12px Arial,Helvetica;
+    float: left;
+}
+.fiveday .date {
+    margin-left: 5px;
+    padding-top: 10px;
+   
+}
+.span2 {
+    width: 60px;
+    
+}
+.fiveday .row
+{
+list-style:none;
+    text-align: center;
+    width: 100px
+}
+.fiveday{
+    margin-left: 32px;
+}
+.fiveday .temp {
+    font-size: 30px;
+    padding-left: 10px
+}

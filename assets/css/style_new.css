@@ -1,0 +1,132 @@
+/* HTML css */
+body {
+  font: 12px Arial, Helvetica, sans-serif;
+}
+svg:not(:root) {
+  overflow: hidden;
+  cursor: grab;
+}
+.condensed {
+	font-family: "Arial Narrow", Arial, sans-serif;
+}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+#viz {
+  margin: 0 auto;
+}
+#chartTitle {
+  font-size: 14px;
+  font-weight: bold;
+  color: #464652;
+}
+#dateImg, #startDate, #endDate, #dateButton, div.button {
+  float: right;
+}
+#dateImg {
+  margin: 8px;
+}
+div.button {
+  cursor: pointer;
+  margin: 5px;
+  position: relative;
+  -webkit-border-radius:  3px;
+  -moz-border-radius:     3px;
+  border-radius:          3px;
+}
+div.button.btnSelect {
+  background: #f6f6f6;
+}
+.leftBtn, .rightBtn, .leftTt, .rightTt, .topLeft, .btmLeft, .topRight, .btmRight {
+  position: absolute;
+}
+.leftBtn .btmLeft {
+  color: #909090;
+  font-size: 10px;
+  text-align: right;
+}
+.rightBtn .btmRight {
+  font-weight: bold;
+  text-align: center;
+}
+.rightBtn .topRight {
+  text-align: center;
+}
+.leftBtn .topLeft {
+  text-align: right;
+  font-weight: bold;
+  font-size: 13px;
+}
+.toolGroup {
+  position: relative;
+  display: inline-block;
+}
+.leftTt .btmLeft {
+  font-size: 10px;
+  text-align: right;
+}
+.rightTt .btmRight {
+  font-weight: bold;
+  text-align: center;
+}
+.rightTt .topRight {
+  text-align: center;
+}
+.leftTt .topLeft {
+  text-align: right;
+  font-weight: bold;
+  font-size: 13px;
+}
+#chart {
+  position: relative;
+}
+div.tooltip {
+  z-index: 10;
+  position: absolute;
+  padding: 10px;
+  color: white;
+  border: thin solid black;
+  -webkit-border-radius:  3px;
+  -moz-border-radius:     3px;
+  border-radius:          3px;
+  -webkit-box-shadow: 0 0 5px 0 rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    0 0 5px 0 rgba(50, 50, 50, 0.75);
+  box-shadow:         0 0 5px 0 rgba(50, 50, 50, 0.75);
+  pointer-events: none;
+}
+
+/* SVG css*/
+.axis text {
+  font-size: 10px;
+  fill: #bbbbbb;
+  pointer-events: none;
+}
+.axis path, .axis line {
+  fill: none;
+  stroke: #f1f1f1;
+  shape-rendering: crispEdges;
+  pointer-events: none;
+}
+g.lineGroup path.line {
+  fill: none;
+  pointer-events: none;
+}
+g.lineGroup path.area {
+  stroke: none;
+  fill-opacity: 0.2;
+  pointer-events: none;
+}
+rect.dragBrush {
+  cursor: move;
+  fill-opacity: 0;
+}
+circle.point {
+  stroke: white;
+  stroke-width: 2px;
+  pointer-events: none;
+}
+.selector {
+  opacity: 0;
+}

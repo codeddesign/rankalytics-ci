@@ -1,0 +1,257 @@
+[Apr 02 2014 13:03:33.000000 - INFO] POST /api/adwords/cm/v201309/CampaignService?access_token=ya29.1.AADtN_UGqlD4p2j4NeO1yqrx-o9WtUMB5iTohOnSwtFOUAo_DlqJjt-aHjfmKRM HTTP/1.1
+Host: adwords.google.com
+Connection: Keep-Alive
+User-Agent: PHP-SOAP/5.3.13, gzip
+Accept-Encoding: gzip, deflate
+Content-Encoding: gzip
+Content-Type: text/xml; charset=utf-8
+SOAPAction: ""
+Content-Length: 411
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://adwords.google.com/api/adwords/cm/v201309">
+  <SOAP-ENV:Header>
+    <ns1:RequestHeader>
+      <ns1:developerToken>VQZgOLzlPPFrEcuc_DPIcA</ns1:developerToken>
+      <ns1:userAgent>RankAnalytics (AwApi-PHP/5.2.1, Common-PHP/5.2.1, PHP/5.3.13)</ns1:userAgent>
+    </ns1:RequestHeader>
+  </SOAP-ENV:Header>
+  <SOAP-ENV:Body>
+    <ns1:get>
+      <ns1:serviceSelector>
+        <ns1:fields>Id</ns1:fields>
+        <ns1:fields>Name</ns1:fields>
+        <ns1:ordering>
+          <ns1:field>Name</ns1:field>
+          <ns1:sortOrder>ASCENDING</ns1:sortOrder>
+        </ns1:ordering>
+        <ns1:paging>
+          <ns1:startIndex>0</ns1:startIndex>
+          <ns1:numberResults>500</ns1:numberResults>
+        </ns1:paging>
+      </ns1:serviceSelector>
+    </ns1:get>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+HTTP/1.1 200 OK
+Content-Type: text/xml; charset=UTF-8
+Content-Encoding: gzip
+Date: Wed, 02 Apr 2014 13:03:36 GMT
+Expires: Wed, 02 Apr 2014 13:03:36 GMT
+Cache-Control: private, max-age=0
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Content-Length: 300
+Server: GSE
+
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header>
+    <ResponseHeader xmlns="https://adwords.google.com/api/adwords/cm/v201309">
+      <requestId>0004f60ee99e95b00ae7b88600000479</requestId>
+      <serviceName>CampaignService</serviceName>
+      <methodName>get</methodName>
+      <operations>1</operations>
+      <responseTime>466</responseTime>
+    </ResponseHeader>
+  </soap:Header>
+  <soap:Body>
+    <getResponse xmlns="https://adwords.google.com/api/adwords/cm/v201309">
+      <rval>
+        <totalNumEntries>0</totalNumEntries>
+        <Page.Type>CampaignPage</Page.Type>
+      </rval>
+    </getResponse>
+  </soap:Body>
+</soap:Envelope>
+
+[Apr 02 2014 14:05:12.000000 - ERROR] POST /api/adwords/cm/v201309/AdGroupCriterionService?access_token=ya29.1.AADtN_UBPWC9xfMTFay9HFHj4Y6ryjp2ZEaisaQD-_vTA7oRPSYUgJRsLMTehDM HTTP/1.1
+Host: adwords.google.com
+Connection: Keep-Alive
+User-Agent: PHP-SOAP/5.3.13, gzip
+Accept-Encoding: gzip, deflate
+Content-Encoding: gzip
+Content-Type: text/xml; charset=utf-8
+SOAPAction: ""
+Content-Length: 517
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://adwords.google.com/api/adwords/cm/v201309">
+  <SOAP-ENV:Header>
+    <ns1:RequestHeader>
+      <ns1:developerToken>VQZgOLzlPPFrEcuc_DPIcA</ns1:developerToken>
+      <ns1:userAgent>RankAnalytics (AwApi-PHP/5.2.1, Common-PHP/5.2.1, PHP/5.3.13)</ns1:userAgent>
+    </ns1:RequestHeader>
+  </SOAP-ENV:Header>
+  <SOAP-ENV:Body>
+    <ns1:get>
+      <ns1:serviceSelector>
+        <ns1:fields>KeywordText</ns1:fields>
+        <ns1:fields>KeywordMatchType</ns1:fields>
+        <ns1:fields>Id</ns1:fields>
+        <ns1:predicates>
+          <ns1:field>AdGroupId</ns1:field>
+          <ns1:operator>IN</ns1:operator>
+          <ns1:values>INSERT_AD_GROUP_ID_HERE</ns1:values>
+        </ns1:predicates>
+        <ns1:predicates>
+          <ns1:field>CriteriaType</ns1:field>
+          <ns1:operator>IN</ns1:operator>
+          <ns1:values>KEYWORD</ns1:values>
+        </ns1:predicates>
+        <ns1:ordering>
+          <ns1:field>KeywordText</ns1:field>
+          <ns1:sortOrder>ASCENDING</ns1:sortOrder>
+        </ns1:ordering>
+        <ns1:paging>
+          <ns1:startIndex>0</ns1:startIndex>
+          <ns1:numberResults>500</ns1:numberResults>
+        </ns1:paging>
+      </ns1:serviceSelector>
+    </ns1:get>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+HTTP/1.1 500 Internal Server Error
+Content-Type: text/xml; charset=UTF-8
+Content-Encoding: gzip
+Date: Wed, 02 Apr 2014 14:05:15 GMT
+Expires: Wed, 02 Apr 2014 14:05:15 GMT
+Cache-Control: private, max-age=0
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Content-Length: 535
+Server: GSE
+
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header>
+    <ResponseHeader xmlns="https://adwords.google.com/api/adwords/cm/v201309">
+      <requestId>0004f60fc61559e80ae715c800000b72</requestId>
+      <serviceName>AdGroupCriterionService</serviceName>
+      <methodName>get</methodName>
+      <operations>1</operations>
+      <responseTime>167</responseTime>
+    </ResponseHeader>
+  </soap:Header>
+  <soap:Body>
+    <soap:Fault>
+      <faultcode>soap:Server</faultcode>
+      <faultstring>[SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector; trigger:'INSERT_AD_GROUP_ID_HERE']</faultstring>
+      <detail>
+        <ApiExceptionFault xmlns="https://adwords.google.com/api/adwords/cm/v201309">
+          <message>[SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector; trigger:'INSERT_AD_GROUP_ID_HERE']</message>
+          <ApplicationException.Type>ApiException</ApplicationException.Type>
+          <errors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SelectorError">
+            <fieldPath>serviceSelector</fieldPath>
+            <trigger>INSERT_AD_GROUP_ID_HERE</trigger>
+            <errorString>SelectorError.INVALID_PREDICATE_VALUE</errorString>
+            <ApiError.Type>SelectorError</ApiError.Type>
+            <reason>INVALID_PREDICATE_VALUE</reason>
+          </errors>
+        </ApiExceptionFault>
+      </detail>
+    </soap:Fault>
+  </soap:Body>
+</soap:Envelope>
+
+[Apr 02 2014 14:05:33.000000 - ERROR] POST /api/adwords/cm/v201309/AdGroupAdService?access_token=ya29.1.AADtN_V9fvXRp0uOgftvFLyPvWOudw2a2r69bti9i3OOZY48woGNnvdlVRlJ6zk HTTP/1.1
+Host: adwords.google.com
+Connection: Keep-Alive
+User-Agent: PHP-SOAP/5.3.13, gzip
+Accept-Encoding: gzip, deflate
+Content-Encoding: gzip
+Content-Type: text/xml; charset=utf-8
+SOAPAction: ""
+Content-Length: 540
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://adwords.google.com/api/adwords/cm/v201309">
+  <SOAP-ENV:Header>
+    <ns1:RequestHeader>
+      <ns1:developerToken>VQZgOLzlPPFrEcuc_DPIcA</ns1:developerToken>
+      <ns1:userAgent>RankAnalytics (AwApi-PHP/5.2.1, Common-PHP/5.2.1, PHP/5.3.13)</ns1:userAgent>
+    </ns1:RequestHeader>
+  </SOAP-ENV:Header>
+  <SOAP-ENV:Body>
+    <ns1:get>
+      <ns1:serviceSelector>
+        <ns1:fields>Headline</ns1:fields>
+        <ns1:fields>Id</ns1:fields>
+        <ns1:predicates>
+          <ns1:field>AdGroupId</ns1:field>
+          <ns1:operator>IN</ns1:operator>
+          <ns1:values>INSERT_AD_GROUP_ID_HERE</ns1:values>
+        </ns1:predicates>
+        <ns1:predicates>
+          <ns1:field>AdType</ns1:field>
+          <ns1:operator>IN</ns1:operator>
+          <ns1:values>TEXT_AD</ns1:values>
+        </ns1:predicates>
+        <ns1:predicates>
+          <ns1:field>Status</ns1:field>
+          <ns1:operator>IN</ns1:operator>
+          <ns1:values>ENABLED</ns1:values>
+          <ns1:values>PAUSED</ns1:values>
+          <ns1:values>DISABLED</ns1:values>
+        </ns1:predicates>
+        <ns1:ordering>
+          <ns1:field>Headline</ns1:field>
+          <ns1:sortOrder>ASCENDING</ns1:sortOrder>
+        </ns1:ordering>
+        <ns1:paging>
+          <ns1:startIndex>0</ns1:startIndex>
+          <ns1:numberResults>500</ns1:numberResults>
+        </ns1:paging>
+      </ns1:serviceSelector>
+    </ns1:get>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+HTTP/1.1 500 Internal Server Error
+Content-Type: text/xml; charset=UTF-8
+Content-Encoding: gzip
+Date: Wed, 02 Apr 2014 14:05:36 GMT
+Expires: Wed, 02 Apr 2014 14:05:36 GMT
+Cache-Control: private, max-age=0
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+Content-Length: 527
+Server: GSE
+
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header>
+    <ResponseHeader xmlns="https://adwords.google.com/api/adwords/cm/v201309">
+      <requestId>0004f60fc75826a00ae7120100002d05</requestId>
+      <serviceName>AdGroupAdService</serviceName>
+      <methodName>get</methodName>
+      <operations>1</operations>
+      <responseTime>310</responseTime>
+    </ResponseHeader>
+  </soap:Header>
+  <soap:Body>
+    <soap:Fault>
+      <faultcode>soap:Server</faultcode>
+      <faultstring>[SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector; trigger:'INSERT_AD_GROUP_ID_HERE']</faultstring>
+      <detail>
+        <ApiExceptionFault xmlns="https://adwords.google.com/api/adwords/cm/v201309">
+          <message>[SelectorError.INVALID_PREDICATE_VALUE @ serviceSelector; trigger:'INSERT_AD_GROUP_ID_HERE']</message>
+          <ApplicationException.Type>ApiException</ApplicationException.Type>
+          <errors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SelectorError">
+            <fieldPath>serviceSelector</fieldPath>
+            <trigger>INSERT_AD_GROUP_ID_HERE</trigger>
+            <errorString>SelectorError.INVALID_PREDICATE_VALUE</errorString>
+            <ApiError.Type>SelectorError</ApiError.Type>
+            <reason>INVALID_PREDICATE_VALUE</reason>
+          </errors>
+        </ApiExceptionFault>
+      </detail>
+    </soap:Fault>
+  </soap:Body>
+</soap:Envelope>
+
