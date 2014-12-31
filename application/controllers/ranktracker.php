@@ -1097,7 +1097,7 @@ class Ranktracker extends CI_Controller
         $max_results = 30;
 
         $config = array(
-            'url' => "https://www.google.de/search?q=" . $search_string . "&hl=de&start=0&num=" . $max_results,
+            'url' => "https://www.google.com/search?q=" . $search_string . "&hl=en&start=0&num=" . $max_results,
             'header' => 0,
             'timeout' => 3,
             'agent' => "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.16) Gecko/20080702 Firefox/2.0.0.16",
