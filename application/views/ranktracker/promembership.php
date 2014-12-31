@@ -77,10 +77,10 @@
             <input type="radio" name="Ranktracker" id="Rankalytics" class="css-checkbox subscription-plan" checked="checked"/>
             <label for="Rankalytics" class="css-label">Ranktracker</label></div>
         <div class="pricingcheckbox">
-            <input type="radio" name="accountTypeRanktracker" id="userTypePro" value="pro" class="css-checkbox subscription-plan" data-amount="99"/>
-            <label for="userTypePro" class="css-label">Pro Plan (€99)</label>
-            <input type="radio" name="accountTypeRanktracker" value="enterprise" id="userTypeEnterprise" class="css-checkbox subscription-plan" data-amount="299"/>
-            <label for="userTypeEnterprise" class="css-label">Enterprise Plan (€299)</label>
+            <input type="radio" name="accountTypeRanktracker" id="userTypePro" value="pro" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['ranktracker']['pro'];?>"/>
+            <label for="userTypePro" class="css-label">Pro Plan (<?= Subscriptions_Lib::$_currency_symbol.Subscriptions_Lib::$_service_prices['ranktracker']['pro'];?>)</label>
+            <input type="radio" name="accountTypeRanktracker" value="enterprise" id="userTypeEnterprise" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['ranktracker']['enterprise'];?>"/>
+            <label for="userTypeEnterprise" class="css-label">Enterprise Plan (<?= Subscriptions_Lib::$_currency_symbol.Subscriptions_Lib::$_service_prices['ranktracker']['enterprise'];?>)</label>
             <input type="radio" name="accountTypeRanktracker" id="userTypeStarter" value="starter" class="css-checkbox subscription-plan" data-amount="0" checked="checked"/>
             <label for="userTypeStarter" class="css-label">Starter Plan</label>
         </div>
@@ -108,12 +108,12 @@
             <input type="radio" name="Seocrawl" id="Seocrawl" class="css-checkbox subscription-plan" checked="checked"/>
             <label for="Seocrawl" class="css-label">Seocrawl</label></div>
         <div class="pricingcheckbox">
-            <input type="radio" name="accountTypeSeocrawl" id="userTypeStarterSeo" value="starter" class="css-checkbox subscription-plan" data-amount="99"/>
-            <label for="userTypeStarterSeo" class="css-label">Starter Plan (€99)</label>
-            <input type="radio" name="accountTypeSeocrawl" id="userTypeProSeo" value="pro" class="css-checkbox subscription-plan" data-amount="249"/>
-            <label for="userTypeProSeo" class="css-label">Pro Plan (€249)</label>
-            <input type="radio" name="accountTypeSeocrawl" value="enterprise" id="userTypeEnterpriseSeo" class="css-checkbox subscription-plan" data-amount="399"/>
-            <label for="userTypeEnterpriseSeo" class="css-label">Enterprise Plan(€399)</label>
+            <input type="radio" name="accountTypeSeocrawl" id="userTypeStarterSeo" value="starter" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['seocrawl']['starter'];?>"/>
+            <label for="userTypeStarterSeo" class="css-label">Starter Plan (<?= Subscriptions_Lib::$_currency_symbol.Subscriptions_Lib::$_service_prices['seocrawl']['starter'];?>)</label>
+            <input type="radio" name="accountTypeSeocrawl" id="userTypeProSeo" value="pro" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['seocrawl']['pro'];?>"/>
+            <label for="userTypeProSeo" class="css-label">Pro Plan (<?= Subscriptions_Lib::$_currency_symbol.Subscriptions_Lib::$_service_prices['seocrawl']['pro'];?>)</label>
+            <input type="radio" name="accountTypeSeocrawl" value="enterprise" id="userTypeEnterpriseSeo" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['seocrawl']['enterprise'];?>"/>
+            <label for="userTypeEnterpriseSeo" class="css-label">Enterprise Plan(<?= Subscriptions_Lib::$_currency_symbol.Subscriptions_Lib::$_service_prices['seocrawl']['enterprise'];?>)</label>
             <input type="radio" name="accountTypeSeocrawl" id="userTypeFreeSeo" value="free" class="css-checkbox subscription-plan" data-amount="0" checked="checked"/>
             <label for="userTypeFreeSeo" class="css-label">Free Plan</label>
         </div>
