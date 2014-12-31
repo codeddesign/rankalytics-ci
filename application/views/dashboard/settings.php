@@ -170,7 +170,9 @@ $this->load->view("include/settingsheader");
         <div class="uploadlogo-text">Upload logo</div>
         <div class="uploadlogo-box"><?php echo $logo_img; ?></div>
 
-        <span class="right-sided" id="delete-logo" <?php if ($logo_img == '') echo 'style="display:none"'; ?>>x</span>
+        <span class="right-sided" id="delete-logo" <?php if ($logo_img == '') {
+            echo 'style="display:none"';
+        } ?>>x</span>
 
         <div class="upload-logofile">
             <div class="fileUpload btn btn-primary">
@@ -334,54 +336,56 @@ $this->load->view("include/settingsheader");
             <div id="form-msgs4-ranktracker" class="form-errors"></div>
             <!-- #for 2 plans - RANK TRACKER -->
             <form action="/users/subscription" method="POST" class="subscription-form">
-            <div class="pricingcheckbox">
-                <label>Subscription plan</label>
-                <input type="radio" name="accountType" id="accountTypeRanktrackerPro" value="pro" data-amount='99' title="10,000 Keywords" class="css-checkbox subscription-plan"/>
-                <label for="accountTypeRanktrackerPro" title="10,000 Keywords" class="css-label">Pro PLan (€99)</label>
-                <input type="radio" title="Unlimited Keywords" name="accountType" data-amount='299' value="enterprise" id="accountTypeRanktrackerEnterprise"
-                       class="css-checkbox subscription-plan"/>
-                <label for="accountTypeRanktrackerEnterprise" title="Unlimited Keywords" class="css-label">Enterprise Plan(€299)</label>
-                <input type="radio" title="Rank Tracker Starter" name="accountType" data-amount='0' value="starter" id="accountTypeRanktrackerStarter"
-                       class="css-checkbox subscription-plan"/>
-                <label for="accountTypeRanktrackerStarter" title="Rank Tracker Starter" class="css-label">Starter Plan</label>
-            </div>
-
-            <div class="pricingcheckbox paidRanktracker">
-                <label>Payment method</label>
-                <input type="radio" name="paymentType" id="paymentTypeRanktrackerPaypal" value="paypal" title="PayPal Payment" class="css-checkbox payment-type paypal-cbx"/>
-                <label for="paymentTypeRanktrackerPaypal" title="PayPal Payment" class="css-label paypal-lbl">PayPal</label>
-                <input type="radio" title="Manual Payment" name="paymentType" value="manual" id="paymentTypeRanktrackerManual" class="css-checkbox payment-type"/>
-                <label for="paymentTypeRanktrackerManual" title="Manual Payment" class="css-label">Manual Payment</label>
-            </div>
-
-            <div class="pricingcheckbox paidRanktracker">
-                <label for="monthsSeocrawl" title="Number of months">Number of months</label>
-                <select name="months" id="monthsSeocrawl">
-                    <?php
-                    $pattern = '<option value="%s" %s>%s</option>';
-                    for ($i = 1; $i <= 12; $i++) {
-                        if ($i == 1) {
-                            $checked = ' selected';
-                        } else {
-                            $checked = '';
-                        }
-
-                        $j = ($i <= 9) ? '0'.$i : $i;
-
-                        echo sprintf($pattern, $i, $checked, $j);
-                    }
-                    ?>
-                </select>
-            </div>
-
-            <div class="profilesave right-sided">
-                <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
-                    <div class="spinner"></div>
+                <div class="pricingcheckbox">
+                    <label>Subscription plan</label>
+                    <input type="radio" name="accountType" id="accountTypeRanktrackerPro" value="pro" data-amount='<?= Subscriptions_Lib::$_service_prices['ranktracker']['pro']; ?>' title="<?= Subscriptions_Lib::$_service_limits['ranktracker']['pro']['text']; ?> Keywords" class="css-checkbox subscription-plan"/>
+                    <label for="accountTypeRanktrackerPro" title="<?= Subscriptions_Lib::$_service_limits['ranktracker']['pro']['text']; ?> Keywords" class="css-label">Pro Plan
+                        (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['ranktracker']['pro']; ?>)</label>
+                    <input type="radio" title="Unlimited Keywords" name="accountType" data-amount='<?= Subscriptions_Lib::$_service_prices['ranktracker']['enterprise']; ?>' value="enterprise" id="accountTypeRanktrackerEnterprise"
+                           class="css-checkbox subscription-plan"/>
+                    <label for="accountTypeRanktrackerEnterprise" title="<?= Subscriptions_Lib::$_service_limits['ranktracker']['enterprise']['text']; ?> Keywords" class="css-label">Enterprise
+                        Plan(<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['ranktracker']['enterprise']; ?>)</label>
+                    <input type="radio" title="Rank Tracker Starter" name="accountType" data-amount='0' value="starter" id="accountTypeRanktrackerStarter"
+                           class="css-checkbox subscription-plan"/>
+                    <label for="accountTypeRanktrackerStarter" title="Rank Tracker Starter" class="css-label">Starter Plan</label>
                 </div>
-                <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
-                <input type="hidden" value="ranktracker" name="service">
-                <input type="submit" value="" id="submitBillingRanktracker" style="margin-top:12px;">
-            </div>
+
+                <div class="pricingcheckbox paidRanktracker">
+                    <label>Payment method</label>
+                    <input type="radio" name="paymentType" id="paymentTypeRanktrackerPaypal" value="paypal" title="PayPal Payment" class="css-checkbox payment-type paypal-cbx"/>
+                    <label for="paymentTypeRanktrackerPaypal" title="PayPal Payment" class="css-label paypal-lbl">PayPal</label>
+                    <input type="radio" title="Manual Payment" name="paymentType" value="manual" id="paymentTypeRanktrackerManual" class="css-checkbox payment-type"/>
+                    <label for="paymentTypeRanktrackerManual" title="Manual Payment" class="css-label">Manual Payment</label>
+                </div>
+
+                <div class="pricingcheckbox paidRanktracker">
+                    <label for="monthsSeocrawl" title="Number of months">Number of months</label>
+                    <select name="months" id="monthsSeocrawl">
+                        <?php
+                        $pattern = '<option value="%s" %s>%s</option>';
+                        for ($i = 1; $i <= 12; $i++) {
+                            if ($i == 1) {
+                                $checked = ' selected';
+                            } else {
+                                $checked = '';
+                            }
+
+                            $j = ($i <= 9) ? '0' . $i : $i;
+
+                            echo sprintf($pattern, $i, $checked, $j);
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="profilesave right-sided">
+                    <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
+                        <div class="spinner"></div>
+                    </div>
+                    <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
+                    <input type="hidden" value="ranktracker" name="service">
+                    <input type="submit" value="" id="submitBillingRanktracker" style="margin-top:12px;">
+                </div>
             </form>
         </div>
 
@@ -406,64 +410,65 @@ $this->load->view("include/settingsheader");
             <div class="keywordsenough">30 Keywords sind nicht ausreichend?</div>
             <div class="keywordsenough-small">Einer unserer Pro Plans ermöglicht Ihnen 10.000 oder unlimited Keywords für eine unbegrenzte Anzahl Domains</div>
             <div class="profile-whatyouget"></div>
-            <div class="profile-keywordsenoughbottom">Sie erhalten unlimited real-time Keyword Rank-Tracking für nur €299 pro Monat.</div>
-            <div class="profile-keywordsenoughbottomsmall">*Für unsere Pro und Enterprise Pläne wird Ihre Kreditkarte oder Konto monatlich, wiederkehrend <br>mit €99 bzw. €299 belastet.
+            <div class="profile-keywordsenoughbottom">Sie erhalten unlimited real-time Keyword Rank-Tracking für nur <?= Subscriptions_Lib::$_currency_symbol; ?>299 pro Monat.</div>
+            <div class="profile-keywordsenoughbottomsmall">*Für unsere Pro und Enterprise Pläne wird Ihre Kreditkarte oder Konto monatlich, wiederkehrend <br>mit <?= Subscriptions_Lib::$_currency_symbol; ?>99
+                bzw. <?= Subscriptions_Lib::$_currency_symbol; ?>299 belastet.
             </div>
         </div>
 
         <div class="promembership-formwrap">
             <div id="form-msgs4-seocrawl" class="form-errors"></div>
             <form action="/users/subscription" method="POST" class="subscription-form">
-            <div class="pricingcheckbox">
-                <label>Subscription plan</label>
-                <input type="radio" name="accountType" id="accountTypeSeocrawlStarter" value="starter" data-amount='99' title="SEO Crawl Starter"
-                       class="css-checkbox subscription-plan"/>
-                <label for="accountTypeSeocrawlStarter" title="SEO Crawl Starter" class="css-label">Starter PLan (€99)</label>
-                <input type="radio" title="SEO Crawl Pro" name="accountType" value="pro" data-amount='249' id="accountTypeSeocrawlPro" class="css-checkbox subscription-plan"/>
-                <label for="accountTypeSeocrawlPro" title="SEO Crawl Pro" class="css-label">Pro Plan(€249)</label>
-                <input type="radio" name="accountType" id="accountTypeSeocrawlEnterprise" value="enterprise" data-amount='399' title="Seo Crawl Enterprise"
-                       class="css-checkbox subscription-plan"/>
-                <label for="accountTypeSeocrawlEnterprise" title="SEO Crawl Enterprise" class="css-label">Enterprise Plan(€399)</label>
-                <input type="radio" name="accountType" id="accountTypeSeocrawlFree" value="free" data-amount='0' title="Seo Crawl Free" class="css-checkbox subscription-plan"/>
-                <label for="accountTypeSeocrawlFree" title="SEO Crawl Free" class="css-label">Free Plan</label>
-            </div>
-
-            <div class="pricingcheckbox paidSeocrawl">
-                <label>Payment method</label>
-                <input type="radio" name="paymentType" id="paymentTypeSeocrawlPaypal" value="paypal" title="Paypal Payment" class="css-checkbox payment-type paypal-cbx"/>
-                <label for="paymentTypeSeocrawlPaypal" title="Paypal Payment" class="css-label paypal-lbl">Paypal</label>
-                <input type="radio" title="Manual Payment" name="paymentType" value="manual" id="paymentTypeSeocrawlManual" class="css-checkbox payment-type"/>
-                <label for="paymentTypeSeocrawlManual" title="Manual Payment" class="css-label">Manual Payment</label>
-            </div>
-
-            <div class="pricingcheckbox paidSeocrawl">
-                <label for="monthsRanktracker" title="Number of months">Number of months</label>
-                <select name="months" id="monthsRanktracker">
-                    <?php
-                    $pattern = '<option value="%s" %s>%s</option>';
-                    for ($i = 1; $i <= 12; $i++) {
-                        if ($i == 1) {
-                            $checked = ' selected';
-                        } else {
-                            $checked = '';
-                        }
-
-                        $j = ($i <= 9) ? '0'.$i : $i;
-
-                        echo sprintf($pattern, $i, $checked, $j);
-                    }
-                    ?>
-                </select>
-            </div>
-
-            <div class="profilesave right-sided">
-                <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
-                    <div class="spinner"></div>
+                <div class="pricingcheckbox">
+                    <label>Subscription plan</label>
+                    <input type="radio" name="accountType" id="accountTypeSeocrawlStarter" value="starter" data-amount='<?= Subscriptions_Lib::$_service_prices['seocrawl']['starter']; ?>' title="SEO Crawl Starter"
+                           class="css-checkbox subscription-plan"/>
+                    <label for="accountTypeSeocrawlStarter" title="SEO Crawl Starter" class="css-label">Starter PLan (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['starter']; ?>)</label>
+                    <input type="radio" title="SEO Crawl Pro" name="accountType" value="pro" data-amount='<?= Subscriptions_Lib::$_service_prices['seocrawl']['pro']; ?>' id="accountTypeSeocrawlPro" class="css-checkbox subscription-plan"/>
+                    <label for="accountTypeSeocrawlPro" title="SEO Crawl Pro" class="css-label">Pro Plan(<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['pro']; ?>)</label>
+                    <input type="radio" name="accountType" id="accountTypeSeocrawlEnterprise" value="enterprise" data-amount='<?= Subscriptions_Lib::$_service_prices['seocrawl']['enterprise']; ?>' title="Seo Crawl Enterprise"
+                           class="css-checkbox subscription-plan"/>
+                    <label for="accountTypeSeocrawlEnterprise" title="SEO Crawl Enterprise" class="css-label">Enterprise Plan(<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['enterprise']; ?>)</label>
+                    <input type="radio" name="accountType" id="accountTypeSeocrawlFree" value="free" data-amount='0' title="Seo Crawl Free" class="css-checkbox subscription-plan"/>
+                    <label for="accountTypeSeocrawlFree" title="SEO Crawl Free" class="css-label">Free Plan</label>
                 </div>
-                <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
-                <input type="hidden" value="seocrawl" name="service">
-                <input type="submit" value="" id="submitBilling" style="margin-top:12px;">
-            </div>
+
+                <div class="pricingcheckbox paidSeocrawl">
+                    <label>Payment method</label>
+                    <input type="radio" name="paymentType" id="paymentTypeSeocrawlPaypal" value="paypal" title="Paypal Payment" class="css-checkbox payment-type paypal-cbx"/>
+                    <label for="paymentTypeSeocrawlPaypal" title="Paypal Payment" class="css-label paypal-lbl">Paypal</label>
+                    <input type="radio" title="Manual Payment" name="paymentType" value="manual" id="paymentTypeSeocrawlManual" class="css-checkbox payment-type"/>
+                    <label for="paymentTypeSeocrawlManual" title="Manual Payment" class="css-label">Manual Payment</label>
+                </div>
+
+                <div class="pricingcheckbox paidSeocrawl">
+                    <label for="monthsRanktracker" title="Number of months">Number of months</label>
+                    <select name="months" id="monthsRanktracker">
+                        <?php
+                        $pattern = '<option value="%s" %s>%s</option>';
+                        for ($i = 1; $i <= 12; $i++) {
+                            if ($i == 1) {
+                                $checked = ' selected';
+                            } else {
+                                $checked = '';
+                            }
+
+                            $j = ($i <= 9) ? '0' . $i : $i;
+
+                            echo sprintf($pattern, $i, $checked, $j);
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="profilesave right-sided">
+                    <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
+                        <div class="spinner"></div>
+                    </div>
+                    <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
+                    <input type="hidden" value="seocrawl" name="service">
+                    <input type="submit" value="" id="submitBilling" style="margin-top:12px;">
+                </div>
             </form>
         </div>
 
@@ -486,7 +491,7 @@ $(document).ready(function () {
         var current = <?= $current_options ?>, temp, forPayment = ['paidRanktracker', 'paidSeocrawl'], i;
 
         // first hide:
-        for(i=0;i<forPayment.length;i++) {
+        for (i = 0; i < forPayment.length; i++) {
             $('.' + forPayment[i]).hide();
         }
 
@@ -495,18 +500,18 @@ $(document).ready(function () {
             $('#accountType' + temp['service'] + temp['plan']).attr('checked', 'checked');
             $('#paymentType' + temp['service'] + temp['pType']).attr('checked', 'checked');
 
-            if(temp['isPaid']) {
+            if (temp['isPaid']) {
                 $('.paid' + temp['service']).show();
             }
         }
     })();
 
-    $('.subscription-form').on('submit', function(e) {
+    $('.subscription-form').on('submit', function (e) {
         e.preventDefault();
         var theForm = $(this), data = theForm.serialize(), arr = [], info_msg;
 
         // accessiable values:
-        $.each(theForm.serializeArray(), function(i, f) {
+        $.each(theForm.serializeArray(), function (i, f) {
             arr[f.name] = f.value;
         });
 
@@ -519,18 +524,18 @@ $(document).ready(function () {
             method: 'POST',
             dataType: 'json',
             url: theForm.attr('action'),
-            success: function(response) {
+            success: function (response) {
                 var infoTxt = 'Unknown action';
-                if(typeof response.msg !== 'undefined') {
+                if (typeof response.msg !== 'undefined') {
                     info_msg.html(response.msg).show();
                 }
 
-                if(response.error) {
+                if (response.error) {
                     return false;
                 }
 
-                if(typeof response.what !== 'undefined') {
-                    switch(response.what) {
+                if (typeof response.what !== 'undefined') {
+                    switch (response.what) {
                         case 'downgrade':
                             infoTxt = 'Your downgrade request has been saved!<br/>A member of our staff will get in touch with you shortly.<br/>Meanwhile the services will remain the same';
                             break;
@@ -548,7 +553,7 @@ $(document).ready(function () {
                     info_msg.html(infoTxt).show();
                 }
 
-                if(typeof response.redirect_to !== 'undefined') {
+                if (typeof response.redirect_to !== 'undefined') {
                     location.href = response.redirect_to;
                 }
 
@@ -571,12 +576,12 @@ $(document).ready(function () {
             }
         }
 
-        for(i=0;i<forPayment.length;i++) {
+        for (i = 0; i < forPayment.length; i++) {
             tempSelector = $('.' + forPayment[i]);
             tempSelector.hide();
 
-            for(j=0;j<whichPayed.length;j++) {
-                if((forPayment[i] == whichPayed[j])) {
+            for (j = 0; j < whichPayed.length; j++) {
+                if ((forPayment[i] == whichPayed[j])) {
                     tempSelector.show();
                     break;
                 }

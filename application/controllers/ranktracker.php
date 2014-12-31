@@ -1,8 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-// -> needed class:
-require_once 'subscriptions.php';
-
 /**
  * Ranktracker
  *
@@ -27,7 +24,7 @@ class Ranktracker extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
+        Subscriptions_Lib::loadConfig();
 
         $this->load->model('analytical_model', 'analytical', true);
         $this->load->library('session');
@@ -269,10 +266,10 @@ class Ranktracker extends CI_Controller
 
         // service subscription info:
         $service = 'ranktracker';
-        $subInfo = Subscriptions::getServiceSubscription($this->subscriptions, $userInfo, $service);
+        $subInfo = Subscriptions_Lib::getServiceSubscription($this->subscriptions, $userInfo, $service);
 
         // ..
-        $subSets = Subscriptions::$_service_limits[$service][$subInfo['plan']];
+        $subSets = Subscriptions_Lib::$_service_limits[$service][$subInfo['plan']];
         $key_used = ($subInfo['plan'] !== "enterprise") ? $subSets['number'] - $this->project_keywords->getNumberOfKeywordsByUser($userId) : $subSets['text'];
 
         // determine allowed options based on subscription:
@@ -396,7 +393,7 @@ class Ranktracker extends CI_Controller
         $service = 'ranktracker';
         $this->data = array(
             'user_database' => $userInfo,
-            'sub_info' => Subscriptions::getServiceSubscription($this->subscriptions, $userInfo, $service),
+            'sub_info' => Subscriptions_Lib::getServiceSubscription($this->subscriptions, $userInfo, $service),
             'current' => 'reports',
             'crawled_sites_model' => $this->load->model("crawled_sites_model"),
             'report_model' => $this->load->model("report_model"),

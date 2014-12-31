@@ -1,10 +1,5 @@
 <?php
-
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-// -> needed class:
-require_once 'subscriptions.php';
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Project
@@ -31,6 +26,8 @@ class Project extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        Subscriptions_Lib::loadConfig();
+
         $this->load->helper('form');
         $this->load->helper('url'); // load 'url' helper
         $this->load->library('session');
@@ -571,7 +568,7 @@ class Project extends CI_Controller
         $userInfo = $temp['0'];
 
         $service = 'ranktracker';
-        $subInfo = Subscriptions::getServiceSubscription($this->subscriptions, $userInfo, $service);
+        $subInfo = Subscriptions_Lib::getServiceSubscription($this->subscriptions, $userInfo, $service);
         $total = $this->project_keywords->getNumberOfKeywordsByUser($userId) + count($keyword_arr);
 
         if ($total <= $subInfo['crawl_limit_no']) {

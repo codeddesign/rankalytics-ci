@@ -17,7 +17,7 @@ class Paypal
         //
         $this->_default_info = array(
             // general sets:
-            'currencyCode' => strtoupper('eur'),
+            'currencyCode' => Subscriptions_Lib::$_currency_code,
             'paymentType' => ucfirst('sale'),
             'noShipping' => '0',
             'addressOverride' => '0',

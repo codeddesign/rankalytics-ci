@@ -4,7 +4,7 @@
  * Class Subscriptions
  * ^ this class holds SETTINGS & STATIC methods (special for subscriptions)
  */
-class Subscriptions
+class Subscriptions_Lib
 {
     /*
      * 'GLOBAL' SETS:
@@ -14,56 +14,18 @@ class Subscriptions
      *  _plan_limits => number of links/words the user is limited too depending on the subscription plan
      * */
 
-    public static
-        $_tax = 19,
-        $_month_days = 28,
-        $_service_prices = array(
-        'ranktracker' => array(
-            'pro' => 99,
-            'enterprise' => 299,
-            'starter' => 0,
-        ),
-        'seocrawl' => array(
-            'starter' => 99,
-            'pro' => 249,
-            'enterprise' => 399,
-            'free' => 0,
-        ),
-    ),
-        $_service_limits = array(
-        'ranktracker' => array(
-            'pro' => array(
-                'number' => '10000',
-                'text' => '10,000',
-            ),
-            'enterprise' => array(
-                'number' => NULL,
-                'text' => 'Unlimited',
-            ),
-            'starter' => array(
-                'number' => '30',
-                'text' => '30',
-            ), // not-paid
-        ),
-        'seocrawl' => array(
-            'starter' => array(
-                'number' => '35000',
-                'text' => '35,000',
-            ),
-            'pro' => array(
-                'number' => '250000',
-                'text' => '250,000',
-            ),
-            'enterprise' => array(
-                'number' => '1000000',
-                'text' => '1 Million',
-            ),
-            'free' => array(
-                'number' => '30',
-                'text' => '30',
-            ), // not-paid
-        ),
-    );
+    public static $_tax, $_month_days, $_service_prices, $_service_limits, $_currency_symbol, $_currency_code;
+
+    public static function loadConfig() {
+        $sc = config_item('Subscriptions_Lib_Config');
+
+        self::$_tax = $sc['tax'];
+        self::$_month_days = $sc['month_days'];
+        self::$_service_prices = $sc['prices'];
+        self::$_service_limits = $sc['limits'];
+        self::$_currency_code = strtoupper($sc['currency']['code']);
+        self::$_currency_symbol = $sc['currency']['symbol'];
+    }
 
     /**
      * @param $plan

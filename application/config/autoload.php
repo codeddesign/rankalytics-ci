@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('csvimport');
+$autoload['libraries'] = array('csvimport', 'Subscriptions_Lib');
 
 
 /*
@@ -87,7 +87,7 @@ $autoload['helper'] = array(
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('Subscriptions_Lib_Config');
 
 
 /*

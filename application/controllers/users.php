@@ -1,8 +1,4 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
-// -> needed class:
-require_once 'subscriptions.php';
-
 /**
  * Class Users
  */
@@ -18,8 +14,8 @@ class Users extends CI_Controller
      */
     public function __construct()
     {
-        // ..
         parent::__construct();
+        Subscriptions_Lib::loadConfig();
 
         // load requirements:
         $this->load->helper('form');
@@ -133,7 +129,7 @@ class Users extends CI_Controller
                 //check if there is a previous one and also if the previous one is a paid one:
                 if(is_array($previousOne) AND $previousOne['payment_type'] !== 'none') {
                     // if not expired, don't update the date:
-                    if (!Subscriptions::isExpired(Subscriptions::getExpirationTimestamp($previousOne))) {
+                    if (!Subscriptions_Lib::isExpired(Subscriptions_Lib::getExpirationTimestamp($previousOne))) {
                         unset($to_update['started_on']);
                     }
                 }
@@ -408,7 +404,7 @@ class Users extends CI_Controller
                     'order_id' => $sub_id,
                 );
                 $subscription['months'] = $months[$subscription['service']];
-                $subscription['payment_type'] = (Subscriptions::$_service_prices[$subscription['service']][$subscription['plan']] > 0) ? $pType : 'none';
+                $subscription['payment_type'] = (Subscriptions_Lib::$_service_prices[$subscription['service']][$subscription['plan']] > 0) ? $pType : 'none';
 
                 $this->subscriptions->doSave($subscription);
 
@@ -499,14 +495,14 @@ class Users extends CI_Controller
             if (is_array($subscription) AND !empty($subscription)) {
                 if (!isset($subscription['amount'])) {
                     // determine it:
-                    $tempAmount = Subscriptions::$_service_prices[$subscription['service']][$subscription['plan']];
+                    $tempAmount = Subscriptions_Lib::$_service_prices[$subscription['service']][$subscription['plan']];
                 } else {
                     // use the specified one:
                     $tempAmount = $subscription['amount'];
                 }
 
                 $amount = number_format($tempAmount, 2);
-                $tempTax = number_format(Subscriptions::$_tax / 100 * $amount, 2);
+                $tempTax = number_format(Subscriptions_Lib::$_tax / 100 * $amount, 2);
 
                 $passed_info['items'][] = array(
                     'name' => ucfirst($subscription['service']) . ' - ' . ucfirst($subscription['plan']) . ' plan',
@@ -861,9 +857,9 @@ class Users extends CI_Controller
         $service = strtolower(trim($this->input->post('service')));
         $months = trim($this->input->post('months'));
         $plan = strtolower(trim($this->input->post('accountType')));
-        $isPaid = Subscriptions::isPaid($service, $plan);
+        $isPaid = Subscriptions_Lib::isPaid($service, $plan);
 
-        if (!array_key_exists($service, Subscriptions::$_service_limits)) {
+        if (!array_key_exists($service, Subscriptions_Lib::$_service_limits)) {
             $out['msg'] = 'Service does not exist. Please contact admin.';
             $this->json_exit($out);
         }
@@ -882,7 +878,7 @@ class Users extends CI_Controller
         }
 
         // get current subscription info:
-        $sub_info = Subscriptions::getServiceSubscription($this->subscriptions, $userInfo, $service);
+        $sub_info = Subscriptions_Lib::getServiceSubscription($this->subscriptions, $userInfo, $service);
 
         // new subscription data:
         $order_id = 'SUB-' . (rand(10000, 99999) . '-' . substr(time(), -6));
@@ -897,7 +893,7 @@ class Users extends CI_Controller
         );
 
         // determine case:
-        $sub_new['operation'] = Subscriptions::getOperation($service, $sub_info, $plan);
+        $sub_new['operation'] = Subscriptions_Lib::getOperation($service, $sub_info, $plan);
         switch ($sub_new['operation']) {
             case 'none':
                 $out['msg'] = 'No changes to do.';
@@ -908,19 +904,19 @@ class Users extends CI_Controller
                 break;
             case 'extension':
                 // first we find out when it expires:
-                $expires_on = date('Y-m-d', Subscriptions::getExpirationTimestamp($sub_info));
+                $expires_on = date('Y-m-d', Subscriptions_Lib::getExpirationTimestamp($sub_info));
 
                 // then we determine date ( and also add 1 more day to it):
-                $sub_new['started_on'] = date('Y-m-d', Subscriptions::getNewTimestamp($expires_on, '+1 day'));
+                $sub_new['started_on'] = date('Y-m-d', Subscriptions_Lib::getNewTimestamp($expires_on, '+1 day'));
                 break;
             case 'upgrade':
                 // determine the amount which is not yet used. Also means this is already paid so we also take care off the taxes:
                 if ($sub_info['main_status'] == 'approved') {
-                    $chargedDiff = Subscriptions::getPaidAmount($sub_info, $VAT = false) - Subscriptions::getUsedAmount($sub_info);
+                    $chargedDiff = Subscriptions_Lib::getPaidAmount($sub_info, $VAT = false) - Subscriptions_Lib::getUsedAmount($sub_info);
                     $sub_new['charged_diff'] = $chargedDiff;
 
                     // determine if the previous amount is smaller than the new one:
-                    if (($chargedDiff + Subscriptions::addTaxes($chargedDiff)) > Subscriptions::getPaidAmount($sub_new)) {
+                    if (($chargedDiff + Subscriptions_Lib::addTaxes($chargedDiff)) > Subscriptions_Lib::getPaidAmount($sub_new)) {
                         $out['msg'] = 'The upgrade value is lower than the current subscription. Please select a higher number of months.';
                         $this->json_exit($out);
                     }
@@ -1506,13 +1502,13 @@ class Users extends CI_Controller
         // fetch subscriptions information:
         $i = 0;
         $data['current_options'] = array();
-        foreach (Subscriptions::$_service_prices as $service => $null) {
+        foreach (Subscriptions_Lib::$_service_prices as $service => $null) {
             // 'internal' info:
             $tempInfo = $this->subscriptions->getSubscriptionInfo($userId, $service);
 
             // if tempInfo is not array => there's no subscription. Apply default information:
             if (!is_array($tempInfo)) {
-                $tempInfo = ($data['user_database']['userRole'] == 'admin') ? Subscriptions::getDefaultForAdmin($service) : Subscriptions::getDefaultNotSubscribed($service);
+                $tempInfo = ($data['user_database']['userRole'] == 'admin') ? Subscriptions_Lib::getDefaultForAdmin($service) : Subscriptions_Lib::getDefaultNotSubscribed($service);
             } else {
                 $paymentType_backup = $tempInfo['payment_type'];
             }
@@ -1520,7 +1516,7 @@ class Users extends CI_Controller
             // handle pending:
             $pending = false;
             if ($tempInfo['status'] !== 'approved') {
-                $tempInfo = Subscriptions::getDefaultNotSubscribed($service);
+                $tempInfo = Subscriptions_Lib::getDefaultNotSubscribed($service);
 
                 if ((isset($paymentType_backup) AND $paymentType_backup !== 'none') OR $tempInfo['payment_type'] !== 'none') {
                     $pending = true;
@@ -1529,15 +1525,15 @@ class Users extends CI_Controller
 
             // rest of workflow:
             if (is_array($tempInfo)) {
-                $tempInfo['limit'] = Subscriptions::$_service_limits[$service][$tempInfo['plan']]['text'];
+                $tempInfo['limit'] = Subscriptions_Lib::$_service_limits[$service][$tempInfo['plan']]['text'];
 
                 //expiration date:
-                $tempInfo['expires_on'] = Subscriptions::getExpirationTimestamp($tempInfo);
-                $tempInfo['expired'] = Subscriptions::isExpired($tempInfo['expires_on']);
+                $tempInfo['expires_on'] = Subscriptions_Lib::getExpirationTimestamp($tempInfo);
+                $tempInfo['expired'] = Subscriptions_Lib::isExpired($tempInfo['expires_on']);
 
                 // ..
                 if ($tempInfo['expired']) {
-                    $tempInfo = array_merge($tempInfo, Subscriptions::getDefaultNotSubscribed($service));
+                    $tempInfo = array_merge($tempInfo, Subscriptions_Lib::getDefaultNotSubscribed($service));
                 }
 
                 // 'JavaScript' info:
@@ -1545,7 +1541,7 @@ class Users extends CI_Controller
                     'service' => ucfirst($service),
                     'plan' => ucfirst($tempInfo['plan']),
                     'pType' => ucfirst($tempInfo['payment_type']),
-                    'isPaid' => Subscriptions::isPaid($service, $tempInfo['plan']),
+                    'isPaid' => Subscriptions_Lib::isPaid($service, $tempInfo['plan']),
                 );
                 $i++;
 
@@ -1642,11 +1638,11 @@ class Users extends CI_Controller
                 $plan = $tInfo['plan'];
 
                 // check if paid by plan amount:
-                if (Subscriptions::$_service_prices[$service][$plan] > 0) {
+                if (Subscriptions_Lib::$_service_prices[$service][$plan] > 0) {
                     $subscriptions[$i] = $tInfo;
 
                     // determine amount:
-                    $subscriptions[$i]['paid'] = Subscriptions::getPaidAmount($tInfo) - ($tInfo['charged_diff'] + Subscriptions::addTaxes($tInfo['charged_diff']));
+                    $subscriptions[$i]['paid'] = Subscriptions_Lib::getPaidAmount($tInfo) - ($tInfo['charged_diff'] + Subscriptions_Lib::addTaxes($tInfo['charged_diff']));
                     $i++;
                 }
             }
@@ -1683,11 +1679,11 @@ class Users extends CI_Controller
             $plan = $tInfo['plan'];
 
             // check if paid by plan amount:
-            if (Subscriptions::$_service_prices[$service][$plan] > 0) {
+            if (Subscriptions_Lib::$_service_prices[$service][$plan] > 0) {
                 $subscriptions[$i] = $tInfo;
 
                 // determine amount:
-                $subscriptions[$i]['paid'] = Subscriptions::getPaidAmount($tInfo) - ($tInfo['charged_diff'] + Subscriptions::addTaxes($tInfo['charged_diff']));
+                $subscriptions[$i]['paid'] = Subscriptions_Lib::getPaidAmount($tInfo) - ($tInfo['charged_diff'] + Subscriptions_Lib::addTaxes($tInfo['charged_diff']));
                 $i++;
             }
         }

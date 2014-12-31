@@ -1,8 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-// -> needed class:
-require_once 'subscriptions.php';
-
 class Seocrawl extends CI_Controller
 {
 
@@ -11,6 +8,7 @@ class Seocrawl extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        Subscriptions_Lib::loadConfig();
 
         $this->load->library('session');
         $this->load->library('email');
@@ -39,7 +37,7 @@ class Seocrawl extends CI_Controller
 
         // service sets and checks:
         $service = 'seocrawl';
-        $sub_info = Subscriptions::getServiceSubscription($this->subscriptions, $userInfo, $service);
+        $sub_info = Subscriptions_Lib::getServiceSubscription($this->subscriptions, $userInfo, $service);
 
         // ..
         $this->data = array(
