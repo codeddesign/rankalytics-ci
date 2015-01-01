@@ -9,7 +9,7 @@
 <!-- end favicon -->
 
 
-<title>Developers SEO API | Rankalytics Komplette SEO Marketing</title>
+<title>Developers SEO API | Rankalytics Complete SEO Marketing</title>
 <link href="<?php echo base_url(); ?>assets/home.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -70,7 +70,7 @@ clicky_site_ids.push(100773884);
 			</div>
 			<div class="features-rightlistwrap">
 				<div class="features-rightlisttitle">Rankalytics SEO</div>
-				<div class="features-rightlistsub">The most comprehensive and up-to-date SEO API available on the market today with on-page, search engine, competitor intelligence, and machine learning data.<p>Available October/November 2014</p></div>
+				<div class="features-rightlistsub">The most comprehensive and up-to-date SEO API available on the market today with on-page, search engine, competitor intelligence, and machine learning data.<p>Available Early 2015</p></div>
 			</div>
 			<a href="/developers/rankalytics-api">
 				<div class="features-seefull"></div>
@@ -83,7 +83,7 @@ clicky_site_ids.push(100773884);
 			</div>
 			<div class="features-rightlistwrap">
 				<div class="features-rightlisttitle">Rank Tracker</div>
-				<div class="features-rightlistsub">Support your existing fulfillment and shipping operations by expanding  to our network of global warehouses.</div>
+				<div class="features-rightlistsub">Real-time keyword rankings, keyword analysis, and competitor metrics instantly and right at your finger tips.  Real-time tracking, global and local keyword tracking, white-label reports, competitor analysis, and complete user management.  What else could you ask for?</div>
 			</div>
 			<a href="/developers/ranktracker-api">
 				<div class="features-seefull"></div>
@@ -97,7 +97,7 @@ clicky_site_ids.push(100773884);
 			</div>
 			<div class="features-rightlistwrap">
 				<div class="features-rightlisttitle">SEO Crawl</div>
-				<div class="features-rightlistsub">Support your existing fulfillment and shipping operations by expanding  to our network of global warehouses. <p>Available October 2014</p></div>
+				<div class="features-rightlistsub">A Complete Web Crawling SEO Solution to extract complex SEO data from any website, including your competition to assist you in being more SEO effective and equipping you with the relevant SEO knowledge you need in order to be successful.</p></div>
 			</div>
 			<a href="/developers/seocrawl-api">
 				<div class="features-seefull"></div>

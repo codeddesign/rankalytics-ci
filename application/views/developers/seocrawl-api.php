@@ -59,7 +59,15 @@ clicky_site_ids.push(100773884);
 			<div class="features-rightlistwrap">
 				<div class="features-rightlisttitle"><?= lang('developerscrawl.featurestitle');?></div>
 				<div class="features-rightlistsub">
-				<?= lang('developerscrawl.featuresdesc');?>
+				Fully analyze your on-page SEO architecture, to monitor and understand how you can improve upon your website's performance. Built for the SEO professional in mind, SEOCrawl is fast, accurate, reliable, and can scale to crawl any size website.
+				<ul>
+					<li style="margin-bottom:13px;">Our crawlers are built for processing and speed to efficient and correctly crawl your entire website.</li>
+					<li style="margin-bottom:13px;">SEOCrawl is designed to cope and scale for any size website and even the most complex web architecture.</li>
+					<li style="margin-bottom:13px;">Extract complex SEO data from any website, including your competition to assist you in being more effective.</li>
+					<li style="margin-bottom:13px;">Extract complex SEO data from any website, including your competition to assist you in being more effective.</li>
+					<li style="margin-bottom:13px;">Extract complex SEO data from any website, including your competition to assist you in being more effective.</li>
+					<li style="margin-bottom:13px;">Our crawlers are built for processing and speed to efficient and correctly crawl your entire website.</li>
+				</ul>
 				</div>
 			</div>
 		</div>

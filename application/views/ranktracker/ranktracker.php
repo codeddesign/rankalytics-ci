@@ -173,7 +173,7 @@ clicky_site_ids.push(100773884);
 					<img src="<?php echo base_url(); ?>assets/images/info-nocost.png">
 				</div>
 				<div class="ranktracker-infotitle"><?= lang('ranktracker.infotitlesix');?></div>
-				<div class="ranktracker-infocontent"><?= lang('ranktracker.infotitlesix');?></div>
+				<div class="ranktracker-infocontent">Free for up to 10 keywords! <br> Rank Tracker is and will always be free to try for up to 10 keywords.</div>
 			</div>
 		</div>
 		<!-- 

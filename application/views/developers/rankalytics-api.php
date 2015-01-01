@@ -58,7 +58,7 @@ clicky_site_ids.push(100773884);
 			</div>
 			<div class="features-rightlistwrap">
 				<div class="features-rightlisttitle"><?= lang('developersrankapi.listtitle');?></div>
-				<div class="features-rightlistsub"><?= lang('developersrankapi.listtitle');?></div>
+				<div class="features-rightlistsub">The most comprehensive and up-to-date SEO API available on the market today with on-page, search engine, competitor intelligence, and machine learning data.<p>Available Early 2015</div>
 			</div>
 		</div>
 		
