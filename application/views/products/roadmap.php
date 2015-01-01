@@ -59,37 +59,37 @@ clicky_site_ids.push(100773884);
 		<div class="features-rightlistitems">
 			<div class="features-roadmapwrap">
 				<div class="features-roadmapdate">
-				October 2014
+				February 2015
 				</div>
 				<div class="features-roadmaptext">Rankalytics SEO API</div>
 			</div>
 			<div class="features-roadmapwrap">
 				<div class="features-roadmapdate">
-				November 2014
+				February 2015
 				</div>
 				<div class="features-roadmaptext">SEO Crawl API + New Interface Design</div>
 			</div>
 			<div class="features-roadmapwrap">
 				<div class="features-roadmapdate">
-				November 2014
+				March 2015
 				</div>
 				<div class="features-roadmaptext">SEO Crawl custom reports</div>
 			</div>
 			<div class="features-roadmapwrap">
 				<div class="features-roadmapdate">
-				November 2014
+				April 2015
 				</div>
 				<div class="features-roadmaptext">SEO Crawl Google Analytics integration</div>
 			</div>
 			<div class="features-roadmapwrap">
 				<div class="features-roadmapdate">
-				December 2014
+				July 2015
 				</div>
 				<div class="features-roadmaptext">Rankalytics desktop application (Win/Mac)</div>
 			</div>
 			<div class="features-roadmapwrap">
 				<div class="features-roadmapdate">
-				January 2015
+				August 2015
 				</div>
 				<div class="features-roadmaptext">Rankalytics desktop application (Win/Mac)</div>
 			</div>
