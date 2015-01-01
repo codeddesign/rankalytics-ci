@@ -10,20 +10,20 @@
 <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
 <!-- end favicon -->    
     
-    <title>Kontakt Rankalytics Heute</title>
+    <title>Contact Rankalytics</title>
     <meta name="description" content="">
 
     <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
     <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
 
-    <meta name="DC.title" content="Kontakt Rankalytics Heute"/>
-    <META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
-    <META NAME="Language" CONTENT="Deutsch">
+    <meta name="DC.title" content="Contact Rankalytics"/>
+    <META NAME="Geography" CONTENT="Charlotte, NC">
+    <META NAME="Language" CONTENT="English">
     <META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
     <META NAME="distribution" CONTENT="Global">
-    <META NAME="zipcode" CONTENT="82216">
-    <META NAME="city" CONTENT="Maisach">
-    <META NAME="country" CONTENT="Deutschland">
+    <META NAME="zipcode" CONTENT="28278">
+    <META NAME="city" CONTENT="Charlotte">
+    <META NAME="country" CONTENT="USA">
     <meta name="coverage" content="Worldwide">
     <meta name="rating" content="General">
     <meta name="revisit-after" content="7 days">
@@ -32,23 +32,23 @@
     <meta http-equiv="Cache-Control" content="no-cache">
 
     <!-- facebook meta -->
-    <meta name="go:title" content="Kontakt Rankalytics Heute"/>
+    <meta name="go:title" content="Contact Rankalytics"/>
     <meta name="go:type" content="website"/>
     <meta name="go:url" content="https://www.rankalytics.com/"/>
     <meta name="go:image" content="https://rankalytics.com/assets/images/facebookmeta.jpg"/>
     <meta name="go:site_name" content="Rankalytics"/>
-    <meta name="go:description" content="Haben Sie Fragen zu unseren SEO Tools oder benötigen Sie Unterstützung brauchen? Rufen Sie uns heute an 0800-181-8613"/>
+    <meta name="go:description" content="Do you have questions about our SEO tools or need support? Contact us today."/>
     <!-- end Facebook meta -->
     <!-- open graph contact info -->
     <meta name="go:email" content="support@rankalytics.com"/>
-    <meta name="go:phone_number" content="+49(8141)-3150375"/>
+    <meta name="go:phone_number" content="(704) 665-7765"/>
     <!-- end go contact info -->
     <!-- go address info -->
-    <meta name="go:street-address" content="Linde Street 2d"/>
-    <meta name="go:locality" content="Maisach"/>
-    <meta name="go:region" content="Deutschland"/>
-    <meta name="go:postal-code" content="82216"/>
-    <meta name="go:country-name" content="DE"/>
+    <!--<meta name="go:street-address" content="Linde Street 2d"/>-->
+    <meta name="go:locality" content="Charlotte, NC"/>
+    <meta name="go:region" content="USA"/>
+    <meta name="go:postal-code" content="28278"/>
+    <meta name="go:country-name" content="US"/>
     <!-- end go address info -->
 
 
@@ -78,8 +78,7 @@
 <div class="bodywrapper">
     <div class="ranktracker-bottomwhitetitle">We look forward to hearing from you!</div>
     <div class="ranktracker-bottomwhitewrapper">
-        <div class="ranktracker-bottomwhitesubcontent">At Rankalytics, questions, feedback, and ideas are at the center of our highest priority to our customers. Whether you have a simple
-            question about our products, we are missing a feature that you would like to see, or just want to say "hello"; we would love to hear from you!
+        <div class="ranktracker-bottomwhitesubcontent">At Rankalytics, questions, feedback, and ideas are at the center of our highest priority to our customers. Whether you have a simple question about our products, we are missing a feature that you would like to see, or just want to say "hello"; we would love to hear from you!
         </div>
         <div class="payment-monthlycharge">Get in touch with us.</div>
         <div id="form-msgs" class="form-errors"></div>
@@ -92,22 +91,21 @@
             <div class="spinner"></div>
         </div>
         <?php
-        echo form_submit(array('name' => 'submit-contact', 'id' => 'submit-contact', 'class' => "contactusbutton", 'value' => "Senden"));
+        echo form_submit(array('name' => 'submit-contact', 'id' => 'submit-contact', 'class' => "contactusbutton", 'value' => "Submit"));
         echo form_close();?>
         <div class="contactus-right">
             <div itemprop="name" class="contactus-righttitle">Rankalytics.com</div>
 			<span itemprop="location" itemscope itemtype="https://schema.org/Place">
 			<span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-				<div itemprop="streetAddress" class="contactus-righttitlesub">Lindenstrasse 2d</div>
-			<div class="contactus-righttitlesub"><span itemprop="postalCode">82216</span> <span itemprop="addressLocality">Maisach</span></div>
-			<span itemprop="addressRegion" style="position:absolute;text-indent:-9999px;">Deutschland</span></span></span>
+			<div class="contactus-righttitlesub"><span itemprop="addressLocality">Charlotte, NC</span> <span itemprop="postalCode">28278</span></div>
+			<span itemprop="addressRegion" style="position:absolute;text-indent:-9999px;">USA</span></span></span>
 
             <div class="contactus-iconwraps" style="margin-top:30px;">
                 <div class="contactus-telephoneicon"></div>
                 <div
-                <div itemprop="telephone" class="contactus-icontext">+49(8141)-3150375</div>
+                <div itemprop="telephone" class="contactus-icontext">(704) 665-7765</div>
 				<span itemprop="openingHoursSpecification" itemscope itemtype="https://schema.org/OpeningHoursSpecification">
-<span itemprop="dayOfWeek" itemscope itemtype="https://schema.org/DayOfWeek"><div itemprop="name" class="contactus-hours">Mo - Fr 09:00 - 18:00</div></span></span>
+<span itemprop="dayOfWeek" itemscope itemtype="https://schema.org/DayOfWeek"><div itemprop="name" class="contactus-hours">Mo - Fr 9am - 5pm EST</div></span></span>
             </div>
 			</span><!-- end item prop business address -->
 <div class="contactus-iconwraps">
