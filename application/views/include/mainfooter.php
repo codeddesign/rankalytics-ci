@@ -12,7 +12,7 @@
 		<div class="footertoptitle">Interested in <span itemprop="name">Rankalytics</span>? Contact us today!</div>
 		<div class="footertopsubtitle">Instant real-time SEO data at your fingertips</div>
 		<a href="/contactus" class="requestdemo">Contact us</a>
-		<div class="footerphone">+<span itemprop="telephone">49(8141)-3150375</span></div>
+		<div class="footerphone">+<span itemprop="telephone">(704) 665-7765</span></div>
 		<div class="footeroremail">or e-mail our Support Team: <span itemprop="email">support@rankalytics.com</span></div>
 		<div class="footerline"></div>
 		
