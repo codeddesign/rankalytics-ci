@@ -49,7 +49,7 @@
 $active_group = "pgsql";
 $active_record = TRUE;
 
-$db['pgsql']['hostname'] = "178.62.169.190";
+$db['pgsql']['hostname'] = "104.236.73.122";
 $db['pgsql']['username'] = "phoenixkeyword";
 $db['pgsql']['password'] = "My6Celeb!!";
 $db['pgsql']['database'] = "serp";
@@ -65,7 +65,7 @@ $db['pgsql']['dbcollat'] = "utf8_general_ci";
 /* default database: */
 $active_group = 'default';
 $active_record = TRUE;
-$db['default']['hostname'] = '178.62.6.64:3306';
+$db['default']['hostname'] = '104.236.73.121';
 $db['default']['username'] = 'phoenixdb';
 $db['default']['password'] = 'My6Celeb!!';
 $db['default']['database'] = 'serp';

@@ -208,6 +208,7 @@ class Project extends CI_Controller
 
     protected function lookupSemrush($domain_url)
     {
+        ob_start();
         ob_implicit_flush(true);
         ob_end_flush();
 
