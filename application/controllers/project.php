@@ -200,7 +200,7 @@ class Project extends CI_Controller
 
     public function flushMessage($msg)
     {
-        usleep(100);
+        sleep(1);
         echo $msg;
         flush();
         ob_flush();
@@ -231,7 +231,7 @@ class Project extends CI_Controller
         $full_output = '';
         $total = 0;
         while ((!$keywords_found OR !$finished)) {
-            $link = 'http://de.api.semrush.com/?' . http_build_query($params);
+            $link = 'http://api.semrush.com/?' . http_build_query($params);
 
             //curl:
             $ch = curl_init($link);
