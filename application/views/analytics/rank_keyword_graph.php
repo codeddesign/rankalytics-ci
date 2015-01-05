@@ -42,13 +42,6 @@ $grabzIt->SaveTo("assets/screen/temp.png");
 
         <!-- toggle seo weather -->
         <script type="text/javascript">
-            function toggle_visibility(id) {
-                var e = document.getElementById(id);
-                if (e.style.display == 'block')
-                    e.style.display = 'none';
-                else
-                    e.style.display = 'block';
-            }
             $(document).ready(function () {
                 $('#horiz_container_outer').horizontalScroll();
 
@@ -70,7 +63,7 @@ $grabzIt->SaveTo("assets/screen/temp.png");
         ?>
 
         <!-- seo weather popup design -->
-        <div id="weatherpopup">
+        <div id="weatherpopup" class="link_toggle">
             <div class="weatherpopup-top"></div>
             <div class="weatherpopup-bg">
 

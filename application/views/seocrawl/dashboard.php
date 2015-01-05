@@ -31,7 +31,7 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
 </div>
 <div class="yellowtopline"></div>
 
-<div id="weatherpopup">
+<div id="weatherpopup" class="link_toggle">
     <div class="weatherpopup-top"></div>
     <div class="weatherpopup-bg">
 
@@ -138,10 +138,10 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
                 <div class="newcrawl-texttitle">Setup a new crawl campaign</div>
                 <div class="newcrawl-textsub">Create a new SEO crawl campaign is as easy as deciding what domain URL you would like to crawl.</div>
             </div>
-            <div class="createnewcampaign-button" onclick="toggle_visibility('toggle');">Create New Campaign</div>
+            <div class="createnewcampaign-button link_toggle" onclick="toggle_visibility('toggle');">Create New Campaign</div>
         </div>
 
-        <div id="toggle" class="newcrawl-formwrap" style="display:none">
+        <div id="toggle" class="newcrawl-formwrap link_toggle" style="display:none">
             <form class="newcrawl-form" action="/seocrawl/savecampaign" id="seocrawl_form">
                 <input class="newcrawl-input" name="campaignName" placeholder="Campaign Name">
                 <input class="newcrawl-input" name="domainURL" style="width:456px;" placeholder="Enter your domain URL">
@@ -296,20 +296,6 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
         });
     });
 </script>
-
-<!-- TOGGLE CAMPAIGN FORM -->
-<script type="text/javascript">
-    <!--
-    function toggle_visibility(id) {
-        var e = document.getElementById(id);
-        if (e.style.display == 'block')
-            e.style.display = 'none';
-        else
-            e.style.display = 'block';
-    }
-    //-->
-</script>
-<!-- END TOGGLE FORM -->
 
 <!-- TAB AREA JS -->
 <script type="text/javascript">

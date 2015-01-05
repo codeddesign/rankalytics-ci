@@ -96,14 +96,6 @@
 
 <!-- toggle seo weather -->
 <script type="text/javascript">
-    function toggle_visibility(id)
-    {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
     function triggerChange()
     {
         $('#keywordresearch-keyword_text').val($("#keywordresearch-keyword option:selected").text());
@@ -113,7 +105,7 @@
 <!-- end toggle -->
 
 <!-- seo weather popup design -->
-<div id="weatherpopup" >
+<div id="weatherpopup" class="link_toggle">
 	<div class="weatherpopup-top"></div>
 	<div class="weatherpopup-bg" >
     	<ul class="nav fiveday">

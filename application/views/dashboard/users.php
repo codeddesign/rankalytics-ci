@@ -54,15 +54,6 @@ $this->load->view("include/header",$data); ?>
 		
 <!-- toggle seo weather -->
 <script type="text/javascript">
-<!--
-    function toggle_visibility(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
-//-->
   function userSubmit()
         {
             $('#reg-error').html(''); // Empty reg error div
@@ -186,7 +177,7 @@ $this->load->view("include/header",$data); ?>
 <!-- end toggle -->
 
 <!-- seo weather popup design -->
-<div id="adduserpopup">
+<div id="adduserpopup" class="link_toggle">
 	<div class="adduserpopup-top"></div>
      
             

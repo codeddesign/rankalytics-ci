@@ -40,16 +40,6 @@
 <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 
-<script type="text/javascript">
-    function toggle_visibility(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
-</script>
-
 <!-- clicky tracking -->
 <script type="text/javascript">
 var clicky_site_ids = clicky_site_ids || [];
@@ -88,7 +78,7 @@ clicky_site_ids.push(100773884);
 					<div class="role">ROLE: PYTHON ALGORITHM MAGICIAN</div>
 					<div class="sublocation">MAISACH</div>
 				</a>
-				<div id="python-1" class="jobsdesc" style="display:none;">
+				<div id="python-1" class="jobsdesc link_toggle" style="display:none;">
 					We are looking for a highly motivated Technical Support Representative. If you have +2 years professional work experience in the digital marketing scene we then welcome your CV. 
 					<p>Apply to <a href="mailto:&#106;&#111;&#098;&#115;&#064;&#114;&#097;&#110;&#107;&#097;&#108;&#121;&#116;&#105;&#099;&#115;&#046;&#099;&#111;&#109;">&#106;&#111;&#098;&#115;&#064;&#114;&#097;&#110;&#107;&#097;&#108;&#121;&#116;&#105;&#099;&#115;&#046;&#099;&#111;&#109;</a></p>
 				</div>
@@ -105,7 +95,7 @@ clicky_site_ids.push(100773884);
 					<div class="sublocation">MAISACH</div>
 				</a>
 				
-				<div id="php-1" class="jobsdesc" style="display:none;">
+				<div id="php-1" class="jobsdesc link_toggle" style="display:none;">
 					Our dev team is seeking a creative Junior PHP Developer to join our amazing team.  2 years of prior experience and english language proficiency is required.
 					<p></p>
 					However, at Rankalytics our focus is building and molding our team and discovering your potential rather than your past experience.
@@ -119,7 +109,7 @@ clicky_site_ids.push(100773884);
 					<div class="sublocation">MAISACH</div>
 				</a>
 				
-				<div id="php-2" class="jobsdesc" style="display:none;">
+				<div id="php-2" class="jobsdesc link_toggle" style="display:none;">
 					We are seeking creative and out-of-the-box thinkers only!  An expert in PHP, Javascript, and Database Design is required.  Knowledge of the Laravel PHP framework  and Python is helpful.
 					<p></p>
 					As a Senior Developer in our Creative Labs department, your role is to bring ingenuity to the way we user and look at SEO related data by continually developing alpha stage applications that can potentially become an active module within the Rankalytics platform.
@@ -140,7 +130,7 @@ clicky_site_ids.push(100773884);
 					<div class="sublocation">MAISACH</div>
 				</a>
 				
-				<div id="sales-1" class="jobsdesc" style="display:none;">
+				<div id="sales-1" class="jobsdesc link_toggle" style="display:none;">
 					Als "Sales Manager - New Business (m/w)" zeichnen Sie sich für den Vertrieb und das Account Management unseres Mandanten in Bezug auf den deutschen Markt verantwortlich.  
 					<br>
 					Dies beinhaltet alle vertrieblichen Aktivitäten zur Erhöhung des Marktanteils durch die Vorstellung der Produkte und Lösungen beim Kunden vor Ort.
@@ -175,7 +165,7 @@ clicky_site_ids.push(100773884);
 					<div class="sublocation">MAISACH</div>
 				</a>
 				
-				<div id="support-1" class="jobsdesc" style="display:none;">
+				<div id="support-1" class="jobsdesc link_toggle" style="display:none;">
 					Als "Support Executive (m/w)" sind Sie der erste Ansprechpartner für unsere Kunden. Sie geben Hilfestellung bei allen Problemen und Fragen über Telefon oder E-Mail rund um alle Rankalytics-Tools.
 					<br>
 					Bei Ihrer Tätigkeit können Sie auf das komplette Know-How der Entwickler und Geschäftsführung zurückgreifen. Sie pflegen und warten unsere Know-How-Database in welcher alle Anfragen und Lösungen dokumentiert werden.

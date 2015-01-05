@@ -117,7 +117,8 @@ class Subscriptions_Lib
     /**
      * @param array $subscription
      * @param bool $VAT
-     * @return string
+     *
+     * @return float
      */
     public static function getPaidAmount(array $subscription, $VAT = true)
     {
@@ -130,7 +131,7 @@ class Subscriptions_Lib
             $amount += self::addTaxes($amount);
         }
 
-        return number_format($amount, 2);
+        return floatval(number_format($amount, 2));
     }
 
     /**

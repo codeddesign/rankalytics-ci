@@ -1,91 +1,94 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//DE"
-"http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
-<?= lang('home.contenttype');?>
-<TITLE><?= lang('home.title');?></TITLE>
-<META NAME="Description" CONTENT="<?= lang('home.description');?>">
-<META NAME="Keywords" CONTENT="<?= lang('home.keywords');?>">
-<link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
-<a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
-<meta name="DC.title" content="<?= lang('home.dctitle');?>" />
-<META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
-<META NAME="Language" CONTENT="<?= lang('home.language');?>">
-<META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
-<META NAME="distribution" CONTENT="Global">
-<META NAME="zipcode" CONTENT="82216">
-<META NAME="city" CONTENT="Maisach">
-<META NAME="country" CONTENT="Deutschland">
-<meta name="coverage" content="Worldwide">
-<meta name="rating" content="General">
-<meta name="revisit-after" content="7 days">
-<meta http-equiv="Expires" content="0">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+    <?= lang( 'home.contenttype' ); ?>
+    <TITLE><?= lang( 'home.title' ); ?></TITLE>
+    <META NAME="Description" CONTENT="<?= lang( 'home.description' ); ?>">
+    <META NAME="Keywords" CONTENT="<?= lang( 'home.keywords' ); ?>">
+    <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
+    <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
+    <meta name="DC.title" content="<?= lang( 'home.dctitle' ); ?>"/>
+    <META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
+    <META NAME="Language" CONTENT="<?= lang( 'home.language' ); ?>">
+    <META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
+    <META NAME="distribution" CONTENT="Global">
+    <META NAME="zipcode" CONTENT="82216">
+    <META NAME="city" CONTENT="Maisach">
+    <META NAME="country" CONTENT="Deutschland">
+    <meta name="coverage" content="Worldwide">
+    <meta name="rating" content="General">
+    <meta name="revisit-after" content="7 days">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
 
-<!-- facebook meta -->
-<meta name="og:title" content="<?= lang('home.ogtitle');?>"/>
-<meta name="og:type" content="website"/>
-<meta name="og:url" content="https://www.rankalytics.com/"/>
-<meta name="og:image" content="https://rankalytics.com/assets/images/facebookmeta.jpg"/>
-<meta name="og:site_name" content="Rankalytics"/>
-<meta name="og:description" content="<?= lang('home.description');?>"/>
-<!-- end Facebook meta -->
-<!-- open graph contact info -->
-<meta name="go:email" content="support@rankalytics.com"/>
-<meta name="go:phone_number" content="0800-181-8613"/>
-<!-- end og contact info -->
-<!-- og address info -->
-<meta name="go:street-address" content="Linde Street 2d"/>
-<meta name="go:locality" content="Maisach"/>
-<meta name="go:region" content="Deutschland"/>
-<meta name="go:postal-code" content="82216"/>
-<meta name="go:country-name" content="DE"/>
-<!-- end og address info -->
+    <!-- facebook meta -->
+    <meta name="og:title" content="<?= lang( 'home.ogtitle' ); ?>"/>
+    <meta name="og:type" content="website"/>
+    <meta name="og:url" content="https://www.rankalytics.com/"/>
+    <meta name="og:image" content="https://rankalytics.com/assets/images/facebookmeta.jpg"/>
+    <meta name="og:site_name" content="Rankalytics"/>
+    <meta name="og:description" content="<?= lang( 'home.description' ); ?>"/>
+    <!-- end Facebook meta -->
+    <!-- open graph contact info -->
+    <meta name="go:email" content="support@rankalytics.com"/>
+    <meta name="go:phone_number" content="0800-181-8613"/>
+    <!-- end og contact info -->
+    <!-- og address info -->
+    <meta name="go:street-address" content="Linde Street 2d"/>
+    <meta name="go:locality" content="Maisach"/>
+    <meta name="go:region" content="Deutschland"/>
+    <meta name="go:postal-code" content="82216"/>
+    <meta name="go:country-name" content="DE"/>
+    <!-- end og address info -->
 
-<!-- favicon -->
-<link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
-<link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
-<!-- end favicon -->
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
+    <!-- end favicon -->
 
-<link href="<?php echo base_url(); ?>assets/home.css" rel="stylesheet" type="text/css">
-<link href="<?php echo base_url(); ?>assets/css/radiobuttons.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>assets/home.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>assets/css/radiobuttons.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
- <script src="<?php echo base_url(); ?>assets/js/spiner.js" type="text/javascript"></script>
-<script type="text/javascript">
-onload = function startAnimation() { 
-    var frameHeight = 57; 
-    var frames = 12; 
-    var frame = 0; 
-    var div = document.getElementById("animation"); 
-    setInterval(function () { 
-        var frameOffset = (++frame % frames) * -frameHeight; 
-        div.style.backgroundPosition = "0px " + frameOffset + "px"; 
-    }, 108); 
-}
- 
-</script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
+    <script type="text/javascript">try {
+            Typekit.load();
+        } catch (e) {
+        }</script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <script src="<?php echo base_url(); ?>assets/js/spiner.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/js/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        onload = function startAnimation() {
+            var frameHeight = 57;
+            var frames = 12;
+            var frame = 0;
+            var div = document.getElementById("animation");
+            setInterval(function () {
+                var frameOffset = (++frame % frames) * -frameHeight;
+                div.style.backgroundPosition = "0px " + frameOffset + "px";
+            }, 108);
+        }
+    </script>
 
-<!-- clicky tracking -->
-<script type="text/javascript">
-var clicky_site_ids = clicky_site_ids || [];
-clicky_site_ids.push(100773884);
-(function() {
-  var s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.async = true;
-  s.src = '//static.getclicky.com/js';
-  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
-})();
-</script>
-<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100773884ns.gif" /></p></noscript>
-<!-- End clicky tracking -->
+    <!-- clicky tracking -->
+    <script type="text/javascript">
+        var clicky_site_ids = clicky_site_ids || [];
+        clicky_site_ids.push(100773884);
+        (function () {
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = '//static.getclicky.com/js';
+            ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild(s);
+        })();
+    </script>
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100773884ns.gif"/></p></noscript>
+    <!-- End clicky tracking -->
 </head>
 <body>
 <div class="rankbg"></div>

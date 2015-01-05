@@ -12,17 +12,6 @@ $this->load->view("include/header", $data);
         <div class="weathertext">Google Weather</div>
     </a>
 
-    <!-- toggle seo weather -->
-    <script type="text/javascript">
-        function toggle_visibility(id) {
-            var e = document.getElementById(id);
-            if (e.style.display == 'block')
-                e.style.display = 'none';
-            else
-                e.style.display = 'block';
-        }
-    </script>
-    <!-- end toggle -->
     <?php
     $temp = "";
     $date = "";
@@ -37,7 +26,7 @@ $this->load->view("include/header", $data);
     $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $date . "]};";
     ?>
     <!-- seo weather popup design -->
-    <div id="weatherpopup">
+    <div id="weatherpopup" class="link_toggle">
         <div class="weatherpopup-top"></div>
         <div class="weatherpopup-bg">
 

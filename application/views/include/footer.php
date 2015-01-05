@@ -1,19 +1,5 @@
 </div>
 
-<!-- begin account toggle -->
-<script type="text/javascript">
-<!--
-    function toggle_visibility(id) {
-       var e = document.getElementById(id);
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    }
-//-->
-</script>
-<!-- end account toggle -->
-
 <!-- Piwik
 <script type="text/javascript">
   var _paq = _paq || [];

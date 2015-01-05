@@ -23,7 +23,7 @@ $google_temps_data.="var graphData = { temps: [".$temp."],dates: [".$date."]};";
 
 <div class="yellowtopline"></div>
 
-<div id="weatherpopup" >
+<div id="weatherpopup" class="link_toggle">
             <div class="weatherpopup-top"></div>
 <div class="weatherpopup-bg" >
             
@@ -162,10 +162,10 @@ krsort($temps_array);
      
                                         
                                             
-                                        
+
                                           ?>
                                             <li>
-						<a class="load" data="<?php echo "item_".$count?>" href="javascript:toggle_visibility('<?php echo "item_".$count?>');" class="keywordresearch-checkboxarea">
+						<a data="<?php echo "item_".$count?>" href="javascript:toggle_visibility('<?php echo "item_".$count?>');" class="load keywordresearch-checkboxarea">
 							<div class="keywordresearch-drop"></div>
 						</a>	
 						<div class="keywordresults-keyword master_keyword" id="master_key_<?php echo $count?>"><?php echo urldecode($key)?></div>
@@ -235,170 +235,151 @@ krsort($temps_array);
 }
     </style>
 <script type="text/javascript">
+    $(document).ready(function () {
 
- $(document).ready(function(){
-     
-     $(".master_keyword").each(function() {
-          var id= $(this).attr("id");
-           findSimilarities(id, $(this).text());
-          $.ajax({
-               url:"<?php echo base_url();?>adwords/GetKeywordIdeasExample" ,
-               type:"post",
-               data:({keyword:$(this).text()}),
-               success:function(result){
-                  
-                        var obj = $.parseJSON(result);
-                           $("#"+id+ "_volume").html(obj.volume);
-                           $("#"+id+ "_competition").html(obj.competition.toFixed(3));
-                           $("#"+id+ "_cpc").html("€"+(obj.cpc/1000000).toFixed(3));
-                      
-               }
-           });
-     });
-   
-  
-   $("#download_csv").click(function(){ 
-         
-          $.ajax({
-               url:"<?php echo base_url();?>ranktracker/savekeywords" ,
-               type:"post",
-               data:({keyword:$("#txt_keyword").val(),pageurl:$("#site_name").val()}),
-               success:function(result){
-                  
-                       alert('You will get the csv shortly by e-mail');
-                      
-               }
-           });
-     }); 
-  
-    $(".load").click(function(){ 
-       id= $(this).attr('data');
-       dis= $("#"+id).css('display');
-       loaded= $("#"+id).attr('data');
-       if(dis=="block" || loaded !=""){ $(".overlay").hide();}
-       else{
-      count = $("#"+id+ "  li").length;
-       cnt=0;
-       $("#"+id).attr('data',"loaded");
-       $("#"+id+ "  li").each(function() {
-       keyword=$(this).attr('id');
-       findSimilarities(false,keyword, $(this));
+        $(".master_keyword").each(function () {
+            var id = $(this).attr("id");
+            findSimilarities(id, $(this).text());
+            $.ajax({
+                url: "<?php echo base_url();?>adwords/GetKeywordIdeasExample",
+                type: "post",
+                data: ({keyword: $(this).text()}),
+                success: function (result) {
 
-           $.ajax({
-               url:"<?php echo base_url();?>adwords/GetKeywordIdeasExample" ,
-               type:"post",
-               data:({keyword:keyword}),
-               success:function(result){
-                  
-                   var obj = $.parseJSON(result);
-                          li_id=obj.keywords.replace( /\s/g, "").replace(".","");; 
-                          
-                           //$("#"+id+ " #similar_"+li_id).html('78%');
-                           $("#"+id+ " #volume_"+li_id).html(obj.volume);
-                           $("#"+id+ " #competition_"+li_id).html(obj.competition.toFixed(3));
-                           $("#"+id+ " #cpc_"+li_id).html("€"+(obj.cpc/1000000).toFixed(3));
-                           cnt=cnt+1;
-                          //if(cnt==count){$(".overlay").hide();}
-                      
-               }
-           });
+                    var obj = $.parseJSON(result);
+                    $("#" + id + "_volume").html(obj.volume);
+                    $("#" + id + "_competition").html(obj.competition.toFixed(3));
+                    $("#" + id + "_cpc").html("€" + (obj.cpc / 1000000).toFixed(3));
 
-       });
-       }
-      
-    });
- });
-	var options = {
-		script:"<?php echo base_url();  ?>pdf/get_suggestion/true/1000/",
-		varname:"",
-		json:true,
-		shownoresults:false,
-		maxresults:1000,
-		callback: function (obj) { document.getElementById('testid').value = obj.id; }
-	};
-	var as_json = new bsn.AutoSuggest('txt_keyword', options);
-	
-	
-	var options_xml = {
-		script: function (input) { //return "get_suggestion/"+input+"/testid="+document.getElementById('testid').value; 
-                                                         "test.php?input="+input+"&testid="+document.getElementById('testid').value;
-                },
-		varname:""
-	};
-	var as_xml = new bsn.AutoSuggest('testinput_xml', options_xml);
- 
-function ValidateForm()
-{
-    if($.trim($('#txt_keyword').val()) !="" && $.trim($('#site_name').val()) !="")
-    {
-        $('#txt_keyword').removeClass('validationError');
-        $('#site_name').removeClass('validationError');
-        $('#search_form').attr('action', "<?php echo base_url(); ?>ranktracker/keywordsuggestions/" + urlencode($('#txt_keyword').val()));
-        return true;
-    }
-    else
-    {
-        if($.trim($('#txt_keyword').val()) =="")
-        $('#txt_keyword').addClass('validationError');
-        if($.trim($('#site_name').val()) =="")
-        $('#site_name').addClass('validationError');
-        return false;
-    }
-}
-
-    
-
-    function toggle_visibility(id) {
-
-       var e = document.getElementById(id);
-      
-       if(e.style.display == 'block'){
-          e.style.display = 'none';
-      }
-       else{
-          
-          e.style.display = 'block';}
-    }
-    
-function urlencode(str) {
-  str = (str + '')
-    .toString();
-
-  // Tilde should be allowed unescaped in future versions of PHP (as reflected below), but if you want to reflect current
-  // PHP behavior, you would need to add ".replace(/~/g, '%7E');" to the following.
-  return encodeURIComponent(str)
-    .replace(/!/g, '%21')
-    .replace(/'/g, '%27')
-    .replace(/\(/g, '%28')
-    .
-  replace(/\)/g, '%29')
-    .replace(/\*/g, '%2A')
-    .replace(/%20/g, '+');
-}
-
-
-
-function findSimilarities(id, keyword, obj)
-{
-        $.ajax({
-            url:"<?php echo base_url();?>python_find_simil/ignitor.php" ,
-            type:"post",
-            dataType: "json",
-            data:({keyword:keyword, website:$('#site_name').val()}),
-            success:function(data)
-            {
-                if(id)
-                {
-                    $("#"+id+ "_similar").html(data.similarity_score);   
                 }
-                else
-                {
+            });
+        });
+
+
+        $("#download_csv").click(function () {
+
+            $.ajax({
+                url: "<?php echo base_url();?>ranktracker/savekeywords",
+                type: "post",
+                data: ({keyword: $("#txt_keyword").val(), pageurl: $("#site_name").val()}),
+                success: function (result) {
+
+                    alert('You will get the csv shortly by e-mail');
+
+                }
+            });
+        });
+
+        $(".load").click(function () {
+            id = $(this).attr('data');
+            dis = $("#" + id).css('display');
+            loaded = $("#" + id).attr('data');
+            if (dis == "block" || loaded != "") {
+                $(".overlay").hide();
+            }
+            else {
+                count = $("#" + id + "  li").length;
+                cnt = 0;
+                $("#" + id).attr('data', "loaded");
+                $("#" + id + "  li").each(function () {
+                    keyword = $(this).attr('id');
+                    findSimilarities(false, keyword, $(this));
+
+                    $.ajax({
+                        url: "<?php echo base_url();?>adwords/GetKeywordIdeasExample",
+                        type: "post",
+                        data: ({keyword: keyword}),
+                        success: function (result) {
+
+                            var obj = $.parseJSON(result);
+                            li_id = obj.keywords.replace(/\s/g, "").replace(".", "");
+                            ;
+
+                            //$("#"+id+ " #similar_"+li_id).html('78%');
+                            $("#" + id + " #volume_" + li_id).html(obj.volume);
+                            $("#" + id + " #competition_" + li_id).html(obj.competition.toFixed(3));
+                            $("#" + id + " #cpc_" + li_id).html("€" + (obj.cpc / 1000000).toFixed(3));
+                            cnt = cnt + 1;
+                            //if(cnt==count){$(".overlay").hide();}
+
+                        }
+                    });
+
+                });
+            }
+
+        });
+    });
+    var options = {
+        script: "<?php echo base_url();  ?>pdf/get_suggestion/true/1000/",
+        varname: "",
+        json: true,
+        shownoresults: false,
+        maxresults: 1000,
+        callback: function (obj) {
+            document.getElementById('testid').value = obj.id;
+        }
+    };
+    var as_json = new bsn.AutoSuggest('txt_keyword', options);
+
+
+    var options_xml = {
+        script: function (input) { //return "get_suggestion/"+input+"/testid="+document.getElementById('testid').value;
+            "test.php?input=" + input + "&testid=" + document.getElementById('testid').value;
+        },
+        varname: ""
+    };
+    var as_xml = new bsn.AutoSuggest('testinput_xml', options_xml);
+
+    function ValidateForm() {
+        if ($.trim($('#txt_keyword').val()) != "" && $.trim($('#site_name').val()) != "") {
+            $('#txt_keyword').removeClass('validationError');
+            $('#site_name').removeClass('validationError');
+            $('#search_form').attr('action', "<?php echo base_url(); ?>ranktracker/keywordsuggestions/" + urlencode($('#txt_keyword').val()));
+            return true;
+        }
+        else {
+            if ($.trim($('#txt_keyword').val()) == "")
+                $('#txt_keyword').addClass('validationError');
+            if ($.trim($('#site_name').val()) == "")
+                $('#site_name').addClass('validationError');
+            return false;
+        }
+    }
+
+    function urlencode(str) {
+        str = (str + '').toString();
+
+        // Tilde should be allowed unescaped in future versions of PHP (as reflected below), but if you want to reflect current
+        // PHP behavior, you would need to add ".replace(/~/g, '%7E');" to the following.
+        return encodeURIComponent(str)
+            .replace(/!/g, '%21')
+            .replace(/'/g, '%27')
+            .replace(/\(/g, '%28')
+            .
+            replace(/\)/g, '%29')
+            .replace(/\*/g, '%2A')
+            .replace(/%20/g, '+');
+    }
+
+
+    function findSimilarities(id, keyword, obj) {
+        $.ajax({
+            url: "<?php echo base_url();?>python_find_simil/ignitor.php",
+            type: "post",
+            dataType: "json",
+            data: ({keyword: keyword, website: $('#site_name').val()}),
+            success: function (data) {
+                if (id) {
+                    $("#" + id + "_similar").html(data.similarity_score);
+                }
+                else {
                     obj.find(".keywordresults-similiar").html(data.similarity_score);
                 }
 
             }
         });
-}
+    }
 
 </script>
 <?php 

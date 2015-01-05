@@ -23,31 +23,18 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery-1.11.0.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
-    <script type="text/javascript">try {
+    <script type="text/javascript">
+        try {
             Typekit.load();
         } catch (e) {
-        }</script>
-    <!--script src="<?php echo base_url(); ?>assets/js/jquery.horizontal.scroll.js" type="text/javascript"></script-->
+        }
+    </script>
     <script src="<?php echo base_url(); ?>assets/js/jquery-ui.js" type="text/javascript"></script>
     <script src="<?php echo base_url(); ?>assets/js/modernizer-custom.js" type="text/javascript"></script>
     <script src="<?php echo base_url(); ?>assets/js/spiner.js" type="text/javascript"></script>
+    <script src="<?php echo base_url(); ?>assets/js/common.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-
-        function toggle_visibility(id) {
-
-            var e = document.getElementById(id);
-
-            if (e.style.display == 'block') {
-                e.style.display = 'none';
-            }
-            else {
-
-                e.style.display = 'block';
-            }
-        }
-
-
         function dashoverlay() {
             el = document.getElementById("dashoverlay");
             el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";

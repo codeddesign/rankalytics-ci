@@ -31,7 +31,7 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
 </div>
 <div class="yellowtopline"></div>
 
-<div id="weatherpopup">
+<div id="weatherpopup" class="link_toggle">
     <div class="weatherpopup-top"></div>
     <div class="weatherpopup-bg">
 

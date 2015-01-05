@@ -6,14 +6,14 @@
             ?>
 <ul>
 	<!-- accountpopup -->
-	<div id="accountpopup" style="margin-left:171px;">
+	<div id="accountpopup" style="margin-left:171px;" class="link_toggle">
 			<div class="accountpopup-text accountpopup-top"><a href="<?php echo base_url();?>users/settings" style="color:#000">SETTINGS</a></div>
 			<div class="accountpopup-text"><a href="<?php echo base_url();?>users/search" style="color:#000">USERS</a></div>
 			<div class="accountpopup-text"><a href="<?php echo base_url();?>users/logout" style="color:#000">LOGOUT</a></div>
 	</div>
 
 	<!-- modules popup -->
-	<div id="modulespopup" style="margin-left:243px;">
+	<div id="modulespopup" style="margin-left:243px;" class="link_toggle">
 			<div class="largeaccountpopup-text accountpopup-top">
 				<a href="<?php echo base_url();?>ranktracker/dashboard" style="color:#000">RANK TRACKER</a>
 			</div>
