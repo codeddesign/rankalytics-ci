@@ -1,59 +1,63 @@
-<?= lang('jobs.doctype');?>
+<?= lang( 'jobs.doctype' ); ?>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
 
-<!-- favicon -->
-<link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
-<link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
-<!-- end favicon -->
-
-
-<title><?= lang('jobs.title');?></title>
-<meta name="description" content="<?= lang('jobs.desc');?>">
-
-<link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
-<a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
-
-<meta name="DC.title" content="Jobs @ Rankalytics" />
-<META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
-<META NAME="Language" CONTENT="<?= lang('jobs.lang');?>">
-<META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
-<META NAME="distribution" CONTENT="Global">
-<META NAME="zipcode" CONTENT="82216">
-<META NAME="city" CONTENT="Maisach">
-<META NAME="country" CONTENT="Deutschland">
-<meta name="coverage" content="Worldwide">
-<meta name="rating" content="General">
-<meta name="revisit-after" content="7 days">
-<meta http-equiv="Expires" content="0">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Cache-Control" content="no-cache">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
+    <!-- end favicon -->
 
 
-<link href="<?php echo base_url(); ?>assets/home.css" rel="stylesheet" type="text/css">
-<link href="<?php echo base_url(); ?>assets/css/radiobuttons.css" rel="stylesheet" type="text/css">
+    <title><?= lang( 'jobs.title' ); ?></title>
+    <meta name="description" content="<?= lang( 'jobs.desc' ); ?>">
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
+    <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
 
-<!-- clicky tracking -->
-<script type="text/javascript">
-var clicky_site_ids = clicky_site_ids || [];
-clicky_site_ids.push(100773884);
-(function() {
-  var s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.async = true;
-  s.src = '//static.getclicky.com/js';
-  ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
-})();
-</script>
-<noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100773884ns.gif" /></p></noscript>
-<!-- End clicky tracking -->
+    <meta name="DC.title" content="Jobs @ Rankalytics"/>
+    <META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
+    <META NAME="Language" CONTENT="<?= lang( 'jobs.lang' ); ?>">
+    <META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
+    <META NAME="distribution" CONTENT="Global">
+    <META NAME="zipcode" CONTENT="82216">
+    <META NAME="city" CONTENT="Maisach">
+    <META NAME="country" CONTENT="Deutschland">
+    <meta name="coverage" content="Worldwide">
+    <meta name="rating" content="General">
+    <meta name="revisit-after" content="7 days">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+
+    <link href="<?php echo base_url(); ?>assets/home.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>assets/css/radiobuttons.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
+    <script type="text/javascript">try {
+            Typekit.load();
+        } catch (e) {
+        }</script>
+    <script src="<?php echo base_url(); ?>assets/js/common.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+
+    <!-- clicky tracking -->
+    <script type="text/javascript">
+        var clicky_site_ids = clicky_site_ids || [];
+        clicky_site_ids.push(100773884);
+        (function () {
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = '//static.getclicky.com/js';
+            ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild(s);
+        })();
+    </script>
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100773884ns.gif"/></p></noscript>
+    <!-- End clicky tracking -->
 </head>
 <body>
 
