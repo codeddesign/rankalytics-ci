@@ -215,8 +215,21 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
             <div class="tabContent" id="featurerequests">
                 <div class="seocrawl-whitearea">
                     <div class="seocrawl-infoicon"></div>
-                    <div class="seocrawl-infotext">SEO crawls may take up to 4 days to complete depending on the size of the website you are crawling.</div>
+                    <div class="seocrawl-infotext">Please feel free to send your suggestions so that we can improve this module</div>
                 </div>
+                <form class="newcrawl-form" action="/seocrawl/sendrequest" method="POST" id="seocrawl_request">
+                    <input type="text" placeholder="Message subject" class="newcrawl-input" name="msg_subject" id="msg_subject">
+
+                    <div style="clear:both;"></div>
+                    <textarea class="newcrawl-input" name="msg_content" id="msg_content" placeholder="Your  message here .." style="width: 500px; height: 90px;max-width: 500px;"></textarea>
+
+                    <div style="clear:both;"></div>
+                    <div id="form-msgs5" class="form-errors" style="display: none;"></div>
+                    <button class="createnewcampaign-button">Send Request</button>
+                    <div id="send-request-loading" align="left" class="save-loading" style="float: left;margin-top:15px">
+                        <div class="spinner" style="background-position: -47px 0px;"></div>
+                    </div>
+                </form>
                 <div class="seocrawl-requestwrap"></div>
             </div>
         </div>
@@ -291,6 +304,36 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
                     error.html(response.msg).show();
                 }
 
+                loading.hide();
+            }
+        });
+    });
+
+    $("#seocrawl_request").on('submit', function (e) {
+        e.preventDefault();
+
+        var theForm = $(this), formAction = theForm.attr('action'),
+            loading = $('#send-request-loading'),
+            error = $('#form-msgs5');
+
+        loading.show();
+        error.hide();
+
+        $.ajax({
+            type: 'POST',
+            url: formAction,
+            dataType: 'json',
+            data: theForm.serialize(),
+            success: function (response) {
+                if(response.error) {
+                    error.html(response.msg).show();
+                    return false;
+                }
+
+                theForm.remove();
+                error.html(response.msg).show();
+            },
+            complete: function () {
                 loading.hide();
             }
         });

@@ -260,4 +260,79 @@ class Seocrawl extends CI_Controller
             return true;
         }
     }
+
+    function sendrequest()
+    {
+        // defaults:
+        $out = array(
+            'error' => 1,
+        );
+
+        if ( ! isset( $_POST['msg_subject'] ) OR !isset( $_POST['msg_content'] )) {
+            $out['msg'] = 'Something went wrong with your request.';
+            return $this->jsonMessage( $out );
+        }
+
+        $msg_subject = trim( $_POST['msg_subject'] );
+        $msg_content = trim( $_POST['msg_content'] );
+
+        if ( ! strlen( $msg_content ) or ! strlen( $msg_subject )) {
+            $out['msg'] = 'Subject/Message is missing or too short.';
+            return $this->jsonMessage( $out );
+        }
+
+        if ( ! $this->requestToAdmin( $msg_subject, nl2br( $msg_content ) )) {
+            return $this->jsonMessage( array( 'error' => 1, 'msg' => 'Something went wrong while sending your email.' ) );
+        }
+
+        return $this->jsonMessage( array( 'error' => 0, 'msg' => 'Your feature request has been sent. Thank you!' ) );
+    }
+
+    protected function requestToAdmin( $msg_title, $msg_content )
+    {
+        // loads:
+        $this->load->library( 'mymailer' );
+        $this->config->load( 'email' );
+        $email = $this->config->item( 'email' );
+
+        // prepare 'from':
+        if ( ! $userId = $this->users->isLoggedIn()) {
+            $this->jsonMessage( array( 'error' => 1, 'msg' => 'Something went wrong while sending your email.' ) );
+            return false;
+        }
+
+        $user       = $this->users->getUserById( $userId );
+        $userData   = $user['0'];
+        $from_name  = $userData['firstName'] . " " . $userData['lastName'];
+        $from_email = $userData['emailAddress'];
+
+        // config:
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->CharSet    = 'UTF-8';
+        $mail->Timeout    = $email['Timeout'];
+        $mail->SMTPDebug  = $email['SMTPDebug'];
+        $mail->SMTPSecure = $email['SMTPSecure'];
+        $mail->SMTPAuth   = $email['SMTPAuth'];
+        $mail->Host       = $email['Host'];
+        $mail->Port       = $email['Port'];
+        $mail->Username   = $email['Username'];
+        $mail->Password   = $email['Password'];
+
+        // dynamic:
+        $mail->SetFrom( 'support@rankalytics.com', 'support' );
+        $mail->AddReplyTo( $from_email, $from_name );
+        $mail->Subject = $msg_title . " - seocrawl feature request";
+        $mail->Timeout = 60;
+
+        // additional ends
+        $mail->MsgHTML( $msg_content );
+        $mail->AddAddress( 'support@rankalytics.com', 'support' );
+
+        if ( ! $mail->Send()) {
+            return false;
+        }
+
+        return true;
+    }
 }
