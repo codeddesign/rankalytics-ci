@@ -4,12 +4,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
-    
-<!-- favicon -->
-<link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
-<link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
-<!-- end favicon -->    
-    
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
+    <!-- end favicon -->
+
     <title>Contact Rankalytics</title>
     <meta name="description" content="">
 
@@ -66,7 +66,7 @@
 </head>
 <body>
 
-<?php $this->load->view('home/page-navplacement.php'); ?>
+<?php $this->load->view( 'home/page-navplacement.php' ); ?>
 
 <div class="ranktracker-topline"></div>
 
@@ -78,21 +78,24 @@
 <div class="bodywrapper">
     <div class="ranktracker-bottomwhitetitle">We look forward to hearing from you!</div>
     <div class="ranktracker-bottomwhitewrapper">
-        <div class="ranktracker-bottomwhitesubcontent">At Rankalytics, questions, feedback, and ideas are at the center of our highest priority to our customers. Whether you have a simple question about our products, we are missing a feature that you would like to see, or just want to say "hello"; we would love to hear from you!
+        <div class="ranktracker-bottomwhitesubcontent">At Rankalytics, questions, feedback, and ideas are at the center of our highest priority to our customers. Whether you have a simple question about our products, we are missing a feature that you
+            would like to see, or just want to say "hello"; we would love to hear from you!
         </div>
         <div class="payment-monthlycharge">Get in touch with us.</div>
         <div id="form-msgs" class="form-errors"></div>
-        <?php echo form_open("ranktracker/contactussave", array("id" => "contactus-form", "class" => "contactus-form"));
-        echo form_input(array('name' => 'fullName', 'id' => 'fullName', 'class' => "billing-forminputleft", 'placeholder' => "FULL NAME*"));
-        echo form_input(array('name' => 'emailAddress', 'id' => 'emailAddress1', 'class' => "billing-forminputleft", 'placeholder' => "EMAIL ADDRESS*"));
-        echo form_input(array('name' => 'phoneNumber', 'id' => 'phoneNumber', 'class' => "billing-forminputleft", 'placeholder' => "TELEPHONE NUMBER"));
-        echo form_textarea(array('name' => 'message', 'id' => 'message', 'class' => "contactus-textarealeft", 'placeholder' => "COMMENT*"));?>
-        <div style="float: left" id="contactus-loading" align="left" class="save-loading">
-            <div class="spinner"></div>
+        <form action="/ranktracker/contactussave" method="post" accept-charset="utf-8" id="contactus-form" class="contactus-form">
+            <?php
+            echo form_input( array( 'name' => 'fullName', 'id' => 'fullName', 'class' => "billing-forminputleft", 'placeholder' => "FULL NAME*" ) );
+            echo form_input( array( 'name' => 'emailAddress', 'id' => 'emailAddress1', 'class' => "billing-forminputleft", 'placeholder' => "EMAIL ADDRESS*" ) );
+            echo form_input( array( 'name' => 'phoneNumber', 'id' => 'phoneNumber', 'class' => "billing-forminputleft", 'placeholder' => "TELEPHONE NUMBER" ) );
+            echo form_textarea( array( 'name' => 'message', 'id' => 'message', 'class' => "contactus-textarealeft", 'placeholder' => "COMMENT*" ) );?>
+            <?php
+            echo form_submit( array( 'name' => 'submit-contact', 'id' => 'submit-contact', 'class' => "contactusbutton", 'value' => "Submit" ) );
+            ?>
+        </form>
+        <div id="contactus-loading" align="left" class="save-loading" style="float: left;margin-top:15px">
+            <div class="spinner" style="background-position: -47px 0;"></div>
         </div>
-        <?php
-        echo form_submit(array('name' => 'submit-contact', 'id' => 'submit-contact', 'class' => "contactusbutton", 'value' => "Submit"));
-        echo form_close();?>
         <div class="contactus-right">
             <div itemprop="name" class="contactus-righttitle">Rankalytics.com</div>
 			<span itemprop="location" itemscope itemtype="https://schema.org/Place">
@@ -130,35 +133,42 @@
         $("#contactus-form").on('submit', function (e) {
             e.preventDefault();
 
-            var formMsgs = $("#form-msgs"), loading = $("#contactus-loading"), theForm = $(this);
+            var theForm = $(this), formMsgs = $("#form-msgs"), loading = $("#contactus-loading");
 
             formMsgs.html('').hide();
             loading.show();
 
-            $.post($(this).attr('action'), theForm.serialize(), function (data) {
-                loading.hide();
+            $.ajax({
+                url: theForm.attr('action'),
+                type: theForm.attr('method'),
+                dataType: 'json',
+                data: theForm.serialize(),
+                success: function (response) {
+                    loading.hide();
 
-                if (!parseInt(data.error)) {
-                    window.scrollTo(0,0);
+                    if (response.error) {
+                        formMsgs.show().removeClass("form-success").addClass("form-errors");
+
+                        $.each(response.msg, function (key, val) {
+                            formMsgs.append(val);
+                            $('#' + key).addClass('validationError');
+                        });
+
+                        return false;
+                    }
+
+                    window.scrollTo(0, 0);
                     formMsgs.show().removeClass("form-errors").addClass("form-success").html("Contact Request Sent!");
                     theForm[0].reset();
                 }
-                else {
-                    formMsgs.show().removeClass("form-success").addClass("form-errors");
-
-                    $.each(data.msg, function (key, val) {
-                        $('#form-msgs').append(val);
-                        $('#' + key).addClass('validationError');
-                    });
-                }
-            }, 'json');
+            });
         });
     });
 </script>
 
-<?php $this->load->view('include/mainfooter'); ?>
+<?php $this->load->view( 'include/mainfooter' ); ?>
 
-<?php $this->load->view('include/login-signup'); ?>
+<?php $this->load->view( 'include/login-signup' ); ?>
 
 
 </body>

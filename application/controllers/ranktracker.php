@@ -427,6 +427,7 @@ class Ranktracker extends CI_Controller
             if (form_error('message') != '') {
                 $error_msg['message'] = form_error('message');
             }
+
             echo json_encode(array("error" => $error, "msg" => $error_msg));
             return;
         } else {

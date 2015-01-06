@@ -224,12 +224,12 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
                     <textarea class="newcrawl-input" name="msg_content" id="msg_content" placeholder="Your  message here .." style="width: 500px; height: 90px;max-width: 500px;"></textarea>
 
                     <div style="clear:both;"></div>
-                    <div id="form-msgs5" class="form-errors" style="display: none;"></div>
                     <button class="createnewcampaign-button">Send Request</button>
                     <div id="send-request-loading" align="left" class="save-loading" style="float: left;margin-top:15px">
                         <div class="spinner" style="background-position: -47px 0px;"></div>
                     </div>
                 </form>
+                <div id="form-msgs5" class="form-errors" style="clear:both;display: none;"></div>
                 <div class="seocrawl-requestwrap"></div>
             </div>
         </div>
