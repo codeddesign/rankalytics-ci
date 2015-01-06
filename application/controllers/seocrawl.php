@@ -318,14 +318,13 @@ class Seocrawl extends CI_Controller
         $mail->Port       = $email['Port'];
         $mail->Username   = $email['Username'];
         $mail->Password   = $email['Password'];
+        $mail->Timeout = 15;
 
         // dynamic:
         $mail->SetFrom( 'support@rankalytics.com', 'support' );
         $mail->AddReplyTo( $from_email, $from_name );
         $mail->Subject = $msg_title . " - seocrawl feature request";
-        $mail->Timeout = 60;
 
-        // additional ends
         $mail->MsgHTML( $msg_content );
         $mail->AddAddress( 'support@rankalytics.com', 'support' );
 
