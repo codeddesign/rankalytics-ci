@@ -199,7 +199,7 @@
                                 	
                                 </td>
                                 <td rowspan="2" height="44" style="height: 44px;max-height: 44px;border-collapse: collapse;" bgcolor="#fea500">
-                                	<a href="<?php echo base_url() ?>users/verifyEmail/<?echo $userId?>/<?php echo $verificationCode;?>" target="_blank">
+                                	<a href="<?php echo base_url() ?>users/verifyEmail/<?php echo $userId?>/<?php echo $verificationCode;?>" target="_blank">
                                       <img src="<?php echo base_url() ?>assets/images/verifyaccount.jpg" width="218" height="44" alt="+ Verify Your Account" style="display: block;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size: 13px;font-weight: bold;text-align: center !important;color: #FFF;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;border: none;line-height: 100%;">
                                     </a>
                                 </td>
@@ -269,7 +269,7 @@
                                         </td>
                                         <td align="left" valign="top" style="border-collapse: collapse;">
                                         	<span class="acctinfocontents" style="color: #555555;font-size: 12.5px;font-weight: normal;font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;line-height: 18px;text-align: left;">
-                                            	<a href="<?php echo base_url() ?>users/verifyEmail/<?echo $userId?>/<?php echo $verificationCode;?>" class="acctinfocontents" style="color: #2692ff;font-size: 12.5px;font-weight: bold;font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;line-height: 18px;text-align: left;text-decoration: none;"><?php echo base_url() ?>users/verifyEmail/<?echo $userId?>/<?php echo $verificationCode;?></a>
+                                            	<a href="<?php echo base_url() ?>users/verifyEmail/<?php echo $userId?>/<?php echo $verificationCode;?>" class="acctinfocontents" style="color: #2692ff;font-size: 12.5px;font-weight: bold;font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;line-height: 18px;text-align: left;text-decoration: none;"><?php echo base_url(); ?>users/verifyEmail/<?php echo $userId?>/<?php echo $verificationCode;?></a>
                                             </span>
                                         </td>
                                       </tr>

@@ -111,7 +111,7 @@ class Subscriptions_Lib
      * @return float
      */
     public static function addTaxes($amount) {
-        return round((self::$_tax / 100 * $amount), 2);
+        return floatval(round((self::$_tax / 100 * $amount), 2));
     }
 
     /**
@@ -127,11 +127,13 @@ class Subscriptions_Lib
         $months = $subscription['months'];
 
         $amount = self::$_service_prices[$service][$plan] * $months;
+        $amount = str_replace(',', '', $amount);
+
         if ($VAT) {
             $amount += self::addTaxes($amount);
         }
 
-        return floatval(number_format($amount, 2));
+        return $amount;
     }
 
     /**

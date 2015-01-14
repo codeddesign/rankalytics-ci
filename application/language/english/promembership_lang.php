@@ -38,6 +38,7 @@ $lang = array(
 	'promembership.infomsgtwo' => '</i>, to active your new account.<br/>',
 	'promembership.ifpaid' => 'Please wait.. You are being redirected to PayPal!',
 	'promembership.ifmanual' => '<br/>A member of the rankalytics team will be in contact with you shortly to finalize your account.',
+    'promembership.ifstripe' => '<span id="span_loading">Loading stripe gateway.. Please wait..</span>',
 	'' => '',
 	'' => '',
 	'' => '',

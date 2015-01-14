@@ -342,8 +342,8 @@ $this->load->view("include/settingsheader");
                     <label>Payment method</label>
                     <input type="radio" name="paymentType" id="paymentTypeRanktrackerPaypal" value="paypal" title="PayPal Payment" class="css-checkbox payment-type paypal-cbx"/>
                     <label for="paymentTypeRanktrackerPaypal" title="PayPal Payment" class="css-label paypal-lbl">PayPal</label>
-                    <input type="radio" title="Manual Payment" name="paymentType" value="manual" id="paymentTypeRanktrackerManual" class="css-checkbox payment-type"/>
-                    <label for="paymentTypeRanktrackerManual" title="Manual Payment" class="css-label">Manual Payment</label>
+                    <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentTypeRanktrackerStripe" class="css-checkbox payment-type"/>
+                    <label for="paymentTypeRanktrackerStripe" title="Stripe Payment" class="css-label">Stripe</label>
                 </div>
 
                 <div class="pricingcheckbox paidRanktracker">
@@ -425,8 +425,8 @@ $this->load->view("include/settingsheader");
                     <label>Payment method</label>
                     <input type="radio" name="paymentType" id="paymentTypeSeocrawlPaypal" value="paypal" title="Paypal Payment" class="css-checkbox payment-type paypal-cbx"/>
                     <label for="paymentTypeSeocrawlPaypal" title="Paypal Payment" class="css-label paypal-lbl">Paypal</label>
-                    <input type="radio" title="Manual Payment" name="paymentType" value="manual" id="paymentTypeSeocrawlManual" class="css-checkbox payment-type"/>
-                    <label for="paymentTypeSeocrawlManual" title="Manual Payment" class="css-label">Manual Payment</label>
+                    <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentTypeSeocrawlStripe" class="css-checkbox payment-type"/>
+                    <label for="paymentTypeSeocrawlStripe" title="Stripe Payment" class="css-label">Stripe</label>
                 </div>
 
                 <div class="pricingcheckbox paidSeocrawl">
