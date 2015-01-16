@@ -1,11 +1,11 @@
 <?php
 $selected = 1; // left tab;
-$status = 'active';
+$status   = 'active';
 
 // ..
 if ($user_database['companyLogo'] != '') {
     $uploads = 'uploads/logos/thumbnails/' . $user_database['companyLogo'];
-    if (file_exists($uploads)) {
+    if (file_exists( $uploads )) {
         $logo_img = '<img src="' . base_url() . $uploads . '">';
     } else {
         $logo_img = '';
@@ -14,11 +14,12 @@ if ($user_database['companyLogo'] != '') {
     $logo_img = '';
 }
 
-$this->load->view("include/settingsheader");
+$this->load->view( "include/settingsheader" );
 
 ?>
 <link href="<?php echo base_url() ?>assets/css/radiobuttons.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo base_url() ?>assets/css/setting.css" rel="stylesheet" type="text/css"/>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <div class="yellowtopline"></div>
 <div class="topinfobar">
     <a href="#" id="weather" <a href="#" onclick="toggle_visibility('weatherpopup');">
@@ -28,16 +29,16 @@ $this->load->view("include/settingsheader");
         <div class="weathertext">Google Weather</div>
     </a>
     <?php
-    $temp = "";
-    $date = "";
+    $temp              = "";
+    $date              = "";
     $google_temps_data = "";
-    $google_temps = $this->analytical->getGoogleTemperature();
+    $google_temps      = $this->analytical->getGoogleTemperature();
     foreach ($google_temps as $temps) {
         $temp = $temp . $temps['temperature'] . ",";
         $date = $date . "'" . $temps['date'] . "'" . ",";
     }
-    $temp = rtrim($temp, ",");
-    $date = rtrim($date, ",");
+    $temp = rtrim( $temp, "," );
+    $date = rtrim( $date, "," );
     $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $date . "]};";
     ?>
     <!-- seo weather popup design -->
@@ -48,15 +49,15 @@ $this->load->view("include/settingsheader");
             <ul class="nav five-day" style=" margin-left: 32px;">
                 <?php
                 $temps_array = array();
-                $count = 1;
+                $count       = 1;
                 foreach ($google_temps as $value) {
                     $temps_array[] = $value;
                     if ($count >= 5) {
                         break;
                     }
-                    $count++;
+                    $count ++;
                 }
-                krsort($temps_array);
+                krsort( $temps_array );
                 ?>
 
                 <?php foreach ($temps_array as $value): ?>
@@ -107,9 +108,9 @@ $this->load->view("include/settingsheader");
     <div class="toptitlebar">ACCOUNT SETTINGS</div>
 </div>
 <div class="projectbackground">
-<?php $this->load->view("dashboard/common/big_left_sidebar", array("selected" => $selected)); ?>
+<?php $this->load->view( "dashboard/common/big_left_sidebar", array( "selected" => $selected ) ); ?>
 <div class="twodashcontent">
-<?php echo $this->load->view('dashboard/common/settingsblue_top', array("user" => $user_database)); ?>
+<?php echo $this->load->view( 'dashboard/common/settingsblue_top', array( "user" => $user_database ) ); ?>
 <div class="subscriptiontextlocation">
     <div class="subscriptiontext">PROFILE SETTINGS</div>
 </div>
@@ -122,7 +123,7 @@ $this->load->view("include/settingsheader");
         </div>
     <?php } else { ?><a href="javascript:void(0)"> CLOSED</a> <?php } ?></div>
 <div class="subscriptionwrap">
-    <?php echo form_open('users/saveSection', array('class' => 'ajax-form', 'id' => 'emailPassword', 'onsubmit' => 'return false;')); ?>
+    <?php echo form_open( 'users/saveSection', array( 'class' => 'ajax-form', 'id' => 'emailPassword', 'onsubmit' => 'return false;' ) ); ?>
     <div id="form-msgs1" class="form-errors"></div>
     <div class="leftusernamefields">
         <label for="emailAddress">E-mail Address</label>
@@ -153,7 +154,7 @@ $this->load->view("include/settingsheader");
 <div class="profile-titleline"></div>
 <div class="subscriptionwrap">
     <iframe id="upload-companylogo" name="upload-companylogo" style="display:none;"></iframe>
-    <?php echo form_open_multipart('users/uploadLogo', array('class' => 'upload-logo ajax-form', 'id' => 'uploadLogo', 'target' => "upload-companylogo")); ?>
+    <?php echo form_open_multipart( 'users/uploadLogo', array( 'class' => 'upload-logo ajax-form', 'id' => 'uploadLogo', 'target' => "upload-companylogo" ) ); ?>
     <div class="uploadlogowrap">
         <div class="uploadlogo-text">Upload logo</div>
         <div class="uploadlogo-box"><?php echo $logo_img; ?></div>
@@ -179,7 +180,7 @@ $this->load->view("include/settingsheader");
 
     </div>
     </form>
-    <?php echo form_open('users/saveSection', array('class' => 'upload-companyname ajax-form', 'id' => 'companyInfo', 'onsubmit' => 'return false;')); ?>
+    <?php echo form_open( 'users/saveSection', array( 'class' => 'upload-companyname ajax-form', 'id' => 'companyInfo', 'onsubmit' => 'return false;' ) ); ?>
     <div id="form-msgs2" class="form-errors"></div>
     <label for="companyName">Company Name</label>
     <input type="text" id="companyName" name="companyName" value="<?php echo $user_database['companyName']; ?>">
@@ -227,7 +228,7 @@ $this->load->view("include/settingsheader");
 </div>
 <div class="profile-titleline"></div>
 <div class="subscriptionwrap">
-    <?php echo form_open('users/saveSection', array('class' => 'ajax-form', 'id' => 'userInfo', 'onsubmit' => 'return false;')); ?>
+    <?php echo form_open( 'users/saveSection', array( 'class' => 'ajax-form', 'id' => 'userInfo', 'onsubmit' => 'return false;' ) ); ?>
     <div id="form-msgs3" class="form-errors"></div>
     <div class="leftusernamefields" style="width:100%;">
         <label for="username" style="width:100%;">Company Name</label>
@@ -264,8 +265,8 @@ $this->load->view("include/settingsheader");
             <?php
             $pattern = '<option value="%s" data-pp="%s" %s>%s</option>';
             foreach ($countries as $c_no => $country) {
-                $selected = ($country['code'] == $user_database['country']) ? 'selected' : '';
-                echo sprintf($pattern, $country['code'], $country['paypal'], $selected, strtoupper($country['name']));
+                $selected = ( $country['code'] == $user_database['country'] ) ? 'selected' : '';
+                echo sprintf( $pattern, $country['code'], $country['paypal'], $selected, strtoupper( $country['name'] ) );
             }
             ?>
         </select>
@@ -295,10 +296,10 @@ $this->load->view("include/settingsheader");
     <div class="tabContent" id="ranktrackertab">
         <div class="promembership-wrap">
             <div class="settings-whitearea">
-                <div class="<?= (!$ranktracker['expired']) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
-                <div class="<?= (!$ranktracker['expired']) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
-                    ACCOUNT LEVEL: <b><?= strtoupper($ranktracker['plan']); ?></b> <?= ($ranktracker['pending']) ? '(until payment is confirmed)' : ''; ?>
-                    <?= (isset($ranktracker['expires_on']) AND $ranktracker['plan'] !== 'starter') ? ' | VALID UNTIL: <b>' . date('d/m/Y', $ranktracker['expires_on']) . '</b>' : ''; ?><br/>
+                <div class="<?= ( ! $ranktracker['expired'] ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
+                <div class="<?= ( ! $ranktracker['expired'] ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
+                    ACCOUNT LEVEL: <b><?= strtoupper( $ranktracker['plan'] ); ?></b> <?= ( $ranktracker['pending'] ) ? '(until payment is confirmed)' : ''; ?>
+                    <?= ( isset( $ranktracker['expires_on'] ) AND $ranktracker['plan'] !== 'starter' ) ? ' | VALID UNTIL: <b>' . date( 'd/m/Y', $ranktracker['expires_on'] ) . '</b>' : ''; ?><br/>
                     NUMBER OF KEYWORDS: <b><?= $ranktracker['usage_number']; ?></b>
                     <?php if ($ranktracker['expired']) : ?>
                         <br/>Your paid subscription to Ranktracker expired.
@@ -322,6 +323,8 @@ $this->load->view("include/settingsheader");
 
         <div class="promembership-formwrap">
             <div id="form-msgs4-ranktracker" class="form-errors"></div>
+            <div id="info-body-ranktracker" class="form-extra-info"></div>
+
             <!-- #for 2 plans - RANK TRACKER -->
             <form action="/users/subscription" method="POST" class="subscription-form">
                 <div class="pricingcheckbox">
@@ -351,16 +354,16 @@ $this->load->view("include/settingsheader");
                     <select name="months" id="monthsSeocrawl">
                         <?php
                         $pattern = '<option value="%s" %s>%s</option>';
-                        for ($i = 1; $i <= 12; $i++) {
+                        for ($i = 1; $i <= 12; $i ++) {
                             if ($i == 1) {
                                 $checked = ' selected';
                             } else {
                                 $checked = '';
                             }
 
-                            $j = ($i <= 9) ? '0' . $i : $i;
+                            $j = ( $i <= 9 ) ? '0' . $i : $i;
 
-                            echo sprintf($pattern, $i, $checked, $j);
+                            echo sprintf( $pattern, $i, $checked, $j );
                         }
                         ?>
                     </select>
@@ -383,10 +386,10 @@ $this->load->view("include/settingsheader");
     <div class="tabContent" id="seocrawltab">
         <div class="promembership-wrap">
             <div class="settings-whitearea">
-                <div class="<?= (!$seocrawl['expired']) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
-                <div class="<?= (!$seocrawl['expired']) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
-                    ACCOUNT LEVEL: <b><?= strtoupper($seocrawl['plan']); ?></b> <?= ($seocrawl['pending']) ? '(until payment is confirmed)' : ''; ?>
-                    <?= (isset($seocrawl['expires_on']) AND $seocrawl['plan'] !== 'free') ? ' | VALID UNTIL: <b>' . date('d/m/Y', $seocrawl['expires_on']) . '</b>' : ''; ?><br/>
+                <div class="<?= ( ! $seocrawl['expired'] ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
+                <div class="<?= ( ! $seocrawl['expired'] ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
+                    ACCOUNT LEVEL: <b><?= strtoupper( $seocrawl['plan'] ); ?></b> <?= ( $seocrawl['pending'] ) ? '(until payment is confirmed)' : ''; ?>
+                    <?= ( isset( $seocrawl['expires_on'] ) AND $seocrawl['plan'] !== 'free' ) ? ' | VALID UNTIL: <b>' . date( 'd/m/Y', $seocrawl['expires_on'] ) . '</b>' : ''; ?><br/>
                     NUMBER OF PROJECTS: <b><?= $seocrawl['usage_number']; ?></b>
                     <?php if ($seocrawl['expired']) : ?>
                         <br/>Your paid subscription to Seocrawl expired.
@@ -406,6 +409,8 @@ $this->load->view("include/settingsheader");
 
         <div class="promembership-formwrap">
             <div id="form-msgs4-seocrawl" class="form-errors"></div>
+            <div id="info-body-seocrawl" class="form-extra-info"></div>
+
             <form action="/users/subscription" method="POST" class="subscription-form">
                 <div class="pricingcheckbox">
                     <label>Subscription plan</label>
@@ -434,16 +439,16 @@ $this->load->view("include/settingsheader");
                     <select name="months" id="monthsRanktracker">
                         <?php
                         $pattern = '<option value="%s" %s>%s</option>';
-                        for ($i = 1; $i <= 12; $i++) {
+                        for ($i = 1; $i <= 12; $i ++) {
                             if ($i == 1) {
                                 $checked = ' selected';
                             } else {
                                 $checked = '';
                             }
 
-                            $j = ($i <= 9) ? '0' . $i : $i;
+                            $j = ( $i <= 9 ) ? '0' . $i : $i;
 
-                            echo sprintf($pattern, $i, $checked, $j);
+                            echo sprintf( $pattern, $i, $checked, $j );
                         }
                         ?>
                     </select>
@@ -496,7 +501,7 @@ $(document).ready(function () {
 
     $('.subscription-form').on('submit', function (e) {
         e.preventDefault();
-        var theForm = $(this), data = theForm.serialize(), arr = [], info_msg;
+        var theForm = $(this), data = theForm.serialize(), arr = [], info_msg, info_body;
 
         // accessiable values:
         $.each(theForm.serializeArray(), function (i, f) {
@@ -507,13 +512,16 @@ $(document).ready(function () {
         info_msg = $('#form-msgs4-' + arr.service);
         info_msg.hide().html('');
 
+        info_body = $('#info-body-' + arr.service);
+        info_body.hide().html('');
+
         $.ajax({
             data: data,
             method: 'POST',
             dataType: 'json',
             url: theForm.attr('action'),
             success: function (response) {
-                var infoTxt = 'Unknown action';
+                var infoTxt = 'Unknown action', tempBody = false;
                 if (typeof response.msg !== 'undefined') {
                     info_msg.html(response.msg).show();
                 }
@@ -530,22 +538,26 @@ $(document).ready(function () {
                         case 'paypal':
                             infoTxt = 'Please wait.. You are being redirected to paypal';
                             break;
-                        case 'manual':
-                            infoTxt = 'A member of the rankalytics team will be in contact with you shortly to finalize your subscription.';
+                        case 'stripe':
+                            infoTxt = 'Loading stripe gateway.. Please wait..';
                             break;
                         default:
                             // ..
                             break;
                     }
 
+                    theForm.remove();
                     info_msg.html(infoTxt).show();
+
+                    if (typeof response.body !== undefined) {
+                        info_body.html(response.body).show();
+                        return false;
+                    }
                 }
 
                 if (typeof response.redirect_to !== 'undefined') {
                     location.href = response.redirect_to;
                 }
-
-                theForm.remove();
             }
         });
     });
@@ -947,4 +959,4 @@ $("#generate_accesstoken").click(function () {
         margin-top: -20px;
     }
 </style>
-<?php $this->load->view("dashboard/common/footer") ?>
+<?php $this->load->view( "dashboard/common/footer" ) ?>

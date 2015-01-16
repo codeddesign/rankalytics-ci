@@ -25,18 +25,28 @@ $description = $subscriptions_no . ' subscription' . ( ( count( $subs ) > 1 ) ? 
             key: 'pk_test_LEIvpepolPcX6uZxzMWqUy5Q',
             image: '/square-image.png',
             token: function (token) {
+                var ids = ['#span_loading', '#form-msgs4-ranktracker', '#form-msgs4-seocrawl'], i, info_msg;
+
+                for (i = 0; i < ids.length; i++) {
+                    info_msg = $(ids[i]);
+                    if (info_msg.length && info_msg.css('display').toLowerCase() == 'block') {
+                        break;
+                    }
+                }
+
+                info_msg.html('Please wait.. processing..');
+
                 $.ajax({
                     url: '/users/handleStripe/',
                     type: 'post',
                     data: token,
                     success: function (response) {
-                        var info_msg = $('#span_loading');
-                        if(response.error) {
+                        if (response.error) {
                             info_msg.html(response.msg);
                             return false;
                         }
 
-                        if(!response.paid) {
+                        if (!response.paid) {
                             info_msg.html(response.msg);
                             return false;
                         }

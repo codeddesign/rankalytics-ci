@@ -230,10 +230,8 @@ class Users extends CI_Controller
         $this->lang->load( 'promembership' );
 
         // 0 check:
-        if (isset( $user_data['stripe'] )) {
-            $stripe = $user_data['stripe'];
-
-            $this->load->view( 'ranktracker/promembership', array( 'stripe' => $stripe ) );
+        if (isset( $user_data['stripe_register'] )) {
+            $this->load->view( 'ranktracker/promembership', array( 'stripe' => $user_data['stripe'] ) );
             return false;
         }
 
@@ -372,6 +370,9 @@ class Users extends CI_Controller
 
             // remove session data:
             $this->session->unset_userdata( 'stripe' );
+            if(isset($session_data['stripe_register'])) {
+                $this->session->unset_userdata( 'stripe_register' );
+            }
         }
 
         $this->json_exit( $response );
@@ -499,10 +500,11 @@ class Users extends CI_Controller
             case 'stripe':
                 $out['what'] = 'stripe';
                 $this->session->set_userdata( array(
+                    'stripe_register' => true,
                     'stripe' => array(
                         'order_id' => $sub_id,
                         'subscriptions'   => $subscriptions,
-                        'user_info'       => $userArray
+                        'user_info' => $userArray,
                     )
                 ) );
 
@@ -1049,8 +1051,21 @@ class Users extends CI_Controller
             );
         }
 
-        if($payment_type == 'stripe') {
-            #todo - handle stripe in settings
+        if ($payment_type == 'stripe') {
+            $this->session->set_userdata( array(
+                'stripe' => array(
+                    'order_id'      => $order_id,
+                    'subscriptions' => array( $sub_new ),
+                    'user_info' => $userInfo,
+                )
+            ) );
+
+            $this->subscriptions->doUpdate(
+                array( 'status' => 'progress' ),
+                array( 'order_id' => $order_id, 'payment_type' => 'stripe' )
+            );
+
+            $out['body'] = $this->load->view( 'ranktracker/stripe', '', true );
         }
 
         // ..
