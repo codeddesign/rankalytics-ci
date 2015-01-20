@@ -257,21 +257,21 @@ class API
 
         if(mysql_num_rows($sql) == 0) {
             // handle 'no subscription found'
-            $sub_info = ($this->_userInfo['userRole'] == 'admin') ? Subscriptions::getDefaultForAdmin($service): Subscriptions::getDefaultNotSubscribed($service);
+            $sub_info = ($this->_userInfo['userRole'] == 'admin') ? Subscriptions_Lib::getDefaultForAdmin($service): Subscriptions_Lib::getDefaultNotSubscribed($service);
         } else {
             $sub_info = mysql_fetch_array($sql, MYSQL_ASSOC);
         }
 
         // handle 'pending':
         if($sub_info['status'] !== 'approved') {
-            $sub_info = Subscriptions::getDefaultNotSubscribed($service);
+            $sub_info = Subscriptions_Lib::getDefaultNotSubscribed($service);
         }
 
         // handle 'expiration' and 'limits':
-        $sub_info['expires_on'] = Subscriptions::getExpirationTimestamp($sub_info);
-        $sub_info['expired'] = Subscriptions::isExpired($sub_info['expires_on']);
-        $sub_info['crawl_limit'] = Subscriptions::$_service_limits[$service][$sub_info['plan']]['text'];
-        $sub_info['crawl_limit_no'] = Subscriptions::$_service_limits[$service][$sub_info['plan']]['number'];
+        $sub_info['expires_on'] = Subscriptions_Lib::getExpirationTimestamp($sub_info);
+        $sub_info['expired'] = Subscriptions_Lib::isExpired($sub_info['expires_on']);
+        $sub_info['crawl_limit'] = Subscriptions_Lib::$_service_limits[$service][$sub_info['plan']]['text'];
+        $sub_info['crawl_limit_no'] = Subscriptions_Lib::$_service_limits[$service][$sub_info['plan']]['number'];
 
         return $sub_info['crawl_limit_no'];
     }
