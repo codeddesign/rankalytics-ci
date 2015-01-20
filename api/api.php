@@ -30,17 +30,23 @@ function config_item( $config_file )
         exit( 'Api Error: failed to load [' . $config_file . ']' );
     }
 
-    require_once $file_path;
+    include $file_path;
 
-    if ( ! isset( $config ) AND ! isset( $db )) {
-        exit( 'Api Error: File ' . $config_file . ' does not contain a \'$config\'' );
-    }
-
+    $other = false;
     if (isset( $db )) {
+        $other  = true;
         $config = $db;
     }
 
-    return $config[$config_file];
+    if ( ! isset( $config )) {
+        exit( 'Api Error: File ' . $config_file . ' does not contain a \'$config\'' );
+    }
+
+    if ( ! $other) {
+        return $config[$config_file];
+    }
+
+    return $config;
 }
 
 Subscriptions_Lib::loadConfig();

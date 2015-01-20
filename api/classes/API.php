@@ -41,7 +41,7 @@ class API
      */
     public function __construct()
     {
-        $config             = config_item( 'database' );
+        $config          = config_item( 'database' );
         $this->db_config = $config['default'];
 
         // Initiate MySQL Database connection:

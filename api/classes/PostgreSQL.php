@@ -6,16 +6,18 @@ class PostgreSQL
 
     function __construct()
     {
-        $config = array(
-            "host" => "104.236.73.122",
-            "port" => 5432,
-            "dbname" => "serp",
-            "user" => "phoenixkeyword",
-            "password" => "My6Celeb!!",
-        );
+        $db = config_item('database');
+        $pg = $db['pgsql'];
 
         //sets:
-        $this->config = $config;
+        $this->config = array(
+            "host" => $pg['hostname'],
+            "port" => 5432,
+            "dbname" => $pg['database'],
+            "user" => $pg['username'],
+            "password" => $pg['password'],
+        );
+
         $this->connection = false;
 
         //Connect:
