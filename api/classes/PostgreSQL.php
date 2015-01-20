@@ -7,7 +7,7 @@ class PostgreSQL
     function __construct()
     {
         $config = array(
-            "host" => "178.62.169.190",
+            "host" => "104.236.73.122",
             "port" => 5432,
             "dbname" => "serp",
             "user" => "phoenixkeyword",

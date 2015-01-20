@@ -2,7 +2,7 @@
 
 class API
 {
-    const DB_SERVER = "178.62.6.64:3306",
+    const DB_SERVER = "104.236.73.121:3306",
         DB_USER = "phoenixdb",
         DB_PASSWORD = "My6Celeb!!",
         DB = "serp";
