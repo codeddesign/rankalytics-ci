@@ -2,6 +2,7 @@
 //error_reporting( E_ALL );
 error_reporting( E_ERROR );
 
+define( 'BASEPATH', '' );
 define( 'APP_PATH', realpath( __DIR__ . '/../application' ) );
 
 // load requirements:
@@ -14,7 +15,7 @@ function __autoload( $className )
 
     foreach ($dirs as $d_no => $dir) {
         $path = $dir . '/' . $className . '.php';
-        
+
         if (file_exists( $path )) {
             require_once $path;
         }
@@ -31,8 +32,12 @@ function config_item( $config_file )
 
     require_once $file_path;
 
-    if ( ! isset( $config )) {
+    if ( ! isset( $config ) AND ! isset( $db )) {
         exit( 'Api Error: File ' . $config_file . ' does not contain a \'$config\'' );
+    }
+
+    if (isset( $db )) {
+        $config = $db;
     }
 
     return $config[$config_file];
