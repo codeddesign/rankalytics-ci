@@ -1,4 +1,4 @@
-<?php (defined('BASEPATH')) OR exit('No direct script access allowed');
+<?php ( defined( 'BASEPATH' ) ) OR exit( 'No direct script access allowed' );
 #boovad-lang
 
 // Originaly CodeIgniter i18n library by Jérôme Jaglale
@@ -50,14 +50,14 @@ class MY_Lang extends CI_Lang
         global $URI;
         global $RTR;
 
-        $this->uri = $URI->uri_string();
+        $this->uri         = $URI->uri_string();
         $this->default_uri = $RTR->default_controller;
 
-        $uri_segment = $this->get_uri_lang($this->uri);
+        $uri_segment     = $this->get_uri_lang( $this->uri );
         $this->lang_code = $uri_segment['lang'];
 
         $initialLang = null;
-        if ($this->getLangCookie() !== NULL) {
+        if ($this->getLangCookie() !== null) {
             $initialLang = $this->getLangCookie();
         }
 
@@ -66,14 +66,14 @@ class MY_Lang extends CI_Lang
             $this->lang_code = $this->default;
 
             // check cookie:
-            if ($this->getLangCookie() !== NULL) {
+            if ($this->getLangCookie() !== null) {
                 $this->lang_code = $this->getLangCookie();
             }
         }
 
         // save cookie & set language for code-igniter:
-        $this->setLangCookie($this->lang_code);
-        $CFG->set_item('language', $this->languages[$this->lang_code]);
+        $this->setLangCookie( $this->lang_code );
+        $CFG->set_item( 'language', $this->languages[$this->lang_code] );
 
         // handle cache control issue. "clean-up" cache if language changed.
         $enableCacheControl = false;
@@ -82,37 +82,32 @@ class MY_Lang extends CI_Lang
         }
 
         // check if post data:
-        $is_post = (isset($_POST)) ? count($_POST) : false;
+        $is_post = ( isset( $_POST ) ) ? count( $_POST ) : false;
 
         // set default language if nothing is set in url and do nothing else:
         if ($uri_segment['lang'] == $this->default) {
-            if($this->uri == $uri_segment['lang']) {
+            if ($this->uri == $uri_segment['lang']) {
                 $new_url = $CFG->config['base_url'];
             } else {
-                $new_url = $CFG->config['base_url'] . str_replace('/en/', '', '/'.$this->uri);
+                $new_url = $CFG->config['base_url'] . str_replace( '/en/', '', '/' . $this->uri );
             }
 
-            if ($enableCacheControl) {
-                if(!$is_post) {
+            if ( ! $is_post) {
+                if ($enableCacheControl) {
                     header( "Cache-Control: no-cache, must-revalidate" );
                 }
-            }
 
-            if(!$is_post) {
-                header("Location:" . ($new_url), TRUE, 301);
+                header( "Location:" . ( $new_url ), true, 301 );
             }
         }
 
         if ($this->lang_code !== $this->default AND $uri_segment['lang'] !== $this->lang_code) {
             $new_url = $CFG->config['base_url'] . $this->lang_code . '/' . $this->uri;
-            if ($enableCacheControl) {
-                if(!$is_post)
-                {
-                    header("Cache-Control: no-cache, must-revalidate");
+            if ( ! $is_post) {
+                if ($enableCacheControl) {
+                    header( "Cache-Control: no-cache, must-revalidate" );
                 }
-            }
 
-            if(!$is_post) {
                 header( "Location:" . ( $new_url ), true, 302 );
             }
         }
@@ -120,14 +115,14 @@ class MY_Lang extends CI_Lang
         return true;
     }
 
-    private function setLangCookie($abbr)
+    private function setLangCookie( $abbr )
     {
-        setcookie('u_lang', $abbr, (time() + 60 * 60 * 24 * 365), '/');
+        setcookie( 'u_lang', $abbr, ( time() + 60 * 60 * 24 * 365 ), '/' );
     }
 
     private function getLangCookie()
     {
-        if (isset($_COOKIE['u_lang'])) {
+        if (isset( $_COOKIE['u_lang'] )) {
             return $_COOKIE['u_lang'];
         } else {
             return null;
@@ -139,40 +134,42 @@ class MY_Lang extends CI_Lang
     function lang()
     {
         global $CFG;
-        $language = $CFG->item('language');
+        $language = $CFG->item( 'language' );
 
-        $lang = array_search($language, $this->languages);
+        $lang = array_search( $language, $this->languages );
         if ($lang) {
             return $lang;
         }
 
-        return NULL;    // this should not happen
+        return null;    // this should not happen
     }
 
     /**
      * @return mixed|null|string
      */
-    function langLink() {
+    function langLink()
+    {
         $temp = $this->lang();
-        return ($temp == $this->default) ? '' : '/'.$temp;
+        return ( $temp == $this->default ) ? '' : '/' . $temp;
     }
 
-    function is_special($lang_code)
+    function is_special( $lang_code )
     {
-        if ((!empty($lang_code)) && (in_array($lang_code, $this->special)))
-            return TRUE;
-        else
-            return FALSE;
+        if (( ! empty( $lang_code ) ) && ( in_array( $lang_code, $this->special ) )) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
-    function switch_uri($lang)
+    function switch_uri( $lang )
     {
-        if ((!empty($this->uri)) && (array_key_exists($lang, $this->languages))) {
+        if (( ! empty( $this->uri ) ) && ( array_key_exists( $lang, $this->languages ) )) {
 
-            if ($uri_segment = $this->get_uri_lang($this->uri)) {
+            if ($uri_segment = $this->get_uri_lang( $this->uri )) {
                 $uri_segment['parts'][0] = $lang;
-                $uri = implode('/', $uri_segment['parts']);
+                $uri                     = implode( '/', $uri_segment['parts'] );
             } else {
                 $uri = $lang . '/' . $this->uri;
             }
@@ -183,46 +180,47 @@ class MY_Lang extends CI_Lang
 
     //check if the language exists
     //when true returns an array with lang abbreviation + rest
-    function get_uri_lang($uri = '')
+    function get_uri_lang( $uri = '' )
     {
-        if (!empty($uri)) {
-            $uri = ($uri[0] == '/') ? substr($uri, 1) : $uri;
+        if ( ! empty( $uri )) {
+            $uri = ( $uri[0] == '/' ) ? substr( $uri, 1 ) : $uri;
 
-            $uri_expl = explode('/', $uri, 2);
-            $uri_segment['lang'] = NULL;
+            $uri_expl             = explode( '/', $uri, 2 );
+            $uri_segment['lang']  = null;
             $uri_segment['parts'] = $uri_expl;
 
-            if (array_key_exists($uri_expl[0], $this->languages)) {
+            if (array_key_exists( $uri_expl[0], $this->languages )) {
                 $uri_segment['lang'] = $uri_expl[0];
             }
             return $uri_segment;
-        } else
-            return FALSE;
+        } else {
+            return false;
+        }
     }
 
 
     // default language: first element of $this->languages
     function default_lang()
     {
-        $browser_lang = !empty($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? strtok(strip_tags($_SERVER['HTTP_ACCEPT_LANGUAGE']), ',') : '';
-        $browser_lang = substr($browser_lang, 0, 2);
-        if (array_key_exists($browser_lang, $this->languages))
+        $browser_lang = ! empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ? strtok( strip_tags( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ), ',' ) : '';
+        $browser_lang = substr( $browser_lang, 0, 2 );
+        if (array_key_exists( $browser_lang, $this->languages )) {
             return $browser_lang;
-        else {
-            reset($this->languages);
-            return key($this->languages);
+        } else {
+            reset( $this->languages );
+            return key( $this->languages );
         }
     }
 
 
     // add language segment to $uri (if appropriate)
-    function localized($uri)
+    function localized( $uri )
     {
-        if (!empty($uri)) {
-            $uri_segment = $this->get_uri_lang($uri);
-            if (!$uri_segment['lang']) {
+        if ( ! empty( $uri )) {
+            $uri_segment = $this->get_uri_lang( $uri );
+            if ( ! $uri_segment['lang']) {
 
-                if ((!$this->is_special($uri_segment['parts'][0])) && (!preg_match('/(.+)\.[a-zA-Z0-9]{2,4}$/', $uri))) {
+                if (( ! $this->is_special( $uri_segment['parts'][0] ) ) && ( ! preg_match( '/(.+)\.[a-zA-Z0-9]{2,4}$/', $uri ) )) {
                     $uri = $this->lang() . '/' . $uri;
                 }
             }
@@ -243,26 +241,26 @@ class MY_Lang extends CI_Lang
      * modify the default value to true to use this feature without having to
      * modify your code
      */
-    function load($langfile = '', $idiom = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '', $load_first_lang = false)
+    function load( $langfile = '', $idiom = '', $return = false, $add_suffix = true, $alt_path = '', $load_first_lang = false )
     {
         if ($load_first_lang) {
-            reset($this->languages);
-            $firstKey = key($this->languages);
+            reset( $this->languages );
+            $firstKey   = key( $this->languages );
             $firstValue = $this->languages[$firstKey];
 
             if ($this->lang_code != $firstKey) {
-                $addedLang = parent::load($langfile, $firstValue, $return, $add_suffix, $alt_path);
+                $addedLang = parent::load( $langfile, $firstValue, $return, $add_suffix, $alt_path );
                 if ($addedLang) {
                     if ($add_suffix) {
-                        $langfileToRemove = str_replace('.php', '', $langfile);
-                        $langfileToRemove = str_replace('_lang.', '', $langfileToRemove) . '_lang';
+                        $langfileToRemove = str_replace( '.php', '', $langfile );
+                        $langfileToRemove = str_replace( '_lang.', '', $langfileToRemove ) . '_lang';
                         $langfileToRemove .= '.php';
                     }
-                    $this->is_loaded = array_diff($this->is_loaded, array($langfileToRemove));
+                    $this->is_loaded = array_diff( $this->is_loaded, array( $langfileToRemove ) );
                 }
             }
         }
-        return parent::load($langfile, $idiom, $return, $add_suffix, $alt_path);
+        return parent::load( $langfile, $idiom, $return, $add_suffix, $alt_path );
     }
 
 }
