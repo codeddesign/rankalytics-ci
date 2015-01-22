@@ -81,6 +81,9 @@ class MY_Lang extends CI_Lang
             $enableCacheControl = true;
         }
 
+        // check if post data:
+        $is_post = (isset($_POST)) ? count($_POST) : false;
+
         // set default language if nothing is set in url and do nothing else:
         if ($uri_segment['lang'] == $this->default) {
             if($this->uri == $uri_segment['lang']) {
@@ -90,20 +93,28 @@ class MY_Lang extends CI_Lang
             }
 
             if ($enableCacheControl) {
-                header("Cache-Control: no-cache, must-revalidate");
+                if(!$is_post) {
+                    header( "Cache-Control: no-cache, must-revalidate" );
+                }
             }
 
-            header("Location:" . ($new_url), TRUE, 301);
+            if(!$is_post) {
+                header("Location:" . ($new_url), TRUE, 301);
+            }
         }
 
         if ($this->lang_code !== $this->default AND $uri_segment['lang'] !== $this->lang_code) {
             $new_url = $CFG->config['base_url'] . $this->lang_code . '/' . $this->uri;
             if ($enableCacheControl) {
-                header("Cache-Control: no-cache, must-revalidate");
+                if(!$is_post)
+                {
+                    header("Cache-Control: no-cache, must-revalidate");
+                }
             }
 
-            header("Location:" . ($new_url), TRUE, 302);
-
+            if(!$is_post) {
+                header( "Location:" . ( $new_url ), true, 302 );
+            }
         }
 
         return true;
