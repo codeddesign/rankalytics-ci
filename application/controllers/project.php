@@ -59,7 +59,13 @@ class Project extends CI_Controller
                 redirect("ranktracker");
                 return false;
             }
-            $data_array = array("id" => $unique_id, 'project_name' => $this->input->post('project_name'), 'domain_url' => $this->stripHttp($this->input->post('domainurl')), 'userId' => $userId);
+            $data_array = array(
+                "id"           => $unique_id,
+                'project_name' => $this->input->post( 'project_name' ),
+                'domain_url'   => $this->stripHttp( $this->input->post( 'domainurl' ) ),
+                'userId'       => $userId,
+                'location' => $this->input->post('location'),
+            );
             $projectId = $insert_id = $this->project->saveProject($data_array);
 
             // saving project keywords 
