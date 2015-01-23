@@ -4,7 +4,7 @@ if (!is_array($all_data)) {
     <div class="keywordmainback">No active campaign's. Please create a new campaign now.</div>
 <?php
 } else foreach ($all_data as $key => $value):
-    $unique_id = $value['unique_id'];
+    $keyword_id = $value['keyword_id'];
     $domain_url = $value['domain_url'];
     $project_id = $value['project_id'];
 
@@ -25,12 +25,12 @@ if (!is_array($all_data)) {
     }
     ?>
     <!-- start individual keyword list -->
-    <div class="keywordmainback" id="<?= $unique_id . "-" . $project_id; ?>">
+    <div class="keywordmainback" id="<?= $keyword_id . "-" . $project_id; ?>">
         <div class="rankbgblock" style="display:none;">
             <input type="checkbox" name="#" value="#">
         </div>
         <div class="rankbgblock">
-            <div class="campaigndelete" onclick="delete_keyword('<?php echo $value['unique_id'] ?>','<?php echo $value['project_id']; ?>','<?php echo addslashes($value['keyword']); ?>')"
+            <div class="campaigndelete" onclick="delete_keyword('<?php echo $keyword_id ?>','<?php echo $value['project_id']; ?>','<?php echo addslashes($value['keyword']); ?>')"
                  style="margin-top:27px;"></div>
         </div>
         <a href="<?= $preview_link; ?>" <?= $preview_target; ?>>
