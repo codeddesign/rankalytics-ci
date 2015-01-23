@@ -12,46 +12,47 @@ class Crawled_sites_Model extends CI_Model
      * @param string $what
      * @return bool / array
      */
-    public function getCrawledInfo($where = array('keyword_id' => "", "host" => "", "crawled_date" => ''), $what = '*')
+    public function getCrawledInfo( $where = array( 'keyword_id' => "", "host" => "", "crawled_date" => '' ), $what = '*' )
     {
-        $this->pgsql->select($what);
-        $this->pgsql->from("crawled_sites");
+        $query['select'] = 'SELECT ' . $what;
+        $query['from']   = 'FROM "crawled_sites"';
 
-        $where_cond = array();
+        $condition = array();
 
-        if (isset($where['crawled_date']) AND $where['crawled_date'] != '') {
-            $where_cond['crawled_date <='] = $where['crawled_date'] . ' 23:59:59';
-            $where_cond['crawled_date >='] = $where['crawled_date'] . ' 00:00:00';
+        if (isset( $where['crawled_date'] ) AND $where['crawled_date'] != '') {
+            $temp = array(
+                'where_1' => '"crawled_date" <= \'' . $where['crawled_date'] . ' 23:59:59\'',
+                'where_2' => '"crawled_date" >= \'' . $where['crawled_date'] . ' 00:00:00\'',
+            );
+
+            $condition['crawled_date'] = implode( ' AND ', $temp );
         }
 
-        if (isset($where['keyword_id']) AND $where['keyword_id'] != '') {
-            $where_cond['keyword_id'] = $where['keyword_id'];
+        if (isset( $where['keyword_id'] ) AND $where['keyword_id'] != '') {
+            $condition['keyword'] = '"keyword_id" = \'' . $where['keyword_id'] . '\'';
         }
 
-        if (isset($where['host']) AND $where['host'] != '') {
-            /*$where_cond['host'] = $where['host'];*/
-            $this->pgsql->like('host', $where['host'], 'after');
-
-            if (stripos( $where['host'], 'www.' ) === false) {
-                $this->pgsql->or_like( 'host', 'www.' . $where['host'] );
-            } else {
-                $this->pgsql->or_like( 'host', str_ireplace( 'www.', '', $where['host'] ) );
-            }
+        if (isset( $where['host'] ) AND $where['host'] != '') {
+            $condition['host'] = '("host" LIKE \'' . $where['host'] . '%\' ESCAPE \'!\'';
+            $host_alternative  = ( stripos( $where['host'], 'www.' ) === false ) ? ( 'www.' . $where['host'] ) : ( str_ireplace( 'www.', '', $where['host'] ) );
+            $condition['host'] .= ' OR "host" LIKE \'' . $host_alternative . '%\' ESCAPE \'!\')';
         }
 
-        if (count($where_cond) > 0) {
-            $this->pgsql->where($where_cond);
+        if (count( $condition ) > 0) {
+            $query['condition'] = 'WHERE ' . implode( ' AND ', $condition );
         }
 
-        $this->pgsql->order_by('crawled_date', 'desc');
-        $this->pgsql->limit(1);
-        $rows = $this->pgsql->get()->result_array();
+        $query['order'] = 'ORDER BY "crawled_date" desc';
+        $query['limit'] = 'LIMIT 1';
+        $q              = implode( ' ', $query );
+
+        $rows = $this->pgsql->query( $q )->result_array();
 
         if ($rows == false) {
             return false;
-        } else {
-            return $rows['0'];
         }
+        
+        return $rows['0'];
     }
 
     /**
@@ -61,7 +62,12 @@ class Crawled_sites_Model extends CI_Model
     public function getRank7Days($where) {
         $where['crawled_date'] = date('Y-m-d', strtotime('-7 days'));
 
-        return $this->getCrawledInfo($where, 'rank');
+        $temp = $this->getCrawledInfo($where, 'rank');
+        if (isset( $temp['rank'] )) {
+            return $temp['rank'];
+        }
+
+        return '';
     }
 
     /**
@@ -71,7 +77,12 @@ class Crawled_sites_Model extends CI_Model
     public function getRank28Days($where = array('keyword_id' => '', 'host' => '')) {
         $where['crawled_date'] = date('Y-m-d', strtotime('-28 days'));
 
-        return $this->getCrawledInfo($where, 'rank');
+        $temp = $this->getCrawledInfo($where, '*');
+        if (isset( $temp['rank'] )) {
+            return $temp['rank'];
+        }
+
+        return '';
     }
 
     public static function getRankPercentage($rank, $volume) {
