@@ -31,6 +31,12 @@ class Crawled_sites_Model extends CI_Model
         if (isset($where['host']) AND $where['host'] != '') {
             /*$where_cond['host'] = $where['host'];*/
             $this->pgsql->like('host', $where['host'], 'after');
+
+            if (stripos( $where['host'], 'www.' ) === false) {
+                $this->pgsql->or_like( 'host', 'www.' . $where['host'] );
+            } else {
+                $this->pgsql->or_like( 'host', str_ireplace( 'www.', '', $where['host'] ) );
+            }
         }
 
         if (count($where_cond) > 0) {
@@ -40,7 +46,7 @@ class Crawled_sites_Model extends CI_Model
         $this->pgsql->order_by('crawled_date', 'desc');
         $this->pgsql->limit(1);
         $rows = $this->pgsql->get()->result_array();
-        
+
         if ($rows == false) {
             return false;
         } else {
