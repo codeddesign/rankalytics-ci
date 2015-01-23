@@ -98,12 +98,12 @@ if (!is_array($all_data)) {
         }
         ?>
         <div class="keyword-competingpages">
-            <?php if (isset($value['total_records']) AND $value['total_records'] != 0) {
-                $total_rec = str_replace('.', '', $value['total_records']);
-                echo number_format($total_rec, 0, '.', ',');
+            <?php if (isset( $value['total_records'] ) AND $value['total_records'] != 0) {
+                echo $value['total_records'];
             } else {
                 echo " - ";
-            } ?></div>
+            } ?>
+        </div>
         <div class="keyword-searchvol"><?php echo $temp_volume; ?></div>
         <div class="keyword-cpc">
             <?php
