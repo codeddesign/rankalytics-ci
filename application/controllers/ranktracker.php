@@ -1140,15 +1140,17 @@ class Ranktracker extends CI_Controller
         return $data;
     }
 
-    function preview()
+    function preview($id = null)
     {
-        if (!isset($_GET['word']) || !isset($_GET['domain'])) {
+        $this->load->model('crawled_sites_model', 'crawled_sites', true);
+
+        if (is_null($id) OR ($result = $this->crawled_sites->findOne(array('unique_id' => trim($id)))) === false) {
             redirect('/ranktracker/dashboard');
         }
 
         // sets:
         $css_style = 'border: 2px red solid; background-color: #F1F1F1; ';
-        $keyword = urlencode(trim($this->input->get('word')));
+        $keyword = urlencode($result['keyword']);
         $proxies = $this->analytical->getRandomProxy();
         $current = 0;
         $body = null;
@@ -1170,7 +1172,7 @@ class Ranktracker extends CI_Controller
         // prepare selector:
         $replace = array('/', /*'?'*/);
         $with = array('\/', /*'\?'*/);
-        $domain = str_replace($replace, $with, trim($this->input->get('domain')));
+        $domain = str_replace($replace, $with, $result['site_url']);
         $parts = parse_url($domain);
         if(isset($parts['query'])) {
             $queryQ = urlencode($parts['query']);

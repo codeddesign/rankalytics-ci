@@ -4,7 +4,7 @@ if (!is_array($all_data)) {
     <div class="keywordmainback">No active campaign's. Please create a new campaign now.</div>
 <?php
 } else foreach ($all_data as $key => $value):
-    $keyword_id = $value['keyword_id'];
+    $keyword_id = isset($value['keyword_id']) ? $value['keyword_id'] : $value['unique_id'];
     $domain_url = $value['domain_url'];
     $project_id = $value['project_id'];
 
@@ -20,7 +20,7 @@ if (!is_array($all_data)) {
         $preview_link = '#';
         $preview_target = '';
     } else {
-        $preview_link = '/ranktracker/preview?word=' . $value['keyword'] . '&domain=' . ($value['site_url']);
+        $preview_link = '/ranktracker/preview/'.$value['unique_id'];
         $preview_target = 'target="_blank"';
     }
     ?>

@@ -186,4 +186,13 @@ class Crawled_sites_Model extends CI_Model
 
         return ($percent == 0) ? $defaultReturn : $volume * $percent;
     }
+
+    public function findOne( array $condition ){
+        $result = $this->pgsql->select('*')->from('crawled_sites')->where($condition)->limit(1)->get()->result_array();
+        if(count($result)) {
+            return $result[0];
+        }
+
+        return false;
+    }
 }
