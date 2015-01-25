@@ -54,11 +54,10 @@
 </div>
 
 <div class="bodywrapper">
-    <div class="ranktracker-bottomwhitetitle"><?= lang( 'promembership.bottomwhitetitle' ); ?></div>
-    <div class="payment-monthlycharge"><?= lang( 'promembership.monthlycharge' ); ?></div>
+    <div class="ranktracker-bottomwhitetitle">Rankalytics Membership Signup</div>
+    <div class="payment-monthlycharge">Choose your membership packages</div>
     <div class="ranktracker-bottomwhitewrapper">
         <?php if (isset( $temp )) : ?>
-        <div class="ranktracker-bottomwhitesubcontent"><?= lang( 'promembership.monthlycharge' ); ?></div>
         <div class="billing-maintitle"><?= lang( 'promembership.billingtitle' ); ?></div>
 
         <?php echo form_open( "users/proMembershipSave", array( "class" => "billing-form", "id" => "proMembership", "onsubmit" => "return false;" ) ); ?>
@@ -183,7 +182,7 @@
         $pp_msg .= lang( 'promembership.ifstripe' );
     }
     ?>
-    <div id="form-msgs1" class="form-errors" <?= isset( $pp_msg ) ? 'style="display:block;"' : ''; ?>>
+    <div id="form-msgs1" class="form-errors" <?= isset( $pp_msg ) ? 'style="display:none;"' : ''; ?> style="margin-top:50px;margin-bottom:100px;text-align:center;font-size:19px;">
         <?= isset( $pp_msg ) ? $pp_msg : ''; ?>
     </div>
     <div id="form-result1">
@@ -195,7 +194,7 @@
     </div>
 
     <div class="homefeatures-smallline"></div>
-    <div class="checkoutfeatures"><?= lang( 'promembership.checkoutfeatures' ); ?></div>
+    <div class="checkoutfeatures">There are many good reasons to choose Rankalytics. <a href="/products"><span>All products at a glance.</span></a></div>
     <div class="featurescheck"></div>
 </div>
 

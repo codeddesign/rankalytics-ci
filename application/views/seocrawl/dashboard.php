@@ -101,7 +101,7 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
         </div>
     </a>
 
-    <div class="weathertext">Google Wetter</div>
+    <div class="weathertext">Google Weather</div>
 
     <div class="toptitlebar">seo crawl</div>
 </div>
