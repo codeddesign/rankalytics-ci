@@ -80,7 +80,7 @@
 				
 				<a onclick="toggle_visibility('python-1');">
 					<div class="role">ROLE: PYTHON ALGORITHM MAGICIAN</div>
-					<div class="sublocation">MAISACH</div>
+					<div class="sublocation">OPEN</div>
 				</a>
 				<div id="python-1" class="jobsdesc link_toggle" style="display:none;">
 					We are looking for a highly motivated Technical Support Representative. If you have +2 years professional work experience in the digital marketing scene we then welcome your CV. 
@@ -96,7 +96,7 @@
 				
 				<a onclick="toggle_visibility('php-1');">
 					<div class="role">ROLE: JUNIOR DEV HACKER</div>
-					<div class="sublocation">MAISACH</div>
+					<div class="sublocation">OPEN</div>
 				</a>
 				
 				<div id="php-1" class="jobsdesc link_toggle" style="display:none;">
@@ -110,7 +110,7 @@
 				
 				<a onclick="toggle_visibility('php-2');">
 					<div class="role">ROLE: CREATIVE LABS SENIOR DEVELOPER</div>
-					<div class="sublocation">MAISACH</div>
+					<div class="sublocation">OPEN</div>
 				</a>
 				
 				<div id="php-2" class="jobsdesc link_toggle" style="display:none;">
@@ -131,28 +131,28 @@
 				
 				<a onclick="toggle_visibility('sales-1');">
 					<div class="role">ROLE: SALES MANAGER - NEW BUSINESS (M/W)</div>
-					<div class="sublocation">MAISACH</div>
+					<div class="sublocation">OPEN</div>
 				</a>
 				
 				<div id="sales-1" class="jobsdesc link_toggle" style="display:none;">
-					Als "Sales Manager - New Business (m/w)" zeichnen Sie sich für den Vertrieb und das Account Management unseres Mandanten in Bezug auf den deutschen Markt verantwortlich.  
+					As "Sales Manager - New Business (m/w)" They are responsible for sales and account management for our client in relation to the U.S. market.
 					<br>
-					Dies beinhaltet alle vertrieblichen Aktivitäten zur Erhöhung des Marktanteils durch die Vorstellung der Produkte und Lösungen beim Kunden vor Ort.
-					<p></p>
-					Dabei zählen folgende Punkte in Ihren Aufgabenbereich:
+					This includes all sales activities to increase market share through the introduction of our products and solutions for our customer website's.
+					<p> </ p>
+					Including but not limited to the following points in your job:
 					<br>
 					<ul>
-						<li>Neukundenakquise / Generierung von "New Business"</li>
-						<li>Produktpräsentationen beim Endkunden</li>
-						<li>Angebotserstellung und -verhandlung</li>
-						<li>enge Zusammenarbeit mit der Geschäftsführung</li>
-						<li>repräsentative Aufgaben auf Events, wie z.B. Messen</li>
+						<li> Customer acquisition / generation of "New Business" </li>
+						<li> Presentation of products directly with large clientele </li>
+						<li> Offer preparation and negotiation </li>
+						<li> Close cooperation with management </li>
+						<li> Ceremonial duties at events such as Trade Shows </li>
 					</ul>
-					Anforderungsprofil
-					<p></p>
-					Idealerweise verfügen Sie über einen kaufmännischen / vertrieblichen Background und besitzen eine hohe IT-Affinität. Dazu bringen Sie möglichst einige Erfahrung im Vertrieb von Softwareprodukten und -lösungen mit.  
+					Requirements:
+					<p> </p>
+					Ideally, you should have a commercial / sales background and have a high affinity with IT. The position does entail knowledge of the product to clients and instruction as you present client solutions.
 					<br>
-					Erfahrungen aus der E-Commerce Branche mit Kunden aus unterschiedlichsten Bereichen gehören dabei ebenfalls zu Ihrem Repertoire.
+					Previous experience within the e-commerce industry and working with clients from diverse sectors is a plus.
 					
 					<p>Apply to <a href="mailto:&#106;&#111;&#098;&#115;&#064;&#114;&#097;&#110;&#107;&#097;&#108;&#121;&#116;&#105;&#099;&#115;&#046;&#099;&#111;&#109;">&#106;&#111;&#098;&#115;&#064;&#114;&#097;&#110;&#107;&#097;&#108;&#121;&#116;&#105;&#099;&#115;&#046;&#099;&#111;&#109;</a></p>
 				</div>
@@ -166,21 +166,20 @@
 				
 				<a onclick="toggle_visibility('support-1');">
 					<div class="role">ROLE: SUPPORT EXECUTIVE (M/W)</div>
-					<div class="sublocation">MAISACH</div>
+					<div class="sublocation">OPEN</div>
 				</a>
 				
 				<div id="support-1" class="jobsdesc link_toggle" style="display:none;">
-					Als "Support Executive (m/w)" sind Sie der erste Ansprechpartner für unsere Kunden. Sie geben Hilfestellung bei allen Problemen und Fragen über Telefon oder E-Mail rund um alle Rankalytics-Tools.
+					As a "Support Executive (m/w)" You are the first point of contact for our customers. You will provide help and assistance for all problems and questions by phone or e-mail around all Rankalytics tools.
 					<br>
-					Bei Ihrer Tätigkeit können Sie auf das komplette Know-How der Entwickler und Geschäftsführung zurückgreifen. Sie pflegen und warten unsere Know-How-Database in welcher alle Anfragen und Lösungen dokumentiert werden.
-					<p></p>
-					Anforderungsprofil
+					In your job, you should have the know-how of the working or the application and tools Rankalytics provides. Maintain and service our know-how Database in which all inquiries and solutions are documented.
+					<p> </ p>
+					Requirements:
 					<ul>
-						<li>abgeschlossene Berufsausbildung</li>
-						<li>hohe Internet/IT-Affinität</li>
-						<li>gute MS Office Kenntnisse</li>
-						<li>sehr gute Deutsch- und fundierte Englischkenntnisse in Wort und Schrift</li>
-					</ul>
+						<li> Previous client/customer support </li>
+						<li> High Level of IT knowledge </li>
+						<li> Excellent communication and language skills </li>
+					</ ul>
 					<p>Apply to <a href="mailto:&#106;&#111;&#098;&#115;&#064;&#114;&#097;&#110;&#107;&#097;&#108;&#121;&#116;&#105;&#099;&#115;&#046;&#099;&#111;&#109;">&#106;&#111;&#098;&#115;&#064;&#114;&#097;&#110;&#107;&#097;&#108;&#121;&#116;&#105;&#099;&#115;&#046;&#099;&#111;&#109;</a></p>
 				</div>
 				
