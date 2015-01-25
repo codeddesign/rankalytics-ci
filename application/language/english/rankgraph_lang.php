@@ -1,6 +1,6 @@
 <?php
 $lang = array(
-	'rankgraph.weather' => 'Google Wetter',
+	'rankgraph.weather' => 'Google Weather',
 	'rankgraph.keyrank' => 'KEYWORD RANKINGS FOR: ',
 	'rankgraph.keysug' => 'KEYWORD SUGGESTIONS',
 	'rankgraph.companal' => 'COMPETITOR ANALYSIS',

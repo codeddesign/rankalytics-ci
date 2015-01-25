@@ -131,11 +131,11 @@ $this->load->view("include/header", $data);
 </div>
 <div class="rtfooter">
     <ul>
-        <a href="/ranktracker/privacy">
-            <li>Privacy Policy</li>
+        <a href="/privacy" target="_blank">
+            <li>Privacy</li>
         </a>
-        <a href="/ranktracker/tos">
-            <li>TOS</li>
+        <a href="/termsofservice" target="_blank">
+            <li>Terms of Service</li>
         </a>
         <li>&copy <?php echo date('Y'); ?> Rankalytics.com</li>
     </ul>

@@ -175,7 +175,7 @@
     <div class="whiteoverlaybg">
         <div class="overlaytitle"><?= lang('rankdash.newdomain');?></div>
         <div class="overlaysubtitle"><?= lang('rankdash.enterupload');?></div>
-        <div class="overlaysubtitle" style="margin-top:-33px;font-size:14px;font-weight:500;">( <?php echo "VERBLEIBENDE KEYWORDS:" . $key_used; ?> )</div>
+        <div class="overlaysubtitle" style="margin-top:-33px;font-size:14px;font-weight:500;">( <?php echo "REMAINING KEYWORDS: " . $key_used; ?> )</div>
         <div class="" id="form-msgs3"></div>
 
         <form id="project_form" class="overlayform" action="<?php echo base_url(); ?>project/save" target="upload_keyword" method="post" enctype="multipart/form-data">
