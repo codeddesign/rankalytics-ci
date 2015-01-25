@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//DE"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <head>
@@ -11,19 +11,19 @@
     <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
     <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
     <meta name="DC.title" content="<?= lang( 'home.dctitle' ); ?>"/>
-    <META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
-    <META NAME="Language" CONTENT="<?= lang( 'home.language' ); ?>">
-    <META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
-    <META NAME="distribution" CONTENT="Global">
-    <META NAME="zipcode" CONTENT="82216">
-    <META NAME="city" CONTENT="Maisach">
-    <META NAME="country" CONTENT="Deutschland">
-    <meta name="coverage" content="Worldwide">
-    <meta name="rating" content="General">
-    <meta name="revisit-after" content="7 days">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
+    <META NAME="Geography" CONTENT="Charlotte, North Carolina">
+	<META NAME="Language" CONTENT="English">
+	<META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
+	<META NAME="distribution" CONTENT="Global">
+	<META NAME="zipcode" CONTENT="28278">
+	<META NAME="city" CONTENT="Charlotte">
+	<META NAME="country" CONTENT="United States">
+	<meta name="coverage" content="Worldwide">
+	<meta name="rating" content="General">
+	<meta name="revisit-after" content="7 days">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
 
     <!-- facebook meta -->
     <meta name="og:title" content="<?= lang( 'home.ogtitle' ); ?>"/>
@@ -38,11 +38,10 @@
     <meta name="go:phone_number" content="0800-181-8613"/>
     <!-- end og contact info -->
     <!-- og address info -->
-    <meta name="go:street-address" content="Linde Street 2d"/>
-    <meta name="go:locality" content="Maisach"/>
-    <meta name="go:region" content="Deutschland"/>
-    <meta name="go:postal-code" content="82216"/>
-    <meta name="go:country-name" content="DE"/>
+    <meta name="go:locality" content="Charlotte"/>
+    <meta name="go:region" content="United States"/>
+    <meta name="go:postal-code" content="28278"/>
+    <meta name="go:country-name" content="EN"/>
     <!-- end og address info -->
 
     <!-- favicon -->

@@ -17,19 +17,19 @@
     <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
 
     <meta name="DC.title" content="Jobs @ Rankalytics"/>
-    <META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
-    <META NAME="Language" CONTENT="<?= lang( 'jobs.lang' ); ?>">
-    <META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
-    <META NAME="distribution" CONTENT="Global">
-    <META NAME="zipcode" CONTENT="82216">
-    <META NAME="city" CONTENT="Maisach">
-    <META NAME="country" CONTENT="Deutschland">
-    <meta name="coverage" content="Worldwide">
-    <meta name="rating" content="General">
-    <meta name="revisit-after" content="7 days">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
+    <META NAME="Geography" CONTENT="Charlotte, North Carolina">
+	<META NAME="Language" CONTENT="English">
+	<META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
+	<META NAME="distribution" CONTENT="Global">
+	<META NAME="zipcode" CONTENT="28278">
+	<META NAME="city" CONTENT="Charlotte">
+	<META NAME="country" CONTENT="United States">
+	<meta name="coverage" content="Worldwide">
+	<meta name="rating" content="General">
+	<meta name="revisit-after" content="7 days">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
 
 
     <link href="<?php echo base_url(); ?>assets/home.css" rel="stylesheet" type="text/css">

@@ -11,19 +11,19 @@
 <!-- end favicon -->
 
 
-<title>Impressum | Rankalytics Real-time SEO Marketing Analysis</title>
-<meta name="description" content="Rankalytics is operated under Thomas Stehle Software Consulting, located in Maisach, Germany.">
+<title>Privacy Policy | Rankalytics Real-time SEO Marketing Analysis</title>
+<meta name="description" content="Rankalytics is operated under Coded Design, LLC, located in Charlotte, NC">
 
 <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
 <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
 
-<META NAME="Geography" CONTENT="Linde Street 2d 82216 Maisach Deutschland">
-<META NAME="Language" CONTENT="Deutsch">
+<META NAME="Geography" CONTENT="Charlotte, North Carolina">
+<META NAME="Language" CONTENT="English">
 <META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
 <META NAME="distribution" CONTENT="Global">
-<META NAME="zipcode" CONTENT="82216">
-<META NAME="city" CONTENT="Maisach">
-<META NAME="country" CONTENT="Deutschland">
+<META NAME="zipcode" CONTENT="28278">
+<META NAME="city" CONTENT="Charlotte">
+<META NAME="country" CONTENT="United States">
 <meta name="coverage" content="Worldwide">
 <meta name="rating" content="General">
 <meta name="revisit-after" content="7 days">
