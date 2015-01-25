@@ -19,7 +19,7 @@ $lang = array(
     'ranktracker.ranksmalltitle' => 'Search engine rankings in real-time',
     'ranktracker.rankmediumtitle' => 'SE Rankings + Real-time + Reports = <span>free</span>',
     'ranktracker.signuptitle' => '100% free. <br>Give us a Try Today',
-    'ranktracker.signupsub' => '*More Keyword plans available!',
+    'ranktracker.signupsub' => '*Pro & Enterprise Keyword plans available!',
     'ranktracker.signupblue' => 'Create an account',
     'ranktracker.bottomwhitetitle' => 'Rankalytics\' Mission',
     'ranktracker.bottomwhitesub' => 'We developed Rankalytics with one goal in mind, to be the best SEO Management Software on the market. For this reason, we develop all our, required for further growth tools, based on your requests and comments. All of our future features and extensions are 100% user-driven. If at any time you have the feeling you are missing something, please let us know!',
