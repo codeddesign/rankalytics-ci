@@ -39,12 +39,14 @@ $(document).ready(function(){
 			<div class="listheader">Dashboard Login</div>
 		</a>	
 		<div class="headernavwrap">
+			<!--
 			<a href="/en">
 				<div class="aflag"></div>
 			</a>
 			<a href="/de">
 				<div class="gflag"></div>
 			</a>
+			-->
 			
 			<a href="/contactus" class="navdotlink">CONTACT</a>
 			<div class="navdotdrop" id="queueproductsdrop">PRODUCTS</div>
