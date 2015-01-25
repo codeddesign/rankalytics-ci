@@ -29,9 +29,9 @@
 			<li>/</li>
 			<a href="/investors"><li>Investors</li></a>
 			<li>/</li>
-			<a href="/impressum"><li>Impressum</li></a>
+			<a href="/privacy"><li>Privacy Policy</li></a>
 			<li>/</li>
-			<a href="/datenschutzerklaung"><li>Datenschutz</li></a>
+			<a href="/termsofservice"><li>Terms of Service</li></a>
 		</ul>
 		<div class="copyright">&copy <?php echo date("Y"); ?> <span itemprop="name">Rankalytics</span>, All rights reserved.</div>
 	</div>
