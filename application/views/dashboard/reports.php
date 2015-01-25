@@ -565,7 +565,7 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
         </div>
         <div class="subscriptionwrap" style="margin-left:65px;">
             <form action="" method="post" onsubmit="return validation()">
-                <input class="report-nameofreport" type="text" id="report_name" name="report_name" placeholder="Name des Reports">
+                <input class="report-nameofreport" type="text" id="report_name" name="report_name" placeholder="Name of Report">
                 <?php
                 if ($user_database['userRole'] == 'admin') {
                     $trigger = "";
@@ -611,10 +611,10 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
                 <div class="reportadddomain"></div>
 
                 <div class="reports-selectdatetitle">REPORT DATE</div>
-                <input class="report-choosedate " type="text" placeholder="Start Datum" id="start_date" name="start_date">
+                <input class="report-choosedate " type="text" placeholder="Start Date" id="start_date" name="start_date">
 
                 <div class="report-choosedateto">to</div>
-                <input class="report-choosedate" type="text" placeholder="End Datum" id="end_date" name="end_date">
+                <input class="report-choosedate" type="text" placeholder="End Date" id="end_date" name="end_date">
 
                 <div class="report-reportwrapper">
                     <div class="report-reporttitles">GRAPHIC REPORT</div>

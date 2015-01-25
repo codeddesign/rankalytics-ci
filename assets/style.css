@@ -1468,7 +1468,7 @@ a.keyword-pagemetabottom {
     margin-top: 0;
     text-align: left;
     text-transform: uppercase;
-    width: 101px;
+    width: 102px;
     padding-left: 32px;
 }
 
@@ -2143,10 +2143,12 @@ a.keyword-pagemetabottom {
     float:left;
     
 }
-.right-sided{
-    float:right;clear:right;
+.right-sided {
+    float:right;
+    clear:right;
+    margin-bottom:40px;
 }
-#delete-logo{
+#delete-logo {
     color:#E13300;
     cursor: pointer;
 }
@@ -2217,7 +2219,7 @@ select.report-choosefilter {
 .reportadddomain {
 	float: left;
 	background: url('images/reportadddomain.png');
-	width: 132px;
+	width: 135px !important;
 	height: 18px;
 	clear: both;
 	margin-top: 10px;
@@ -2333,6 +2335,7 @@ select.report-choosefilter {
 	clear: both;
 	margin-top: 66px;
 	margin-bottom: 24px;
+	cursor: pointer;
 }
 
 .report-createreportbutton:hover {
@@ -2413,7 +2416,7 @@ select.report-choosefilter {
 	height: 14px;
 	float: right;
 	margin-right: 15px;
-    margin-top: 19px;
+    margin-top: 22px;
     cursor: pointer;
 }
 
@@ -3926,8 +3929,8 @@ ul.listofcrawl li.completed {
 	text-align: center;
 	color: #6CC797;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-	font-size: 14px;
-	margin-top: 16px;
+	font-size: 12px;
+	margin-top: 10px;
 }
 
 .nonactivesubscription-text {
@@ -4059,4 +4062,8 @@ ul.listofcrawl li.completed {
     margin-top: 15px;
     text-align: center;
     width: 100%;
+}
+
+.rightusernamefields select {
+	width: 290px;
 }

@@ -67,7 +67,7 @@ clicky_site_ids.push(100773884);
 				From a constantly growing database of hundred's of millions of keywords and billion's of URL's in order to provide you with the most up to date and accurate SEO data on the market by utilizing the world's largest link intelligence database.
 				<p></p>
 				The Rankalytics SEO API is currently in pre-beta and will be available Early 2015.
-				<p>Early 2015: <a href="#">Register now to receive updates</a></p>				
+				<p>Early 2015: <a href="http://eepurl.com/bbWyfX" target="_blank">Register now to receive updates</a></p>				
 				</div>
 			</div>
 		</div>

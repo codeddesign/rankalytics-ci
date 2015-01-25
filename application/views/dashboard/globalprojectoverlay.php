@@ -5,7 +5,7 @@
         <div class="overlaysubtitle">Locate your top 5,000 keywords</div>
         <div class="overlaysubtitle" id="projectNM"></div>
         <div class="overlaysubtitle" style="margin-top:-41px;font-size:14px;font-weight:500;">
-            ( <?php echo "REMAINING KEYWORDS:" . $key_used; ?> )
+            ( <?php echo "REMAINING KEYWORDS: " . $key_used; ?> )
         </div>
         <div class="" id="form-msgs4"></div>
         <form id="global_project_form" class="overlayform" action="<?php echo base_url(); ?>project/save"
@@ -14,7 +14,7 @@
                    placeholder="Project name">
             <input class="overlayurl" type="text" name="global_domainurl" value="www."
                    placeholder="Domain URL (without http://)" id="global_domainurl">
-            <input class="overlayurl" type="text" name="global_location" placeholder="lokaler Suchort"
+            <input class="overlayurl" type="text" name="global_location" placeholder="Local Search Location (ie New York)"
                    id="global_location">
             <!--textarea class="overlaykeywords" name="keywords" placeholder="Keywords: one per line"></textarea-->
             <input class="overlaysubmit" type="Button" value="Submit" onClick="javascript:save_global_project();">

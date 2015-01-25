@@ -15,14 +15,13 @@
 <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">
 <a href="https://plus.google.com/107956745270665771232" rel="publisher"></a>
 
-<meta name="DC.title" content="<?= lang('about.dctitle');?>" />
-<META NAME="Geography" CONTENT="<?= lang('about.geography');?>">
-<META NAME="Language" CONTENT="<?= lang('about.language');?>">
-<META NAME="Copyright" CONTENT="<?= lang('about.copyright');?>">
+<META NAME="Geography" CONTENT="Charlotte, North Carolina">
+<META NAME="Language" CONTENT="English">
+<META NAME="Copyright" CONTENT="Copyright and Trademark by Rankalytics.com">
 <META NAME="distribution" CONTENT="Global">
-<META NAME="zipcode" CONTENT="82216">
-<META NAME="city" CONTENT="Maisach">
-<META NAME="country" CONTENT="Deutschland">
+<META NAME="zipcode" CONTENT="28278">
+<META NAME="city" CONTENT="Charlotte">
+<META NAME="country" CONTENT="United States">
 <meta name="coverage" content="Worldwide">
 <meta name="rating" content="General">
 <meta name="revisit-after" content="7 days">
