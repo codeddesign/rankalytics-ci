@@ -17,8 +17,9 @@ if(isset($_POST['website']) && $_POST['website'])
     {
         $value = trim($value);
         $file_name=  md5($site_name.$value.date("Y-m-d H:i:s")).".txt";
-        $exec_path = "python similarity.py --domain {$url} --keyword {$value} --output ../similarities/{$file_name} > save.txt";
+        $exec_path = "python similarity.py --domain {$url} --keyword {$value} --output ../similarities/{$file_name}";
         shell_exec($exec_path);
+
         $file = "../similarities/".$file_name;
         $file_temp = $file;
 
