@@ -64,6 +64,24 @@ $this->load->view( "include/settingsheader" );
                     <li class="row"
                         style="list-style: none outside none;  text-align: center; float: left;color: rgb(86, 179, 217);   font: bolder 12px;  width: 100px;">
                         <div class="span2 icon">
+<<<<<<< HEAD
+                            <?php if ($value['temperature'] <= 59) {
+                            echo '<img src="/assets/images/sunny.png" >';
+
+	                        } else if ($value['temperature'] > 59 AND $value['temperature'] <= 69) {
+	                            echo '<img src="/assets/images/sunny_cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 69 AND $value['temperature'] <= 78) {
+	                            echo '<img src="/assets/images/cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 78) {
+	                            echo '<img src="/assets/images/thunder.png">';
+
+	                        }; ?>
+                        </div>
+                        <div class="span2 temp" style="font-size:30px;padding-left: 10px;">
+                            <?php echo $value['temperature'] ?> °F
+=======
                             <?php if ($value['temperature'] <= 15) {
                                 echo '<img src="/assets/images/sunny.png" >';
 
@@ -80,6 +98,7 @@ $this->load->view( "include/settingsheader" );
                         </div>
                         <div class="span2 temp" style="font-size:30px;padding-left: 10px;">
                             <?php echo $value['temperature'] ?> °C
+>>>>>>> 3e3529da51e3d29c5fc46c63dfca857a27d74956
                         </div>
 
                         <div class="span2 date" style="margin-left: 5px;   padding-top: 10px;">
