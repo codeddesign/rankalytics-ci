@@ -64,22 +64,22 @@ $this->load->view( "include/settingsheader" );
                     <li class="row"
                         style="list-style: none outside none;  text-align: center; float: left;color: rgb(86, 179, 217);   font: bolder 12px;  width: 100px;">
                         <div class="span2 icon">
-                            <?php if ($value['temperature'] <= 15) {
-                                echo '<img src="/assets/images/sunny.png" >';
+                            <?php if ($value['temperature'] <= 59) {
+                            echo '<img src="/assets/images/sunny.png" >';
 
-                            } elseif ($value['temperature'] > 15 AND $value['temperature'] <= 21) {
-                                echo '<img src="/assets/images/sunny_cloudy.png">';
+	                        } else if ($value['temperature'] > 59 AND $value['temperature'] <= 69) {
+	                            echo '<img src="/assets/images/sunny_cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 69 AND $value['temperature'] <= 78) {
+	                            echo '<img src="/assets/images/cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 78) {
+	                            echo '<img src="/assets/images/thunder.png">';
 
-                            } elseif ($value['temperature'] > 21 AND $value['temperature'] <= 26) {
-                                echo '<img src="/assets/images/cloudy.png">';
-
-                            } elseif ($value['temperature'] > 26) {
-                                echo '<img src="/assets/images/thunder.png">';
-
-                            }; ?>
+	                        }; ?>
                         </div>
                         <div class="span2 temp" style="font-size:30px;padding-left: 10px;">
-                            <?php echo $value['temperature'] ?> °C
+                            <?php echo $value['temperature'] ?> °F
                         </div>
 
                         <div class="span2 date" style="margin-left: 5px;   padding-top: 10px;">
@@ -185,7 +185,7 @@ $this->load->view( "include/settingsheader" );
     <label for="companyName">Company Name</label>
     <input type="text" id="companyName" name="companyName" value="<?php echo $user_database['companyName']; ?>">
 
-    <div class="upload-additionaltext">Ihr Logo und Firmenname wird auf allen ihren Reports angezeigt</div>
+    <div class="upload-additionaltext">Your logo and company name will appear on all your reports.</div>
     <input type="hidden" id="" name="section" value="companyInfo">
     <input type="hidden" id="companyLogo" name="companyLogo" value="">
     <input type="hidden" id="mainId" name="mainId" value="<?php echo $user_database['mainId']; ?>">
@@ -217,14 +217,14 @@ $this->load->view( "include/settingsheader" );
 
     <div class="profilesave left-sided" style="float:left;margin-top: 50px;margin-left: 50px;">
 
-        <input type="button" value="Access Token generieren" id="generate_accesstoken">
+        <input type="button" value="Generate Access Token" id="generate_accesstoken">
     </div>
 
 </div>
 
 
 <div class="subscriptiontextlocation">
-    <div class="subscriptiontext">RECHNUNGSINFORMATIONEN</div>
+    <div class="subscriptiontext">ACCOUNT INFORMATION</div>
 </div>
 <div class="profile-titleline"></div>
 <div class="subscriptionwrap">
@@ -235,32 +235,32 @@ $this->load->view( "include/settingsheader" );
         <input type="text" name="firstName" id="firstName" value="<?php echo $user_database['firstName']; ?>">
     </div>
     <div class="leftusernamefields">
-        <label for="username">Vorname</label>
+        <label for="username">First Name</label>
         <input type="text" name="firstName" id="firstName" value="<?php echo $user_database['firstName']; ?>">
     </div>
     <div class="rightusernamefields">
-        <label for="lastName">Nachname</label>
+        <label for="lastName">Last Name</label>
         <input type="text" name="lastName" id="lastName" value="<?php echo $user_database['lastName']; ?>">
     </div>
     <div class="leftusernamefields">
-        <label for="phoneNumber">Telefon</label>
+        <label for="phoneNumber">Telephone #</label>
         <input type="text" name="phoneNumber" id="phoneNumber" value="<?php echo $user_database['phoneNumber']; ?>">
     </div>
     <div class="rightusernamefields">
-        <label for="streetAddress">Strasse</label>
+        <label for="streetAddress">Street Address</label>
         <input type="text" name="streetAddress" id="streetAddress"
                value="<?php echo $user_database['streetAddress']; ?>">
     </div>
     <div class="leftusernamefields">
-        <label for="city">Stadt</label>
+        <label for="city">State</label>
         <input type="text" name="city" id="city" value="<?php echo $user_database['city']; ?>">
     </div>
     <div class="rightzipcodefields" style="width:290px;">
-        <label for="zipCode">Plz</label>
+        <label for="zipCode">Zip Code</label>
         <input type="text" name="zipCode" id="zipCode" value="<?php echo $user_database['zipCode']; ?>">
     </div>
     <div class="rightusernamefields">
-        <label for="country">Land</label>
+        <label for="country">Country</label>
         <select name="country" id="country">
             <?php
             $pattern = '<option value="%s" data-pp="%s" %s>%s</option>';
@@ -308,16 +308,15 @@ $this->load->view( "include/settingsheader" );
             </div>
             <div class="promembership-text">RANK TRACKER SUBSCRIPTION</div>
             <div class="promembership-line"></div>
-            <div class="keywordsenough">30 Keywords sind nicht ausreichend?</div>
+            <div class="keywordsenough">Are you ready to change your plan?</div>
             <div class="keywordsenough-small">
-                Einer unserer Pro Plans ermöglicht Ihnen 10.000 oder unlimited Keywords für eine unbegrenzte Anzahl Domains
+                We have made it incredibly simple to do so.  Just select your new plan on the right, choose your payment method, and then follow the payment instructions there after.
             </div>
-            <div class="profile-whatyouget"></div>
-            <div class="profile-keywordsenoughbottom">
-                Sie erhalten unlimited real-time Keyword Rank-Tracking für nur €299 pro Monat.
+            <div class="profile-keywordsenoughbottom" style="margin-top:24px;,margin-bottom:10px;">
+                Not sure what you get with each plan?  No problem!  You can view them <a href="http://rankalytics.com/ranktracker" target="_blank" style="color:#6CC797;">Here</a>
             </div>
             <div class="profile-keywordsenoughbottomsmall">
-                *Für unsere Pro und Enterprise Pläne wird Ihre Kreditkarte oder Konto monatlich, wiederkehrend <br>mit €99 bzw. €299 belastet.
+                *All paid plans will recur on a monthly basis.  All Invoices are auto-generated, emailed to you, and downloadable from your 'Invoices' page.
             </div>
         </div>
 
@@ -346,7 +345,7 @@ $this->load->view( "include/settingsheader" );
                     <input type="radio" name="paymentType" id="paymentTypeRanktrackerPaypal" value="paypal" title="PayPal Payment" class="css-checkbox payment-type paypal-cbx"/>
                     <label for="paymentTypeRanktrackerPaypal" title="PayPal Payment" class="css-label paypal-lbl">PayPal</label>
                     <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentTypeRanktrackerStripe" class="css-checkbox payment-type"/>
-                    <label for="paymentTypeRanktrackerStripe" title="Stripe Payment" class="css-label">Stripe</label>
+                    <label for="paymentTypeRanktrackerStripe" title="Stripe Payment" class="css-label">Credit Card / Stripe</label>
                 </div>
 
                 <div class="pricingcheckbox paidRanktracker">
@@ -398,12 +397,15 @@ $this->load->view( "include/settingsheader" );
             </div>
             <div class="promembership-text">SEO CRAWL SUBSCRIPTION</div>
             <div class="promembership-line"></div>
-            <div class="keywordsenough">30 Keywords sind nicht ausreichend?</div>
-            <div class="keywordsenough-small">Einer unserer Pro Plans ermöglicht Ihnen 10.000 oder unlimited Keywords für eine unbegrenzte Anzahl Domains</div>
-            <div class="profile-whatyouget"></div>
-            <div class="profile-keywordsenoughbottom">Sie erhalten unlimited real-time Keyword Rank-Tracking für nur <?= Subscriptions_Lib::$_currency_symbol; ?>299 pro Monat.</div>
-            <div class="profile-keywordsenoughbottomsmall">*Für unsere Pro und Enterprise Pläne wird Ihre Kreditkarte oder Konto monatlich, wiederkehrend <br>mit <?= Subscriptions_Lib::$_currency_symbol; ?>99
-                bzw. <?= Subscriptions_Lib::$_currency_symbol; ?>299 belastet.
+            <div class="keywordsenough">Are you ready to change your plan?</div>
+            <div class="keywordsenough-small">
+                We have made it incredibly simple to do so.  Just select your new plan on the right, choose your payment method, and then follow the payment instructions there after.
+            </div>
+            <div class="profile-keywordsenoughbottom" style="margin-top:24px;margin-bottom:10px;">
+                Not sure what you get with each plan?  No problem!  You can view them <a href="http://rankalytics.com/seor" target="_blank" style="color:#6CC797;">Here</a>
+            </div>
+            <div class="profile-keywordsenoughbottomsmall">
+                *All paid plans will recur on a monthly basis.  All Invoices are auto-generated, emailed to you, and downloadable from your 'Invoices' page.
             </div>
         </div>
 
@@ -431,7 +433,7 @@ $this->load->view( "include/settingsheader" );
                     <input type="radio" name="paymentType" id="paymentTypeSeocrawlPaypal" value="paypal" title="Paypal Payment" class="css-checkbox payment-type paypal-cbx"/>
                     <label for="paymentTypeSeocrawlPaypal" title="Paypal Payment" class="css-label paypal-lbl">Paypal</label>
                     <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentTypeSeocrawlStripe" class="css-checkbox payment-type"/>
-                    <label for="paymentTypeSeocrawlStripe" title="Stripe Payment" class="css-label">Stripe</label>
+                    <label for="paymentTypeSeocrawlStripe" title="Stripe Payment" class="css-label">Credit Card / Stripe</label>
                 </div>
 
                 <div class="pricingcheckbox paidSeocrawl">
@@ -915,7 +917,7 @@ $("#generate_accesstoken").click(function () {
         border-bottom: none;
         text-decoration: none;
         color: #5F6778;
-        padding: 14px 22px;
+        padding: 13px 22px;
         font-weight: bold;
     }
 

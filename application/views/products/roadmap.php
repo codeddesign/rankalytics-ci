@@ -93,6 +93,8 @@ clicky_site_ids.push(100773884);
 				</div>
 				<div class="features-roadmaptext">Rankalytics desktop application (Win/Mac)</div>
 			</div>
+			<div class="features-rightlistsub">Are you interested in receiving product email updates on these amazing new features? <p><a href="http://eepurl.com/bbWyfX" target="_blank">Register now to receive updates</a></p>				
+			</div>
 		</div>
 		
 	</div>

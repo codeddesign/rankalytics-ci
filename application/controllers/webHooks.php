@@ -53,7 +53,7 @@ class webHooks extends CI_Controller {
             print_r($refund);
             $contents=$content.ob_get_clean();
             $this->load->model('email_model');
-            $email=array("support"=>"sudhirpur123@gmail.com");
+            $email=array("support"=>"support@rankalytics.com");
             $subject="Webhook response refund";
             $email_result = $this->email_model->send($email,$subject,$contents);
             

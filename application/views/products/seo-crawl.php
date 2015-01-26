@@ -95,7 +95,7 @@ clicky_site_ids.push(100773884);
 
 
 	<div class="homefeatures-smallline"></div>
-	<div class="checkoutfeatures">Es gibt viele gute Gründe RankAlytics zu wählen.  <a href="/features"><span>Unsere Features im Überblick.</span></a></div>
+	<div class="checkoutfeatures">There are many great reasons to choose Rankalytics. <a href="/products"><span>View our products now</span></a></div>
 	<a href="/features" class="featurescheck"></a>
 </div>
 

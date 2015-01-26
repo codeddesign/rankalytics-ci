@@ -779,7 +779,7 @@ class Ranktracker extends CI_Controller
 
                 // $user_info[0]['emailAddress']  email_address
 
-                //$email=array("support"=>"php.vikramrawat@gmail.com");
+                //$email=array("support"=>"support@rankalytics.com");
                 $subject = "Search Keyword Response";
 
                 $email = array("support" => $user_info[0]['emailAddress']);

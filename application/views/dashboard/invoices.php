@@ -47,22 +47,22 @@ $this->load->view("include/header", $data);
                 <?php foreach ($temps_array as $value): ?>
                     <li class="row" style="list-style: none outside none;  text-align: center; float: left;color: rgb(86, 179, 217);   font: bolder 12px;  width: 100px;">
                         <div class="span2 icon">
-                            <?php if ($value['temperature'] <= 15) {
-                                echo '<img src="/assets/images/sunny.png" >';
+                            <?php if ($value['temperature'] <= 59) {
+                            echo '<img src="/assets/images/sunny.png" >';
 
-                            } elseif ($value['temperature'] > 15 AND $value['temperature'] <= 21) {
-                                echo '<img src="/assets/images/sunny_cloudy.png">';
+	                        } else if ($value['temperature'] > 59 AND $value['temperature'] <= 69) {
+	                            echo '<img src="/assets/images/sunny_cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 69 AND $value['temperature'] <= 78) {
+	                            echo '<img src="/assets/images/cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 78) {
+	                            echo '<img src="/assets/images/thunder.png">';
 
-                            } elseif ($value['temperature'] > 21 AND $value['temperature'] <= 26) {
-                                echo '<img src="/assets/images/cloudy.png">';
-
-                            } elseif ($value['temperature'] > 26) {
-                                echo '<img src="/assets/images/thunder.png">';
-
-                            }; ?>
+	                        }; ?>
                         </div>
                         <div class="span2 temp" style="font-size:30px;padding-left: 10px;">
-                            <?php echo $value['temperature'] ?> °C
+                            <?php echo $value['temperature'] ?> °F
                         </div>
 
                         <div class="span2 date" style="margin-left: 5px;   padding-top: 10px;">
@@ -131,11 +131,11 @@ $this->load->view("include/header", $data);
 </div>
 <div class="rtfooter">
     <ul>
-        <a href="/ranktracker/privacy">
-            <li>Privacy Policy</li>
+        <a href="/privacy" target="_blank">
+            <li>Privacy</li>
         </a>
-        <a href="/ranktracker/tos">
-            <li>TOS</li>
+        <a href="/termsofservice" target="_blank">
+            <li>Terms of Service</li>
         </a>
         <li>&copy <?php echo date('Y'); ?> Rankalytics.com</li>
     </ul>

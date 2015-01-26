@@ -6,15 +6,15 @@
     <META http-equiv="Pragma" content="no-cache">
     <META http-equiv="Expires" content="0">
 
-    <title><?php echo ( isset( $meta_title ) && $meta_title != '' ) ? $meta_title : "Ranktracker"; ?></title>
+    <title>SEOCrawl Campaign Management</title>
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>assets/style.css"/>
 
     <!--link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>assets/js/jquery.horizontal.scroll.css"/-->
-    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/js/jquery-ui-datepicker/css/smoothness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
 
     <!-- Google CDN jQuery with fallback to local -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery-1.11.0.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
     <script type="text/javascript">try {

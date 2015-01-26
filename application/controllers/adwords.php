@@ -131,7 +131,7 @@ class Adwords extends CI_Controller
 
         $html = new DOMDocument();
 
-        @$html->loadHtmlFile('http://www.google.de/search?q=' . $keywords);
+        @$html->loadHtmlFile('http://www.google.com/search?q=' . $keywords);
 
         $xpath = new DOMXPath($html);
 

@@ -6,5 +6,5 @@
 			<div class="bigleftsidebarbutton-two">
 				<div class="reportsicons"></div>
 			</div>
-				<a href="<?php echo base_url();?>users/invoices" class="bigleftsidebarout-two">Rechnungen</a>
+				<a href="<?php echo base_url();?>users/invoices" class="bigleftsidebarout-two">Invoices</a>
 		</div>

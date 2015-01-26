@@ -2,7 +2,7 @@
 		<div class="weathericon">
 			<img src="<?php echo base_url(); ?>assets/images/weather/sun.png">
 		</div>
-		<div class="weathertext">Google Wetter</div>
+		<div class="weathertext">Google Weather</div>
 		</a>
 <?php 
 error_reporting(E_ERROR | E_PARSE);
