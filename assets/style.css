@@ -1468,7 +1468,7 @@ a.keyword-pagemetabottom {
     margin-top: 0;
     text-align: left;
     text-transform: uppercase;
-    width: 102px;
+    width: 130px;
     padding-left: 32px;
 }
 
@@ -3100,10 +3100,28 @@ ul.keywordresearch-keywordbg li:nth-child(odd) {
 	border-bottom-left-radius: 3px;
 }
 
+#weatherpopuptwo {
+	position: absolute;
+	width: 625px;
+	z-index: 9999;
+	margin-top: 51px;
+	margin-left: 16px;
+	display: none;
+	-moz-box-shadow: 0 1px 2px #bbb;
+	-webkit-box-shadow: 0 1px 2px #bbb;
+	box-shadow: 0 1px 2px #bbb;
+	-webkit-border-bottom-right-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
 .weatherpopup-top {
 	float: left;
-	width: 625px;
-	height: 4px;
+	width: 627px;
+	height: 3px;
 	-webkit-border-top-left-radius: 2px;
 	-webkit-border-top-right-radius: 2px;
 	-moz-border-radius-topleft: 2px;
@@ -3625,6 +3643,16 @@ ul.keywordresearch-keywordbg li:nth-child(odd) {
 	border-bottom: 1px solid #E6E6E6;
 }
 
+.seocrawl-whitearea #form-msgs5 {
+	float: left;
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+	height: 53px;
+	line-height: 51px;
+	text-align: center;
+}
+
 .seocrawl-infoicon {
 	float: left;
 	background: url('images/infoicon.png');
@@ -4066,4 +4094,16 @@ ul.listofcrawl li.completed {
 
 .rightusernamefields select {
 	width: 290px;
+}
+
+.newcrawl-form textarea {
+	padding-top: 10px;
+}
+
+.newcrawl-form button {
+	border: none;
+}
+
+#buttons .button, #buttons .btnSelect {
+	width: 142px !important;
 }

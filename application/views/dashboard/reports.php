@@ -469,76 +469,90 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
     <div id="spinner"></div>
 </div>
 <div class="yellowtopline"></div>
-<div id="weatherpopup">
-    <div class="weatherpopup-top"></div>
-    <div class="weatherpopup-bg">
-
-        <ul class="nav five-day" style=" margin-left: 32px;">
-            <?php
-            $temps_array = array();
-            $count = 1;
-            foreach ($google_temps as $value) {
-                $temps_array[] = $value;
-                if ($count >= 5) {
-                    break;
-                }
-                $count++;
-            }
-            krsort($temps_array);
-            ?>
-
-            <?php foreach ($temps_array as $value): ?>
-                <li class="row" style="list-style: none outside none;  text-align: center; float: left;color: rgb(86, 179, 217);   font: bolder 12px;  width: 100px;">
-                    <div class="span2 icon">
-                        <?php if ($value['temperature'] <= 15) {
-                            echo '<img src="/assets/images/sunny.png" >';
-
-                        } elseif ($value['temperature'] > 15 AND $value['temperature'] <= 21) {
-                            echo '<img src="/assets/images/sunny_cloudy.png">';
-
-                        } elseif ($value['temperature'] > 21 AND $value['temperature'] <= 26) {
-                            echo '<img src="/assets/images/cloudy.png">';
-
-                        } elseif ($value['temperature'] > 26) {
-                            echo '<img src="/assets/images/thunder.png">';
-
-                        }; ?>
-                    </div>
-                    <div class="span2 temp" style="font-size:30px;padding-left: 10px;">
-                        <?php echo $value['temperature'] ?> °C
-                    </div>
-
-                    <div class="span2 date" style="margin-left: 5px;   padding-top: 10px;">
-                        <?php echo $value['date'] ?>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-        <br/>
-
-        <div style="clear: both;"></div>
-
-
-        <script>
-            <?php echo $google_temps_data?>
-            graphData.temps.reverse();
-            graphData.dates.reverse();
-        </script>
-        <div class="chart chart-thirtyday"></div>
-        <script src="<?php echo base_url(); ?>assets/js/weather_graph/highcharts.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/weather_graph/graph.js"></script>
-    </div>
-
-</div>
-
-
 <div class="topinfobar">
-    <a href="#" id="weather">
+     <a id="weather" href="#" onclick="toggle_visibility('weatherpopuptwo');">
         <div class="weathericon">
             <img src="<?php echo base_url(); ?>assets/images/weather/sun.png">
         </div>
         <div class="weathertext">Google Weather</div>
     </a>
+    <?php
+    $temp = "";
+    $date = "";
+    $google_temps_data = "";
+    $google_temps = $this->analytical->getGoogleTemperature();
+    foreach ($google_temps as $temps) {
+        $temp = $temp . $temps['temperature'] . ",";
+        $date = $date . "'" . $temps['date'] . "'" . ",";
+    }
+    $temp = rtrim($temp, ",");
+    $date = rtrim($date, ",");
+    $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $date . "]};";
+    ?>
+    <!-- seo weather popup design -->
+    <div id="weatherpopuptwo" class="link_toggle">
+        <div class="weatherpopup-top"></div>
+        <div class="weatherpopup-bg">
+
+            <ul class="nav five-day" style=" margin-left: 32px;">
+                <?php
+                $temps_array = array();
+                $count = 1;
+                foreach ($google_temps as $value) {
+                    $temps_array[] = $value;
+                    if ($count >= 5) {
+                        break;
+                    }
+                    $count++;
+                }
+                krsort($temps_array);
+                ?>
+
+                <?php foreach ($temps_array as $value): ?>
+                    <li class="row" style="list-style: none outside none;  text-align: center; float: left;color: rgb(86, 179, 217);   font: bolder 12px;  width: 100px;">
+                        <div class="span2 icon">
+                            <?php if ($value['temperature'] <= 59) {
+                            echo '<img src="/assets/images/sunny.png" >';
+
+	                        } else if ($value['temperature'] > 59 AND $value['temperature'] <= 69) {
+	                            echo '<img src="/assets/images/sunny_cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 69 AND $value['temperature'] <= 78) {
+	                            echo '<img src="/assets/images/cloudy.png">';
+	
+	                        } elseif ($value['temperature'] > 78) {
+	                            echo '<img src="/assets/images/thunder.png">';
+
+	                        }; ?>
+                        </div>
+                        <div class="span2 temp" style="font-size:30px;padding-left: 10px;">
+                            <?php echo $value['temperature'] ?> °F
+                        </div>
+
+                        <div class="span2 date" style="margin-left: 5px;   padding-top: 10px;">
+                            <?php echo $value['date'] ?>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <br/>
+
+            <div style="clear: both;"></div>
+
+
+            <script>
+                <?php echo $google_temps_data?>
+                graphData.temps.reverse();
+                graphData.dates.reverse();
+            </script>
+            <div class="chart chart-thirtyday"></div>
+            <script src="<?php echo base_url(); ?>assets/js/weather_graph/highcharts.js"></script>
+            <script src="<?php echo base_url(); ?>assets/js/weather_graph/graph.js"></script>
+        </div>
+
+    </div>
+
+    <!-- end seo weather design -->
 
     <div class="toptitlebar">KEYWORD REPORTS</div>
 </div>
