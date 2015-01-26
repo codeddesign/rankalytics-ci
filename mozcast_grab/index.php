@@ -38,8 +38,9 @@ $date_array = explode(",", $date_string);
 $sql_array = array();
 $date = date("Y-m-d H:i:s");
 foreach ($date_array as $key => $value) {
-    $celsius = @(trim($temps_array[$key]) - 32) * 5 / 9;
-    $sql_array[] = "('" . round($celsius) . "', '" . trim($date_array[$key]) . "', '" . $date . "')";
+    //$celsius = @(trim($temps_array[$key]) - 32) * 5 / 9;
+    $fahrenheit = @(trim($temps_array[$key]));
+    $sql_array[] = "('" . round($fahrenheit) . "', '" . trim($date_array[$key]) . "', '" . $date . "')";
 }
 
 // ..
