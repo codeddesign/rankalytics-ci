@@ -99,13 +99,10 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
             <script src="<?php echo base_url(); ?>assets/js/weather_graph/highcharts.js"></script>
             <script src="<?php echo base_url(); ?>assets/js/weather_graph/graph.js"></script>
         </div>
-
-<<<<<<< HEAD
     </div>
     <!-- end seo weather design -->
-=======
+
     <div class="weathertext">Google Weather</div>
->>>>>>> 3e3529da51e3d29c5fc46c63dfca857a27d74956
 
     <div class="toptitlebar">seo crawl</div>
 </div>

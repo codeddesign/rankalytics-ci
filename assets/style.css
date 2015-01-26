@@ -1468,11 +1468,7 @@ a.keyword-pagemetabottom {
     margin-top: 0;
     text-align: left;
     text-transform: uppercase;
-<<<<<<< HEAD
-    width: 130px;
-=======
     width: 102px;
->>>>>>> 3e3529da51e3d29c5fc46c63dfca857a27d74956
     padding-left: 32px;
 }
 
@@ -4098,7 +4094,6 @@ ul.listofcrawl li.completed {
 
 .rightusernamefields select {
 	width: 290px;
-<<<<<<< HEAD
 }
 
 .newcrawl-form textarea {
@@ -4107,6 +4102,4 @@ ul.listofcrawl li.completed {
 
 .newcrawl-form button {
 	border: none;
-=======
->>>>>>> 3e3529da51e3d29c5fc46c63dfca857a27d74956
 }
