@@ -108,7 +108,7 @@ class Ranktracker extends CI_Controller
             /*echo "<pre>";
             print_r($this->data['keywords_array']);*/
 
-            $data_array[] = array("Rankings", "ERT", "KEI", $this->lang->line('rankgraph.weather'), "Date");
+            $data_array[] = array("Rankings", "ERT", "KEI", "Google Wetter", "Date");
 
             $date[] = date("Y-m-d");
             $datemdY[] = date("m/d/Y");
@@ -507,11 +507,6 @@ class Ranktracker extends CI_Controller
             foreach ($search_array as $value) {
                 $count++;
                 $keyword_new = $keyword . $value;
-
-                if(!isset($proxy_array[$count])) {
-                    $count = 0;
-                }
-
                 $keywords[$keyword_new] = $this->getGoogleSuggestions($keyword_new, $proxy_array, $count);
             }
             $proxy_ip = $proxy_array[0]['ip'];
@@ -529,7 +524,9 @@ class Ranktracker extends CI_Controller
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_URL, 'http://suggestqueries.google.com/complete/search?q=' . urlencode($keyword) . '&client=firefox&hl=en_US');
+            //curl_setopt($ch, CURLOPT_URL, 
+            //'http://suggestqueries.google.com/complete/search?output=firefox&client=firefox&hl=en_US&q='.urlencode($keyword));
+            curl_setopt($ch, CURLOPT_URL, 'http://suggestqueries.google.com/complete/search?q=' . urlencode($keyword) . '&client=firefox&hl=de');
 
             $data = curl_exec($ch);
             $data = (string)$data;
@@ -817,10 +814,10 @@ class Ranktracker extends CI_Controller
     public function competitoranalysis()
     {
         $user = $this->session->userdata('logged_in');
-        if (!isset($user['0']['id']) || $user['0']['id'] == 0 || $user['0']['id'] == '') {
+        if (!isset($user['0']['id']) || $user['0']['id'] == 0 || $user['0']['id'] == '') { // redirect to rantracker if not logged in
             redirect('ranktracker');
+            return;
         }
-
         $top_ten_array = array();
         $urls_array = array();
         $base_urls_array = array();
@@ -902,6 +899,22 @@ class Ranktracker extends CI_Controller
      */
     public function MajesticSEOData($urls_array, $action)
     {
+
+
+        /* $urls_array_new = explode(",",$urls_array);
+        $siteurl_array =array();
+        $count = 0;
+        foreach($urls_array_new as $value) :
+        if(!in_array($value,$siteurl_array)):
+        if($count > 9)
+            break;
+            $siteurl_array[] =trim($value);
+            $count++;
+        endif;
+        endforeach;
+        //print_r($siteurl_array);
+        $urls_array =implode(",",$siteurl_array);
+        //print_r($urls_array);*/
         $return_array = array();
         $app_api_key = $this->config->item('majestic_seo_app_id');
         $endpoint = $this->config->item('endpoint');
