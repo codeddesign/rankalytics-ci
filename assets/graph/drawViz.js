@@ -2,27 +2,6 @@
 //d3.csv("/assets/graph/graph_odesk_csv_data.csv", ready);
 d3.csv(csvFileUrl, ready);
 
-//set options
-var options = {
-  width: 850, //page width
-  height: 450, //overall chart height
-  uiHeight: 50, //height of title / date selector div
-  buttonHeight: 100, //height of button group div
-  btnDims: [135, 35], //[width, height] of individual button divs
-  ttGroupDims: [115, 35], //[width, height] of individual tooltip series divs
-  margins: {"left": 40, "right": 15, "top": 35, "bottom": 35}, //svg margins
-  //rows to use as data series, if they exist in the input dataset
-  //rows: ["Site Traffic", "Backlinks", "Keyword Rankings", "SEO Visibility"],
-  rows: ["Rankings", "ERT", "KEI", "Google Wetter"],
-  startRow: 0, //zero based index of which row to initially highlight
-  //formats to use when displaying the data for each of the rows defined above
-  rowFormats: [d3.format(",.0f"), d3.format(",.0f"), d3.format(",.0f"), d3.format(".c")],
-  rowColors: ["#029dc8", "#e87777", "#fea501", "#a169a6"], //colors for the rows defined above
-  toolColor: "#029dc8", //color of tooltip element
-  t: 500, //transition time in ms
-  interp: "linear" //interpolation mode for line / area generators
-};
-
 options.calcWidth = options.width - options.margins.left - options.margins.right;
 options.calcHeight = options.height - options.margins.top - options.margins.bottom -
     options.uiHeight - options.buttonHeight;
