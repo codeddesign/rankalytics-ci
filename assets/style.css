@@ -1468,7 +1468,7 @@ a.keyword-pagemetabottom {
     margin-top: 0;
     text-align: left;
     text-transform: uppercase;
-    width: 102px;
+    width: 130px;
     padding-left: 32px;
 }
 
@@ -4102,4 +4102,8 @@ ul.listofcrawl li.completed {
 
 .newcrawl-form button {
 	border: none;
+}
+
+#buttons .button, #buttons .btnSelect {
+	width: 142px !important;
 }

@@ -6,7 +6,6 @@ class project_keyword_details_from_cron_model extends CI_Model
 
     function __construct()
     {
-        //$this->lang->load('rankgraph');
         $this->pgsql = $this->load->database('pgsql', true);
     }
 
@@ -218,7 +217,7 @@ class project_keyword_details_from_cron_model extends CI_Model
         $dateDB['4'] = date('Y-m-d', strtotime(' -4 day'));
         $dateGR['4'] = date('m/d/Y', strtotime(' -4 day'));
 
-        $data_arr[] = array('Rankings', 'ERT', 'KEI', $this->lang->line('rankgraph.weather'), 'Date');
+        $data_arr[] = array('Rankings', 'ERT', 'KEI', 'Google Wetter', 'Date');
         foreach ($dateDB as $key => $value) {
             $temp_weather = $this->getGoogleWeather($value);
             $rows = $this->project_keyword_details_by_where($projectId, $value);
