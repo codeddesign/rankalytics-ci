@@ -107,12 +107,13 @@ krsort($temps_array);
 				</div>
 				<div class="leftsidebarout-one">KEYWORD SUGGESTIONS</div>
 			</a>
+			<!-- #todo -add back
 			<a href="/ranktracker/competitoranalysis">
 				<div class="leftsidebarbutton-two">
 					<div class="reportsicons"></div>
 				</div>
 				<div class="leftsidebarout-two" style="height:50px;margin-top:50px;">COMPETITOR ANALYSIS</div>
-			</a>
+			</a> -->
 		</div>
 		<div class="dashcontent">
                     <form class="keywordresearch-form" method="post" id="search_form" onsubmit="return ValidateForm()">
