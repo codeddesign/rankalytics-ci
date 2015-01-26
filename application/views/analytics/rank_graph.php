@@ -109,12 +109,14 @@ error_reporting(E_ERROR | E_PARSE);
                 </div>
                 <div class="leftsidebarout-one"><?= lang('rankgraph.keysug');?></div>
             </a>
+            <!-- #todo - add back:
             <a href="/ranktracker/competitoranalysis">
                 <div class="leftsidebarbutton-two">
                     <div class="reportsicons"></div>
                 </div>
                 <div class="leftsidebarout-two"><?= lang('rankgraph.companal');?></div>
             </a>
+            -->
         </div>
         <div class="dashcontent">
             <div class="keywordrankgraph">
