@@ -18,7 +18,7 @@ if (isset( $_POST['website'] ) && $_POST['website']) {
         $current_dir = realpath( __DIR__ );
         $save_dir    = realpath( __DIR__ . '/../' );
 
-        $exec_path = "python " . $current_dir . "/similarity.py --domain {$url} --keyword {$value} --output " . $save_dir . "/similarities/{$file_name}";
+        $exec_path = "/usr/bin/python " . $current_dir . "/similarity.py --domain {$url} --keyword {$value} --output " . $save_dir . "/similarities/{$file_name}";
         $response  = shell_exec( $exec_path );
 
         $file      = $save_dir . "/similarities/" . $file_name;

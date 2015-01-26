@@ -1,14 +1,16 @@
 from __future__ import division
 from goose import Goose
 from difflib import SequenceMatcher
-import re   
+
+import re
 import os
 import sys
 import argparse
+
 parser = argparse.ArgumentParser()
 
 
-parser.add_argument("--domain", help="Domain to scan") 
+parser.add_argument("--domain", help="Domain to scan")
 parser.add_argument("--keyword", help="Target Keyword") 
 parser.add_argument("--output", help="Output rankings file name") 
 
@@ -22,23 +24,33 @@ STOPWORDS = set([x.strip() for x in open(os.path.join(os.path.dirname(__file__),
 
 
 
-def main():
-    args=parser.parse_args()
-    url =args.domain
-    g = Goose()
-    article = g.extract(url=url)
-    word_tuples=process_text(article.cleaned_text,1000) #(word, tf-idf rank)
-    with open(args.output,'w') as output_file:
-        for word,rank in word_tuples:  #word, tf-idf ranking, similarity score of given word and target keyword
-            print >>output_file,word,rank,SequenceMatcher(None,args.keyword,word).ratio() 
 
+
+
+def main():
+    try:
+        args=parser.parse_args()
+        url =args.domain
+        #page = urllib2.urlopen(url).read()
+        g = Goose()
+        article = g.extract(url=url).cleaned_text
+        #article=stripAllTags(page)
+        #print(article)
+
+        word_tuples=process_text(article,1000) #(word, tf-idf rank)
+        with open(args.output,'w') as output_file:
+            for word,rank in word_tuples:  #word, tf-idf ranking, similarity score of given word and target keyword
+                similarity_score=SequenceMatcher(None,args.keyword,word).ratio() if args.keyword is not None else ""
+                print >>output_file,word,rank,similarity_score
+    except:
+        pass
 
 
 def process_text(text, max_features=200, stopwords=None):
-    
+
     if stopwords is None:
         stopwords = STOPWORDS
-    
+
    # print stopwords
 
     d = {}
@@ -71,7 +83,7 @@ def process_text(text, max_features=200, stopwords=None):
     maximum = float(max(d3.values()))
     for i, (word, count) in enumerate(words):
         words[i] = word, count/maximum
-    
+
     return words
 
 
