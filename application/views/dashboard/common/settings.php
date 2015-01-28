@@ -613,12 +613,6 @@ $this->load->view("include/settingsheader");
 <!--class="subscriptionwrap" -->
 </div> <!-- class="twodashcontent" -->
 </div> <!-- class="projectbackground" -->
-<!-- PAYMILL INTEGRATION -->
-<script type="text/javascript">
-    var PAYMILL_PUBLIC_KEY = '9837430574672955d89a4f914ea08b82';
-</script>
-<script type="text/javascript" src="https://bridge.paymill.com/"></script>
-<!-- PAYMILL INTEGRATION -->
 <script>
 
 $(document).ready(function () {
@@ -801,58 +795,8 @@ $(document).ready(function () {
         $("#ELV-billingInfo-loading").show();
         //$("#proMembership-loading").show();
         //alert("in token");
-        paymill.createToken({
-            accountholder: $('#ELV_accountHolderName').val(),  // required, ohne Leerzeichen und Bindestriche
-            number: $('#ELV_accountNumber').val(),   // required
-            bank: $('#ELV_bankIdentificationNumber').val()     // required, vierstellig z.B. "2016"
-
-        }, PaymillResponseHandler_ELV);                   // Info dazu weiter unten
-
         return false;
     });
-    function PaymillResponseHandler_ELV(error, result) { //payment response handler
-        $("#submitBilling-ELV").removeAttr("disabled");
-        if (error) {
-
-            err_msg = error.apierror;
-            alert(err_msg);
-            $("#ELV-billingInfo-loading").hide();
-            $("#form-msgs4").show();
-            $("#form-msgs4").removeClass("form-success");
-            $("#form-msgs4").addClass("form-errors");
-            $("#form-msgs4").html(err_msg);
-            return false;
-        } else {
-            var token = result.token;
-
-            // Insert token into form in order to submit to server
-            $("#ELV-token").val(token);
-            $("#token").val(token);
-            $.post($("#ELV-Form").attr('action'), $("#ELV-Form").serialize(), function (data) {
-                $("#billingInfo-loading").hide();
-                $("#submitBilling").removeAttr("disabled");
-                if (!parseInt(data.error)) {
-                    $("#form-msgs4").show();
-                    $("#form-msgs4").focus();
-                    $("#form-msgs4").removeClass("form-errors");
-                    $("#form-msgs4").addClass("form-success");
-                    $("#form-msgs4").html("Subscription Connected...");
-                    //setTimeout(window.location.reload(),3000);
-                }
-                else {
-                    $("#form-msgs4").show();
-                    $("#form-msgs4").focus();
-                    $("#form-msgs4").removeClass("form-success");
-                    $("#form-msgs4").addClass("form-errors");
-                    $.each(data.msg, function (key, val) {
-                        $('#form-msgs4').append(val);
-                        $('#' + key).addClass('validationError');
-                    });
-                }
-            }, 'json');
-        }
-    }// ELV payment response handler
-
 
     $('#CC-Form').submit(function () { // submitting billing information
         if ("<?php echo $isPaid ?>" == "yes") {
@@ -880,74 +824,8 @@ $(document).ready(function () {
         $("#form-msgs4").html('');
         $("#billingInfo-loading").show();
         $("#proMembership-loading").show();
-        paymill.createToken({
-            number: $('#creditCardNumber').val(),  // required, ohne Leerzeichen und Bindestriche
-            exp_month: $('#expireMonth').val(),   // required
-            exp_year: $('#expireYear').val(),     // required, vierstellig z.B. "2016"
-            cvc: $('#cvvCvc').val(),                  // required
-            amount_int: $('#card-amount-int').val(),    // required, integer, z.B. "15" für 0,15 Euro
-            currency: $('#card-currency').val(),    // required, ISO 4217 z.B. "EUR" od. "GBP"
-            cardholder: $('#cardHolderName').val() // optional
-        }, PaymillResponseHandler);                   // Info dazu weiter unten
-
         return false;
     });
-
-    function PaymillResponseHandler(error, result) { //credit card payment response handler
-
-        $("#submitBilling").removeAttr("disabled");
-        if (error) {
-            err_msg = '';
-            if (error.apierror == 'field_invalid_card_number') {
-                err_msg = err_msg + 'Invalid Card Number<br />';
-            }
-            if (error.apierror == 'field_invalid_card_exp') {
-                err_msg = err_msg + 'Invalid Card Expiry<br />';
-            }
-            if (error.apierror == 'field_invalid_card_cvc') {
-                err_msg = err_msg + 'Invalid Card CVC number<br />';
-            }
-            if (err_msg == '') {
-                err_msg = error.apierror;
-            }
-            $("#billingInfo-loading").hide();
-            $("#form-msgs4").show();
-            $("#form-msgs4").removeClass("form-success");
-            $("#form-msgs4").addClass("form-errors");
-            $("#form-msgs4").html(err_msg);
-            return false;
-        } else {
-            var token = result.token;
-            // Insert token into form in order to submit to server
-            $("#token").val(token);
-            $.post($("#CC-Form").attr('action'), $("#CC-Form").serialize(), function (data) {
-                $("#billingInfo-loading").hide();
-                $("#submitBilling").removeAttr("disabled");
-                if (!parseInt(data.error)) {
-                    $("#form-msgs4").show();
-                    $("#form-msgs4").focus();
-                    $("#form-msgs4").removeClass("form-errors");
-                    $("#form-msgs4").addClass("form-success");
-                    $("#form-msgs4").html("Subscription Connected...");
-                    //setTimeout(window.location.reload(),3000);
-                }
-                else {
-                    $("#form-msgs4").show();
-                    $("#form-msgs4").focus();
-                    $("#form-msgs4").removeClass("form-success");
-                    $("#form-msgs4").addClass("form-errors");
-                    $.each(data.msg, function (key, val) {
-                        $('#form-msgs4').append(val);
-                        $('#' + key).addClass('validationError');
-                    });
-                }
-
-            }, 'json');
-
-
-        }
-    } // response handler for cc payment
-
 
     $("#delete-logo").click(function () {
         $('#form-msgs2').html('');

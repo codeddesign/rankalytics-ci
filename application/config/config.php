@@ -374,21 +374,3 @@ $config['majestic_seo_app_id'] = 'A5BDC83D568EE962CCD6DE32FB76FAFC';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
-
-/* Subscription Config */
-$config['subscription_plans'] = array(
-    "free" => array(
-        "keywordsAllowed" => "30",
-        'paymillOffierId' => null
-    ),
-    "pro" => array(
-        "keywordsAllowed" => "10000",
-        "paymillOffierId" => "offer_f9ed701131fde5441a22",
-        "amount" => "99"
-    ),
-    "enterprise" => array(
-        "keywordsAllowed" => "unlimited",
-        "amount" => "299",
-        "paymillOffierId" => "offer_2fdbc70c63c0c4bc1695"
-    ),
-);

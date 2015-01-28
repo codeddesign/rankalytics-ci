@@ -289,7 +289,7 @@ class Users_Model extends CI_Model
         $userDetailArr = $this->getUserById($userid);
         $userInfo['details'] = $userDetailArr['0'];
         $userInfo['details']['userType'] = $this->getUserType($userDetailArr['0']);
-        $userInfo['history'] = array();/*$this->getUserHistory($userid, $userInfo['details']['paymillClientId'])*/;
+        $userInfo['history'] = array();
 
         return $userInfo;
     }
