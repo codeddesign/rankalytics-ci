@@ -49,10 +49,10 @@
 $active_group = "pgsql";
 $active_record = TRUE;
 
-$db['pgsql']['hostname'] = "104.236.73.122";
+$db['pgsql']['hostname'] = "45.56.78.107";
 $db['pgsql']['username'] = "phoenixkeyword";
-$db['pgsql']['password'] = "My6Celeb!!";
-$db['pgsql']['database'] = "serp";
+$db['pgsql']['password'] = "Tatertot1";
+$db['pgsql']['database'] = "keyworddb";
 $db['pgsql']['dbdriver'] = "postgre";
 $db['pgsql']['dbprefix'] = "";
 $db['pgsql']['pconnect'] = false;
@@ -65,9 +65,9 @@ $db['pgsql']['dbcollat'] = "utf8_general_ci";
 /* default database: */
 $active_group = 'default';
 $active_record = TRUE;
-$db['default']['hostname'] = '104.236.73.121';
-$db['default']['username'] = 'phoenixdb';
-$db['default']['password'] = 'My6Celeb!!';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'Tatertot1';
 $db['default']['database'] = 'serp';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
