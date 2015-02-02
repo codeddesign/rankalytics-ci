@@ -65,9 +65,9 @@ $db['pgsql']['dbcollat'] = "utf8_general_ci";
 /* default database: */
 $active_group = 'default';
 $active_record = TRUE;
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'Tatertot1';
+$db['default']['hostname'] = '45.56.79.49';
+$db['default']['username'] = 'rankadev';
+$db['default']['password'] = 'TSDxmjKE65N5Z2dx';
 $db['default']['database'] = 'serp';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
