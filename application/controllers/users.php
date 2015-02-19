@@ -202,17 +202,20 @@ class Users extends CI_Controller
         }
 
         $user_array = $this->users->getUserById( $userId );
+        $userData = $user_array[0];
 
         // fetch subscriptions information:
         $i                       = 0;
         $data['current_options'] = array();
+        $default = false;
         foreach (Subscriptions_Lib::$_service_prices as $service => $null) {
             // 'internal' info:
             $tempInfo = $this->subscriptions->getSubscriptionInfo( $userId, $service );
 
             // if tempInfo is not array => there's no subscription. Apply default information:
             if ( ! is_array( $tempInfo )) {
-                $tempInfo = ( $data['user_database']['userRole'] == 'admin' ) ? Subscriptions_Lib::getDefaultForAdmin( $service ) : Subscriptions_Lib::getDefaultNotSubscribed( $service );
+                $tempInfo = ( $userData['userRole'] == 'admin' ) ? Subscriptions_Lib::getDefaultForAdmin( $service ) : Subscriptions_Lib::getDefaultNotSubscribed( $service );
+                $default = true;
             } else {
                 $paymentType_backup = $tempInfo['payment_type'];
             }
@@ -232,7 +235,7 @@ class Users extends CI_Controller
                 $tempInfo['limit'] = Subscriptions_Lib::$_service_limits[$service][$tempInfo['plan']]['text'];
 
                 //expiration date:
-                $tempInfo['expired'] = ( $tempInfo['status'] !== 'approved' );
+                $tempInfo['expired'] = ( !$default and $tempInfo['status'] !== 'approved' );
 
                 // ..
                 if ($tempInfo['expired']) {
@@ -269,7 +272,7 @@ class Users extends CI_Controller
         $data['current_options'] = json_encode( $data['current_options'] );
 
         $data['current'] = 'subscriptions';
-        $data['user_database'] = $user_array['0'];
+        $data['user_database'] = $userData;
 
         $this->load->view( 'dashboard/subscriptions' , $data );
     }
