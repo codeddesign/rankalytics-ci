@@ -56,12 +56,15 @@
 
 <div class="bodywrapper">
     <div class="ranktracker-bottomwhitetitle">Rankalytics Membership Signup</div>
-    <div class="payment-monthlycharge">Choose your membership packages</div>
+    <div class="payment-monthlycharge paymentremoveme">
+        <?= ( isset( $temp ) ) ? 'Choose your membership packages' : ''; ?>
+        <?= ( isset( $paymentData ) ) ? 'Please select a payment method' : ''; ?>
+    </div>
     <div class="ranktracker-bottomwhitewrapper">
         <?php if (isset( $temp )) : ?>
-        <div class="billing-maintitle"><?= lang( 'promembership.billingtitle' ); ?></div>
+        <div class="billing-maintitle" style="font-weight: bold;"><?= lang( 'promembership.billingtitle' ); ?></div>
 
-        <?php echo form_open( "users/proMembershipSave", array( "class" => "billing-form", "id" => "proMembership", "onsubmit" => "return false;" ) ); ?>
+        <?php echo form_open( "users/save", array( "class" => "billing-form", "id" => "proMembership", "onsubmit" => "return false;" ) ); ?>
         <input type="text" name="firstName" id="firstName" class="billing-forminputleft" placeholder="<?= lang( 'promembership.name' ); ?>" value="<?php if (isset( $temp['firstName'] )) {
             echo $temp['firstName'];
         } ?>">
@@ -80,7 +83,7 @@
         <input type="text" name="zipCode" id="zipCode" class="billing-forminputrightshort" placeholder="<?= lang( 'promembership.zip' ); ?>" value="<?php if (isset( $temp['zipCode'] )) {
             echo $temp['zipCode'];
         } ?>">
-        <select name="country" id="country" class="billing-forminputleft">
+        <select name="country" id="country" class="billing-forminputleft" style="float:left;">
             <option value=""><?= lang( 'promembership.country' ); ?></option>
             <?php
             $pattern = '<option value="%s" data-pp="%s" %s>%s</option>';
@@ -91,107 +94,85 @@
             ?>
         </select>
 
-        <div class="billing-maintitle" style="margin-top:39px;margin-bottom:23px;">
-            <input type="radio" name="Ranktracker" id="Rankalytics" class="css-checkbox subscription-plan" checked="checked"/>
-            <label for="Rankalytics" class="css-label">Ranktracker</label></div>
-        <div class="pricingcheckbox">
-            <input type="radio" name="accountTypeRanktracker" id="userTypePro" value="pro" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['ranktracker']['pro']; ?>"/>
-            <label for="userTypePro" class="css-label">Pro Plan (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['ranktracker']['pro']; ?>)</label>
-            <input type="radio" name="accountTypeRanktracker" value="enterprise" id="userTypeEnterprise" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['ranktracker']['enterprise']; ?>"/>
-            <label for="userTypeEnterprise" class="css-label">Enterprise Plan (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['ranktracker']['enterprise']; ?>)</label>
-            <input type="radio" name="accountTypeRanktracker" id="userTypeStarter" value="starter" class="css-checkbox subscription-plan" data-amount="0" checked="checked"/>
-            <label for="userTypeStarter" class="css-label">Starter Plan</label>
-        </div>
-        <div id="paidRanktracker" style="display: none;">
-            <?= lang( 'promembership.numberofmonths' ); ?>
-            <select name="monthsRanktracker" id="monthsRanktracker">
-                <?php
-                $pattern = '<option value="%s" %s>%s</option>';
-                for ($i = 1; $i <= 12; $i ++) {
-                    if ($i == 1) {
-                        $checked = ' selected';
-                    } else {
-                        $checked = '';
+        <?php
+        $_disabled = true;
+        if ( ! $_disabled):
+            ?>
+            <!-- modules -->
+            <div class="billing-maintitle" style="font-weight: bold;margin-top:40px;">Available modules</div>
+
+            <div class="available-modules">
+                <label class="signin-rtmodule" for="RanktrackerPlan">
+                    <div class="modulelogo"></div>
+                    <div class="moduletitle">Rank Tracker R/T</div>
+                </label>
+
+                <label class="signin-scmodule" for="SeocrawlPlan">
+                    <div class="modulelogo"></div>
+                    <div class="moduletitle">SEO Crawl</div>
+                </label>
+
+                <div style="clear: both;"></div>
+                <style type="text/css">
+                    .service-plans {
+                        width: 207px;
+                        margin-right: 11px;
+                        border-color: #303A45;
+                        border-top: 0;
                     }
-
-                    $j = ( $i <= 9 ) ? '0' . $i : $i;
-
-                    echo sprintf( $pattern, $i, $checked, $j );
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="billing-maintitle" style="margin-top:39px;margin-bottom:23px;">
-            <input type="radio" name="Seocrawl" id="Seocrawl" class="css-checkbox subscription-plan" checked="checked"/>
-            <label for="Seocrawl" class="css-label">Seocrawl</label></div>
-        <div class="pricingcheckbox">
-            <input type="radio" name="accountTypeSeocrawl" id="userTypeStarterSeo" value="starter" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['seocrawl']['starter']; ?>"/>
-            <label for="userTypeStarterSeo" class="css-label">Starter Plan (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['starter']; ?>)</label>
-            <input type="radio" name="accountTypeSeocrawl" id="userTypeProSeo" value="pro" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['seocrawl']['pro']; ?>"/>
-            <label for="userTypeProSeo" class="css-label">Pro Plan (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['pro']; ?>)</label>
-            <input type="radio" name="accountTypeSeocrawl" value="enterprise" id="userTypeEnterpriseSeo" class="css-checkbox subscription-plan" data-amount="<?= Subscriptions_Lib::$_service_prices['seocrawl']['enterprise']; ?>"/>
-            <label for="userTypeEnterpriseSeo" class="css-label">Enterprise Plan(<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['enterprise']; ?>)</label>
-            <input type="radio" name="accountTypeSeocrawl" id="userTypeFreeSeo" value="free" class="css-checkbox subscription-plan" data-amount="0" checked="checked"/>
-            <label for="userTypeFreeSeo" class="css-label">Free Plan</label>
-        </div>
-        <div id="paidSeocrawl" style="display: none;">
-            <?= lang( 'promembership.numberofmonths' ); ?>
-            <select name="monthsSeocrawl" id="monthsSeocrawl">
-                <?php
-                $pattern = '<option value="%s" %s>%s</option>';
-                for ($i = 1; $i <= 12; $i ++) {
-                    if ($i == 1) {
-                        $checked = ' selected';
-                    } else {
-                        $checked = '';
+                </style>
+                <div style="display: inline-block;">
+                    <?php
+                    $option = '<option value="%s" data-amount="%s" %s>%s Plan ($%s)</option>';
+                    foreach (Subscriptions_Lib::$_service_prices as $service => $s_info) {
+                        asort( $s_info, SORT_NATURAL );
+                        $selected = 'selected';
+                        ?>
+                        <select class="service-plans" id="<?= ucfirst( $service ) . 'Plan' ?>" name="<?= ucfirst( $service ) . 'Plan' ?>">
+                            <?php
+                            foreach ($s_info as $plan => $amount) {
+                                echo sprintf( $option, $plan, $amount, $selected, ucfirst( $plan ), $amount );
+                                if ($selected !== false) {
+                                    $selected = false;
+                                }
+                            }
+                            ?>
+                        </select>
+                    <?php
                     }
-
-                    $j = ( $i <= 9 ) ? '0' . $i : $i;
-
-                    echo sprintf( $pattern, $i, $checked, $j );
-                }
-                ?>
-            </select>
-        </div>
-        <div id="forPayedPlan" style="display:none;">
-            <div class="billing-maintitle" style="margin-top:39px;margin-bottom:23px;"><?= lang( 'promembership.choosepayment' ); ?></div>
-            <div class="pricingcheckbox">
-                <input type="radio" name="paymentType" id="paymentTypePP" value="paypal" title="Paypal Payment" class="css-checkbox payment-type"/>
-                <label for="paymentTypePP" title="Paypal Payment" class="css-label" id="labelPP">PayPal</label>
-
-                <!--<input type="radio" name="paymentType" id="paymentTypeManual" value="manual" title="Manual Payment" class="css-checkbox payment-type"/>
-                    <label for="paymentTypeManual" title="Manual Payment" class="css-label" id="labelManual"><? /*= lang( 'promembership.manualpayment' ); */ ?></label>-->
-
-                <input type="radio" name="paymentType" id="paymentTypeStripe" value="stripe" title="Stripe Payment" class="css-checkbox payment-type"/>
-                <label for="paymentTypeStripe" title="Stripe Payment" class="css-label" id="labelStripe">Stripe</label>
+                    ?>
+                </div>
             </div>
-        </div>
-
-        <div class="billing-securepayment"></div>
-        <div class="billing-securepaymenttext"><?= lang( 'promembership.securepayment' ); ?></div>
-
+            <!-- end-modules -->
+            <div class="billing-securepayment"></div>
+            <div class="billing-securepaymenttext"><?= lang( 'promembership.securepayment' ); ?></div>
+        <?php
+            /* end disabled */
+        endif;
+        ?>
         <img src="<?php echo base_url() ?>assets/images/loading.gif" align="left" id="proMembership-loading" class="save-loading">
         <input type="submit" value="Submit" class="billing-createaccountbutton">
         </form>
     </div>
+
     <?php endif; ?>
     <!-- FORM ERRORS: -->
-    <?php
-    if (isset( $stripe )) {
-        $pp_msg = lang( 'promembership.infomsgone' ) . ' ' . $stripe['user_info']['emailAddress'] . '' . lang( 'promembership.infomsgtwo' );
-        $pp_msg .= lang( 'promembership.ifstripe' );
-    }
-    ?>
-    <div id="form-msgs1" class="form-errors" <?= isset( $pp_msg ) ? 'style="display:none;"' : ''; ?> style="margin-top:50px;margin-bottom:100px;text-align:center;font-size:19px;">
-        <?= isset( $pp_msg ) ? $pp_msg : ''; ?>
-    </div>
-    <div id="form-result1">
+
+    <div class="ranktracker-bottomwhitewrapper">
         <?php
-        if (isset( $stripe )) {
-            $this->load->view( 'ranktracker/stripe' );
+        if (isset( $paymentData )) {
+            $this->load->view( 'ranktracker/payment_options', array( 'paymentData' => $paymentData ) );
         }
         ?>
+    </div>
+    <?php
+    if (isset( $paymentData ) or isset( $registered )) {
+        $emailAddress = isset( $paymentData ) ? $paymentData['emailAddress'] : $registered;
+        $infoMsg      = lang( 'promembership.infomsgone' ) . ' ' . $emailAddress . '' . lang( 'promembership.infomsgtwo' );
+    }
+    ?>
+    <div id="form-msgs1" class="form-errors" style="margin-top:100px;margin-bottom:100px;text-align:center;font-size:19px;<?= isset( $registered ) ? 'display: block;' : ''; ?>">
+        <?= isset( $infoMsg ) ? $infoMsg : ''; ?>
     </div>
 
     <div class="homefeatures-smallline"></div>
@@ -199,7 +180,7 @@
     <div class="featurescheck"></div>
 </div>
 
-<?php $this->load->view( 'include/mainfooter' ); ?>
+</div> <?php $this->load->view( 'include/mainfooter' ); ?>
 
 <!-- Signup overlay -->
 <div id="signupoverlay">
@@ -249,38 +230,6 @@
         $(document).ready(function () {
             var form_msg = $('#form-msgs1');
 
-            $('.subscription-plan').on('click', function () {
-                var i, j, tempSelector, tempAmount, whichPayed = [],
-                    paymentOpts = $('#forPayedPlan'), subPlans = $('.subscription-plan'), forPayment = ['paidRanktracker', 'paidSeocrawl'];
-
-                for (i = 0; i < subPlans.length; i++) {
-                    tempSelector = $(subPlans[i]);
-                    tempAmount = tempSelector.attr('data-amount');
-
-                    if (tempAmount != undefined && parseInt(tempAmount) > 0 && tempSelector.is(':checked')) {
-                        whichPayed[whichPayed.length] = 'paid' + tempSelector.attr('name').replace('accountType', '');
-                    }
-                }
-
-                for (i = 0; i < forPayment.length; i++) {
-                    tempSelector = $('#' + forPayment[i]);
-                    tempSelector.hide();
-                    for (j = 0; j < whichPayed.length; j++) {
-                        if ((forPayment[i] == whichPayed[j])) {
-                            tempSelector.show();
-                            break;
-                        }
-                    }
-                }
-
-                if (whichPayed.length > 0) {
-                    paymentOpts.show();
-                } else {
-                    $('input[name="paymentType"]').attr('checked', false);
-                    paymentOpts.hide();
-                }
-            });
-
             $('#country').on('change', function () {
                 var pp = $('#country option:selected').attr('data-pp');
 
@@ -297,10 +246,11 @@
             });
 
             function checkFields() {
-                var i, tempSec, err = false,
+                var i, tempSec, err = false, paid = false,
                     field_ids = ['firstname', 'lastName', 'phoneNumber', 'streetAddress', 'city', 'zipCode'],
-                    ranka = $('input[name="accountTypeRanktracker"]:checked'), seoc = $('input[name="accountTypeSeocrawl"]:checked'), pType = $('input[name="paymentType"]:checked'),
-                    country = $('#country'), paid = false;
+                    country = $('#country'),
+                    raa = $('#RanktrackerPlan'), seoc = $('#SeocrawlPlan')
+                    ;
 
                 // validate input fields
                 for (i = 0; i < field_ids.length; i++) {
@@ -330,35 +280,25 @@
                     return false;
                 }
 
-                if ((ranka.val() !== 'starter' || seoc.val() !== 'free') && pType.val() == undefined) {
-                    form_msg.show().addClass('form-errors').html('<?= lang('promembership.failedpayment');?>');
-                    return false;
-                } else {
-                    pType = pType.val();
+                if (raa.val() !== 'starter' || seoc.val() !== 'free') {
                     paid = true;
                 }
 
-                return {what: pType, paid: paid};
+                return {
+                    paid: paid
+                }
             }
 
             $('#proMembership').on('submit', function (e) {
                 e.preventDefault();
-                var theForm = $(this), data = theForm.serialize(), infoMsg, resp;
+                var theForm = $(this), data, infoMsg;
 
-                if ((resp = checkFields()) !== false) {
+                if (checkFields() !== false) {
                     window.scrollTo(0, 0);
 
-                    infoMsg = '<?= lang('promembership.infomsgone');?><?= (isset($temp['emailAddress'])) ? $temp['emailAddress'] : ''; ?><?= lang('promembership.infomsgtwo');?>';
+                    data = theForm.serialize();
 
-                    if (resp.paid == true) {
-                        if (resp.what == 'paypal') {
-                            infoMsg += '<?= lang('promembership.ifpaid');?>';
-                        }
-
-                        if(resp.what == 'stripe') {
-                            infoMsg += '<?= lang('promembership.ifstripe');?>';
-                        }
-                    }
+                    infoMsg = 'Please wait.. Saving your information!';
 
                     // ..
                     $('div.payment-monthlycharge, div.ranktracker-bottomwhitesubcontent, div.billing-maintitle').remove();
@@ -371,19 +311,15 @@
                         data: data,
                         dataType: 'json',
                         success: function (resp) {
-                            if (resp.what == 'stripe') {
-                                $('#form-result1').html(resp.body);
-                                $('#loading_span').remove();
-                                return false;
-                            }
+                            var alternativeMsg = '<?= lang('promembership.infomsgone');?><?= (isset($temp['emailAddress'])) ? $temp['emailAddress'] : ''; ?><?= lang('promembership.infomsgtwo');?>';
 
-                            if (resp.what == 'paypal') {
+                            if (typeof resp.redirect_to !== 'undefined') {
                                 location.href = resp.redirect_to;
                                 return false;
                             }
 
-                            if (resp.error) {
-                                location.href = resp.redirect_to;
+                            if (typeof resp.paid !== 'undefined' && !resp.paid) {
+                                form_msg.html(alternativeMsg);
                                 return false;
                             }
                         }
@@ -391,19 +327,17 @@
                 }
             });
 
-            $('input[name=paymentType]').on('change', function () {
-                var selectedVal = $(this).val(), forStripe = $('#forStripe');
+            $('.service-plans').on('change', function () {
+                var amount = 0;
 
-                if (selectedVal !== 'stripe') {
-                    forStripe.hide();
-                    return false;
-                }
+                $('.service-plans').each(function (index, el) {
+                    amount += $(el).find(':selected').data('amount');
+                });
 
-                forStripe.show();
+                console.log('Total: $' + amount);
             });
         });
     </script>
-    <!-- end text rotator -->
 <?php endif; ?>
 </body>
 </html>

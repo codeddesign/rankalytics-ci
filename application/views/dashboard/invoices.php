@@ -100,9 +100,9 @@ $this->load->view("include/header", $data);
             <div class="subscriptiontext">INVOICES</div>
         </div>
         <div class="subscriptionwrap">
-            <div class="subscription-cardcharge">Type</div>
-            <div class="subscription-chargedate">Date</div>
-            <div class="subscription-chargeamount">Amount</div>
+            <div class="subscription-cardcharge">Module - Plan</div>
+            <div class="subscription-chargedate">Date created</div>
+            <div class="subscription-chargeamount">Amount monthly</div>
             <div class="subscription-chargeline"></div>
 
             <!-- subscription separated lines -->
@@ -113,9 +113,9 @@ $this->load->view("include/header", $data);
                 foreach ($subscriptions as $s_no => $sub) {
                     ?>
                     <div class="subscription-innerwrap">
-                        <div class="subscription-amount"><?= strtoupper($sub['service']); ?></div>
-                        <div class="subscription-date"><?= date('m/d/Y', strtotime($sub['started_on'])); ?></div>
-                        <div class="subscription-cost">&euro;<?= $sub['paid']; ?></div>
+                        <div class="subscription-amount"><?= strtoupper($sub['service']). ' - '.strtoupper($sub['plan']); ?></div>
+                        <div class="subscription-date"><?= date('m/d/Y', strtotime($sub['created_on'])); ?></div>
+                        <div class="subscription-cost">$<?= $sub['paid']; ?></div>
                     </div>
                 <?php
                 }

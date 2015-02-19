@@ -16,7 +16,7 @@ class Subscriptions_Model extends CI_Model
         $condition = array(
             'status !=' => 'pending',
             'user_id' => $current['user_id'],
-            'started_on <' => $current['started_on'],
+            'created_on <' => $current['created_on'],
             'service' => $current['service'],
         );
 
@@ -54,7 +54,7 @@ class Subscriptions_Model extends CI_Model
      * @param bool $special
      * @return bool
      */
-    function getSubscriptionInfo($user_id, $service, $single = true, $dateOrdered = true, $special = true)
+    function getSubscriptionInfo($user_id, $service, $single = true, $dateOrdered = true, $special = false)
     {
         //
         $condition = array(
@@ -88,7 +88,7 @@ class Subscriptions_Model extends CI_Model
         }
 
         if ($dateOrdered) {
-            $this->db->order_by('started_on', 'desc');
+            $this->db->order_by('created_on', 'desc');
         }
 
         $response = $this->db->get()->result_array();
@@ -105,14 +105,21 @@ class Subscriptions_Model extends CI_Model
     }
 
     /**
-     * @param array $info
+     * @param array $subscriptions
+     *
      * @return mixed
      */
-    function doSave(array $info)
+    function doSave( array $subscriptions )
     {
-        $this->db->set($info);
-        $q = $this->db->insert($this->_tablename);
-        return $q;
+        if (is_array( $subscriptions[key( $subscriptions )] )) {
+            $this->db->insert_batch( $this->_tablename, $subscriptions );
+            return true;
+        }
+
+        $this->db->set( $subscriptions );
+        $this->db->insert( $this->_tablename );
+
+        return true;
     }
 
     /**

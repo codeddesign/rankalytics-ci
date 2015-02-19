@@ -87,7 +87,7 @@ $autoload['helper'] = array(
 |
 */
 
-$autoload['config'] = array('Subscriptions_Lib_Config');
+$autoload['config'] = array('Subscriptions_Lib_Config', 'stripe_config', 'paypal_config');
 
 
 /*

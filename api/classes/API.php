@@ -251,7 +251,7 @@ class API
         // get current subscription:
         $query = 'SELECT * FROM user_subscriptions WHERE service="' . $service . '"';
         $query .= ' AND user_id=\'' . $this->_UID . '\'';
-        $query .= ' ORDER BY started_on DESC LIMIT 1';
+        $query .= ' ORDER BY created_on DESC LIMIT 1';
         $sql = mysql_query( $query, $this->db );
 
         if (mysql_num_rows( $sql ) == 0) {
@@ -267,7 +267,6 @@ class API
         }
 
         // handle 'expiration' and 'limits':
-        $sub_info['expires_on']     = Subscriptions_Lib::getExpirationTimestamp( $sub_info );
         $sub_info['expired']        = Subscriptions_Lib::isExpired( $sub_info['expires_on'] );
         $sub_info['crawl_limit']    = Subscriptions_Lib::$_service_limits[$service][$sub_info['plan']]['text'];
         $sub_info['crawl_limit_no'] = Subscriptions_Lib::$_service_limits[$service][$sub_info['plan']]['number'];

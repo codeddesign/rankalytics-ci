@@ -40,7 +40,7 @@ class Subscriptions_Lib
             'payment_type' => 'manual',
             'limit' => self::$_service_limits[$service][$plan]['text'],
             'months' => 12,
-            'started_on' => date('Y-m-d'),
+            'created_on' => date('Y-m-d'),
             'status' => 'approved',
             'main_status' => 'approved',
         );
@@ -58,7 +58,7 @@ class Subscriptions_Lib
             'payment_type' => 'none',
             'limit' => self::$_service_limits[$service][$plan]['text'],
             'months' => 0,
-            'started_on' => date('Y-m-d'),
+            'created_on' => date('Y-m-d'),
             'status' => 0,
             'main_status' => 0,
         );
@@ -71,17 +71,6 @@ class Subscriptions_Lib
     public static function isExpired($timestamp)
     {
         return (int)(self::getCurrentTimestamp() > $timestamp);
-    }
-
-    /**
-     * @param array $info
-     * @param int $extra
-     * @return int
-     */
-    public static function getExpirationTimestamp(array $info)
-    {
-        $addToStartDate = '+' . ($info['months'] * self::$_month_days) . ' days';
-        return self::getNewTimestamp($info['started_on'], $addToStartDate);
     }
 
     /**
@@ -150,7 +139,7 @@ class Subscriptions_Lib
      */
     public static function getDaysPassed(array $subscription)
     {
-        return ceil((self::getCurrentTimestamp() - self::getNewTimestamp($subscription['started_on'])) / self::oneDay());
+        return ceil((self::getCurrentTimestamp() - self::getNewTimestamp($subscription['created_on'])) / self::oneDay());
     }
 
     /**
@@ -182,7 +171,7 @@ class Subscriptions_Lib
         $main_status = $info['status'];
 
         // handle 'expired'
-        $tempExpired = self::isExpired(self::getExpirationTimestamp($info));
+        $tempExpired = false;
 
         // default to 'free' / 'starter' IF subscription is different than 'approved' / had 'expired':
         if ($tempExpired OR $info['status'] !== 'approved') {
@@ -190,7 +179,6 @@ class Subscriptions_Lib
         }
 
         // handle 'extra information':
-        $info['expires_on'] = self::getExpirationTimestamp($info);
         $info['expired'] = $tempExpired;
         $info['crawl_limit'] = self::$_service_limits[$service][$info['plan']]['text'];
         $info['crawl_limit_no'] = self::$_service_limits[$service][$info['plan']]['number'];
@@ -242,5 +230,25 @@ class Subscriptions_Lib
 
         // 4 -> determine if he asks for an upgrade OR downgrade by checking if the new amount is bigger or lower then the current one.
         return ($newAmount > $currentAmount) ? 'upgrade' : 'downgrade';
+    }
+
+    /**
+     * @param $subscriptions
+     *
+     * @return int
+     */
+    public static function getTotalAmount( $subscriptions )
+    {
+        $amount = 0;
+        if ( ! is_array( $subscriptions )) {
+            return $amount;
+        }
+
+        $services = self::$_service_prices;
+        foreach ($subscriptions as $s_no => $subscription) {
+            $amount += $services[$subscription['service']][$subscription['plan']];
+        }
+
+        return $amount;
     }
 }

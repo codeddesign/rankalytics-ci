@@ -61,7 +61,7 @@
 
     </style>
 </head>
-<body onload="init()">
+<body>
 
 <div class="headerline"></div>
 <div class="bodywrap">

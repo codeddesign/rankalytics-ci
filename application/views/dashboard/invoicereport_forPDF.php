@@ -460,10 +460,10 @@ table {
                                     <div class="reportpdf-keywordtitle"><?= strtoupper($sub['service']); ?></div>
                                 </td>
                                 <td width="33%">
-                                    <div class="reportpdf-keywordstart"><?= date('m/d/Y', strtotime($sub['started_on'])); ?></div>
+                                    <div class="reportpdf-keywordstart"><?= date('m/d/Y', strtotime($sub['created_on'])); ?></div>
                                 </td>
                                 <td width="33%">
-                                    <div class="reportpdf-keywordchange" style="margin-left:130px;">&euro;<?= $sub['paid']; ?></div>
+                                    <div class="reportpdf-keywordchange" style="margin-left:130px;">$<?= $sub['paid']; ?></div>
                                 </td>
                             </tr>
                         <?php } //endforeach ?>

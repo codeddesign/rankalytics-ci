@@ -564,9 +564,8 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
             <div class="subscription-keywordlimit">KEYWORD LIMIT: <span><?= $sub_info['crawl_limit']; ?></span></div>
             <div class="subscription-keywordsused">USED KEYWORDS: <span><?php echo $total_keywords; ?></span></div>
             <?php if ($sub_info['plan'] !== 'starter') { ?>
-                <div class="subscription-billingrenewal">EXPIRES ON:
-                    <span><?= date('d/m/Y', $sub_info['expires_on']); ?></span>
-                    <!-- <br/><a href="javascript:void(0);" onclick="cancel_subscription();">Cancel Subscription</a>-->
+                <div class="subscription-billingrenewal">
+                    <span><?= 'Subscription: ' . strtoupper( ( $sub_info['expired'] ) ? 'expired' : 'active' ); ?></span>
                 </div>
             <?php } ?>
         </div>
