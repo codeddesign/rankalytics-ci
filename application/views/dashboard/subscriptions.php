@@ -132,6 +132,18 @@ $this->load->view( "include/settingsheader" );
                 <?php
                 foreach ($services as $serviceName => $plans) {
                     $tempVar = $$serviceName;
+
+                    if($serviceName == 'ranktracker') {
+                        $numberOf = 'keywords';
+                    }
+
+                    if($serviceName == 'seocrawl') {
+                        $numberOf = 'links';
+                    }
+
+                    if(!isset($numberOf)) {
+                        $numberOf = 'unset';
+                    }
                     ?>
                     <div class="tabContent" id="<?= $serviceName ?>tab">
                         <div class="promembership-wrap">
@@ -139,7 +151,7 @@ $this->load->view( "include/settingsheader" );
                                 <div class="<?= ( ! $tempVar['expired'] ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
                                 <div class="<?= ( ! $tempVar['expired'] ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
                                     ACCOUNT LEVEL: <b><?= strtoupper( $tempVar['plan'] ); ?></b> <?= ( $tempVar['pending'] ) ? '(until payment is confirmed)' : ''; ?><br/>
-                                    NUMBER OF KEYWORDS: <b><?= $tempVar['usage_number']; ?></b>
+                                    NUMBER OF <?= strtoupper($numberOf); ?>: <b><?= $tempVar['usage_number']; ?></b>
                                     <?php if ($tempVar['expired']) : ?>
                                         <br/>Your subscription to <?= ucfirst( $serviceName ); ?> expired/canceled.
                                     <?php endif; ?>
@@ -168,7 +180,7 @@ $this->load->view( "include/settingsheader" );
                                     <label>Subscription plan</label>
                                     <?php
                                     foreach ($plans as $planName => $amount) {
-                                        $title = $serviceLimits[$serviceName][$planName]['text'] . ' Keywords';
+                                        $title = $serviceLimits[$serviceName][$planName]['text'] . ' '.$numberOf;
 
                                         ?>
                                         <input type="radio" data-service="<?= ucfirst( $serviceName ); ?>" name="accountType" id="accountType<?= ucfirst( $serviceName ) . ucfirst( $planName ); ?>" value="<?= $planName ?>" data-amount='<?= $amount; ?>' title="<?= $title; ?>" class="css-checkbox subscription-plan"/>
