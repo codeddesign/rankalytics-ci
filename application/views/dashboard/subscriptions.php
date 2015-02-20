@@ -19,6 +19,7 @@ $this->load->view( "include/settingsheader" );
 ?>
     <link href="<?php echo base_url() ?>assets/css/radiobuttons.css" rel="stylesheet" type="text/css"/>
     <link href="<?php echo base_url() ?>assets/css/setting.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <div class="yellowtopline"></div>
     <div class="topinfobar">
         <a href="#" id="weather" <a href="#" onclick="toggle_visibility('weatherpopup');">
@@ -111,7 +112,7 @@ $this->load->view( "include/settingsheader" );
         <div class="twodashcontent">
             <?php echo $this->load->view( 'dashboard/common/settingsblue_top', array( "user" => $user_database ) ); ?>
 
-            <div class="subscriptionwrap">
+            <div class="subscriptionwrap" style="margin-top:0;">
 
                 <!-- BEGIN TABS -->
                 <?php
@@ -144,7 +145,7 @@ $this->load->view( "include/settingsheader" );
                                     <?php endif; ?>
                                 </div>
                             </div>
-                            <div class="promembership-text"><?= strtoupper( $serviceNames[$serviceName] ) . ' subscription.' ?></div>
+                            <div class="promembership-text"><?= strtoupper( $serviceNames[$serviceName] ) . ' subscription'; ?></div>
                             <div class="promembership-line"></div>
                             <div class="keywordsenough">Are you ready to change your plan?</div>
                             <div class="keywordsenough-small">
@@ -162,8 +163,7 @@ $this->load->view( "include/settingsheader" );
                             <div id="form-msgs4-<?= $serviceName; ?>" class="form-errors"></div>
                             <div id="info-body-<?= $serviceName; ?>" class="form-extra-info"></div>
 
-                            <!-- #for 2 plans - RANK TRACKER -->
-                            <form action="/users/subscription" method="POST" class="subscription-form">
+                            <form action="/users/subscription" method="POST" class="subscription-form" data-service="<?= ucfirst( $serviceName ); ?>">
                                 <div class="pricingcheckbox">
                                     <label>Subscription plan</label>
                                     <?php
@@ -171,7 +171,7 @@ $this->load->view( "include/settingsheader" );
                                         $title = $serviceLimits[$serviceName][$planName]['text'] . ' Keywords';
 
                                         ?>
-                                        <input type="radio" name="accountType" id="accountType<?= ucfirst( $serviceName ) . ucfirst( $planName ); ?>" value="<?= $planName ?>" data-amount='<?= $amount; ?>' title="<?= $title; ?>" class="css-checkbox subscription-plan"/>
+                                        <input type="radio" data-service="<?= ucfirst( $serviceName ); ?>" name="accountType" id="accountType<?= ucfirst( $serviceName ) . ucfirst( $planName ); ?>" value="<?= $planName ?>" data-amount='<?= $amount; ?>' title="<?= $title; ?>" class="css-checkbox subscription-plan"/>
                                         <label for="accountType<?= ucfirst( $serviceName ) . ucfirst( $planName ); ?>" title="<?= $title; ?>" class="css-label"><?= ucfirst( $planName ) ?> Plan
                                             (<?= $currencySymbol . $amount ?>)</label>
                                     <?php } ?>
@@ -179,11 +179,39 @@ $this->load->view( "include/settingsheader" );
 
                                 <div class="pricingcheckbox paid<?= ucfirst( $serviceName ) ?>">
                                     <label>Payment method</label>
-                                    <input type="radio" name="paymentType" id="paymentType<?= ucfirst( $serviceName ); ?>Paypal" value="paypal" title="PayPal Payment" class="css-checkbox payment-type paypal-cbx"/>
+                                    <input type="radio" name="paymentType" id="paymentType<?= ucfirst( $serviceName ); ?>Paypal" data-service="<?= $serviceName; ?>" value="paypal" title="PayPal Payment" class="css-checkbox payment-type"/>
                                     <label for="paymentType<?= ucfirst( $serviceName ); ?>Paypal" title="PayPal Payment" class="css-label paypal-lbl">PayPal</label>
-                                    <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentType<?= ucfirst( $serviceName ); ?>Stripe" class="css-checkbox payment-type"/>
+
+                                    <input type="radio" name="paymentType" id="paymentType<?= ucfirst( $serviceName ); ?>Stripe" data-service="<?= $serviceName; ?>" value="stripe" title="Stripe Payment" class="css-checkbox payment-type"/>
                                     <label for="paymentType<?= ucfirst( $serviceName ); ?>Stripe" title="Stripe Payment" class="css-label">Credit Card / Stripe</label>
                                 </div>
+
+                                <!-- stripe form <?= $serviceName; ?>-->
+                                <div class="pricingcheckbox stripe-form paid<?= ucfirst( $serviceName ); ?>" id="stripe-<?= $serviceName ?>" style="display:none;">
+                                    <label>Your information</label>
+                                    <span class="form-errors" style="min-height: 0;margin-bottom:5px;"></span>
+
+                                    <div>
+                                        <label>
+                                            <input type="number" size="20" min="13" data-stripe="number" placeholder="Card Number"/>
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <label>
+                                            <input type="number" size="4" min="3" data-stripe="cvc" placeholder="CVC"/>
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <label>
+                                            <input type="text" size="2" min="2" max="2" data-stripe="exp-month" placeholder="MM"/>
+                                            <span> &nbsp; </span>
+                                            <input type="text" size="2" min="2" max="2" data-stripe="exp-year" placeholder="YY"/>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- end - stripe form <?= $serviceName; ?>-->
 
                                 <div class="profilesave right-sided">
                                     <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
@@ -206,11 +234,20 @@ $this->load->view( "include/settingsheader" );
         </div>
         <!--class="subscriptionwrap" -->
     </div>
+<?php
+foreach ($services as $serviceName => $plans) {
+    $forPayment[] = 'paid' . ucfirst( $serviceName );
+}
+
+$forPayment = json_encode( $forPayment );
+$stripe     = config_item( 'stripe_config' );
+?>
     <script>
         $(document).ready(function () {
             /* select subscription plans on load: */
+            var forPayment = <?= $forPayment; ?>;
             (function () {
-                var current = <?= $current_options ?>, temp, forPayment = ['paidRanktracker', 'paidSeocrawl'], i;
+                var current = <?= $current_options; ?>, temp, i;
 
                 // first hide:
                 for (i = 0; i < forPayment.length; i++) {
@@ -228,77 +265,79 @@ $this->load->view( "include/settingsheader" );
                 }
             })();
 
-            $('.subscription-form').on('submit', function (e) {
-                e.preventDefault();
-                var theForm = $(this), data = theForm.serialize(), arr = [], info_msg, info_body;
+            /*
+             $('.subscription-form').on('submit', function (e) {
+             e.preventDefault();
+             var theForm = $(this), data = theForm.serialize(), arr = [], info_msg, info_body;
 
-                // accessiable values:
-                $.each(theForm.serializeArray(), function (i, f) {
-                    arr[f.name] = f.value;
-                });
+             // accessiable values:
+             $.each(theForm.serializeArray(), function (i, f) {
+             arr[f.name] = f.value;
+             });
 
-                // hide info msg:
-                info_msg = $('#form-msgs4-' + arr.service);
-                info_msg.hide().html('');
+             // hide info msg:
+             info_msg = $('#form-msgs4-' + arr.service);
+             info_msg.hide().html('');
 
-                info_body = $('#info-body-' + arr.service);
-                info_body.hide().html('');
+             info_body = $('#info-body-' + arr.service);
+             info_body.hide().html('');
 
-                $.ajax({
-                    data: data,
-                    method: 'POST',
-                    dataType: 'json',
-                    url: theForm.attr('action'),
-                    success: function (response) {
-                        var infoTxt = 'Unknown action';
-                        if (typeof response.msg !== 'undefined') {
-                            info_msg.html(response.msg).show();
-                        }
+             $.ajax({
+             data: data,
+             method: 'POST',
+             dataType: 'json',
+             url: theForm.attr('action'),
+             success: function (response) {
+             var infoTxt = 'Unknown action';
+             if (typeof response.msg !== 'undefined') {
+             info_msg.html(response.msg).show();
+             }
 
-                        if (response.error) {
-                            return false;
-                        }
+             if (response.error) {
+             return false;
+             }
 
-                        if (typeof response.what !== 'undefined') {
-                            switch (response.what) {
-                                case 'downgrade':
-                                    infoTxt = 'Your downgrade request has been saved!<br/>A member of our staff will get in touch with you shortly.<br/>Meanwhile the services will remain the same';
-                                    break;
-                                case 'paypal':
-                                    infoTxt = 'Please wait.. You are being redirected to paypal';
-                                    break;
-                                case 'stripe':
-                                    infoTxt = 'Loading stripe gateway.. Please wait..';
-                                    break;
-                                default:
-                                    // ..
-                                    break;
-                            }
+             if (typeof response.what !== 'undefined') {
+             switch (response.what) {
+             case 'downgrade':
+             infoTxt = 'Your downgrade request has been saved!<br/>A member of our staff will get in touch with you shortly.<br/>Meanwhile the services will remain the same';
+             break;
+             case 'paypal':
+             infoTxt = 'Please wait.. You are being redirected to paypal';
+             break;
+             case 'stripe':
+             infoTxt = 'Loading stripe gateway.. Please wait..';
+             break;
+             default:
+             // ..
+             break;
+             }
 
-                            theForm.remove();
-                            info_msg.html(infoTxt).show();
+             theForm.remove();
+             info_msg.html(infoTxt).show();
 
-                            if (typeof response.body !== undefined) {
-                                info_body.html(response.body).show();
-                                return false;
-                            }
-                        }
+             if (typeof response.body !== undefined) {
+             info_body.html(response.body).show();
+             return false;
+             }
+             }
 
-                        if (typeof response.redirect_to !== 'undefined') {
-                            location.href = response.redirect_to;
-                        }
-                    }
-                });
-            });
+             if (typeof response.redirect_to !== 'undefined') {
+             location.href = response.redirect_to;
+             }
+             }
+             });
+             });
+             */
 
             $('.subscription-plan').on('click', function () {
                 var i, j, tempSelector, tempAmount, whichPayed = [], tempService,
-                    subPlans = $('.subscription-plan'), forPayment = ['paidRanktracker', 'paidSeocrawl'];
+                    subPlans = $('.subscription-plan');
 
                 for (i = 0; i < subPlans.length; i++) {
                     tempSelector = $(subPlans[i]);
-                    tempAmount = tempSelector.attr('data-amount');
-                    tempService = (tempSelector.attr('id').indexOf('Ranktracker') === -1) ? 'Seocrawl' : 'Ranktracker';
+                    tempAmount = tempSelector.data('amount');
+                    tempService = (tempSelector.data('service'));
 
                     if (tempAmount != undefined && parseInt(tempAmount) > 0 && tempSelector.is(':checked')) {
                         whichPayed[whichPayed.length] = 'paid' + tempService;
@@ -318,6 +357,59 @@ $this->load->view( "include/settingsheader" );
                 }
             });
 
+            $('input[name=paymentType]').on('change', function () {
+                var el = $(this),
+                    val = el.val(),
+                    service = el.data('service');
+
+                $('.stripe-form').hide();
+
+                if (val == 'stripe') {
+                    $('#' + val + '-' + service).show();
+                }
+            });
+
+            var stripeForm = null;
+            Stripe.setPublishableKey('<?= $stripe['public_key'];?>');
+
+            function stripeResponseHandler(status, response) {
+                var formMsg = stripeForm.find('span.form-errors');
+
+                formMsg.hide();
+
+                if (response.error) {
+                    formMsg.html(response.error.message).show();
+                    stripeForm.find('input[type=submit]').prop('disabled', false);
+                } else {
+                    formMsg.html('Please wait. Processing.. ').show();
+
+                    $.ajax({
+                        url: '/users/handleStripeToken',
+                        method: 'post',
+                        data: {
+                            stripeToken: response.id
+                        },
+                        success: function (response) {
+                            if (response.error) {
+                                formMsg.show().text(response.msg);
+                                return false;
+                            }
+
+                            formMsg.html(response.msg).show();
+                            stripeForm.find('div.stripe-form').hide();
+                        }
+                    })
+                }
+            }
+
+            $('.subscription-form').submit(function (event) {
+                stripeForm = $(this);
+
+                stripeForm.find('input[type=submit]').prop('disabled', true);
+
+                Stripe.card.createToken(stripeForm, stripeResponseHandler);
+                return false;
+            });
         });
     </script>
 
@@ -403,7 +495,7 @@ $this->load->view( "include/settingsheader" );
     <style type="text/css">
         ul#tabs {
             list-style-type: none;
-            margin: 23px 19px 8px;
+            margin: 20px 19px 8px;
             padding: 0 0 0.3em 0;
         }
 
