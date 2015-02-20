@@ -112,148 +112,95 @@ $this->load->view( "include/settingsheader" );
             <?php echo $this->load->view( 'dashboard/common/settingsblue_top', array( "user" => $user_database ) ); ?>
 
             <div class="subscriptionwrap">
+
                 <!-- BEGIN TABS -->
+                <?php
+                $services      = Subscriptions_Lib::$_service_prices;
+                $serviceNames  = Subscriptions_Lib::$_service_names;
+                $serviceLimits = Subscriptions_Lib::$_service_limits;
+                $currencySymbol = Subscriptions_Lib::$_currency_symbol
+                ?>
                 <ul id="tabs">
-                    <li><a href="#ranktrackertab">Rank Tracker</a></li>
-                    <li><a href="#seocrawltab">SEO Crawl</a></li>
+                    <?php
+                    foreach ($services as $serviceName => $service) {
+                        ?>
+                        <li><a href="#<?= $serviceName; ?>tab"><?= $serviceNames[$serviceName] ?></a></li>
+                    <?php } ?>
                 </ul>
 
-                <div class="tabContent" id="ranktrackertab">
-                    <div class="promembership-wrap">
-                        <div class="settings-whitearea">
-                            <div class="<?= ( ! $ranktracker['expired'] ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
-                            <div class="<?= ( ! $ranktracker['expired'] ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
-                                ACCOUNT LEVEL: <b><?= strtoupper( $ranktracker['plan'] ); ?></b> <?= ( $ranktracker['pending'] ) ? '(until payment is confirmed)' : ''; ?><br/>
-                                NUMBER OF KEYWORDS: <b><?= $ranktracker['usage_number']; ?></b>
-                                <?php if ($ranktracker['expired']) : ?>
-                                    <br/>Your subscription to Ranktracker expired/canceled.
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                        <div class="promembership-text">RANK TRACKER SUBSCRIPTION</div>
-                        <div class="promembership-line"></div>
-                        <div class="keywordsenough">Are you ready to change your plan?</div>
-                        <div class="keywordsenough-small">
-                            We have made it incredibly simple to do so. Just select your new plan on the right, choose your payment method, and then follow the payment instructions there after.
-                        </div>
-                        <div class="profile-keywordsenoughbottom" style="margin-top:24px;,margin-bottom:10px;">
-                            Not sure what you get with each plan? No problem! You can view them <a href="http://rankalytics.com/ranktracker" target="_blank" style="color:#6CC797;">Here</a>
-                        </div>
-                        <div class="profile-keywordsenoughbottomsmall">
-                            *All paid plans will recur on a monthly basis. All Invoices are auto-generated, emailed to you, and downloadable from your 'Invoices' page.
-                        </div>
-                    </div>
-
-                    <div class="promembership-formwrap">
-                        <div id="form-msgs4-ranktracker" class="form-errors"></div>
-                        <div id="info-body-ranktracker" class="form-extra-info"></div>
-
-                        <!-- #for 2 plans - RANK TRACKER -->
-                        <form action="/users/subscription" method="POST" class="subscription-form">
-                            <div class="pricingcheckbox">
-                                <label>Subscription plan</label>
-                                <input type="radio" name="accountType" id="accountTypeRanktrackerPro" value="pro" data-amount='<?= Subscriptions_Lib::$_service_prices['ranktracker']['pro']; ?>' title="<?= Subscriptions_Lib::$_service_limits['ranktracker']['pro']['text']; ?> Keywords" class="css-checkbox subscription-plan"/>
-                                <label for="accountTypeRanktrackerPro" title="<?= Subscriptions_Lib::$_service_limits['ranktracker']['pro']['text']; ?> Keywords" class="css-label">Pro Plan
-                                    (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['ranktracker']['pro']; ?>)</label>
-                                <input type="radio" title="Unlimited Keywords" name="accountType" data-amount='<?= Subscriptions_Lib::$_service_prices['ranktracker']['enterprise']; ?>' value="enterprise" id="accountTypeRanktrackerEnterprise"
-                                       class="css-checkbox subscription-plan"/>
-                                <label for="accountTypeRanktrackerEnterprise" title="<?= Subscriptions_Lib::$_service_limits['ranktracker']['enterprise']['text']; ?> Keywords" class="css-label">Enterprise
-                                    Plan(<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['ranktracker']['enterprise']; ?>)</label>
-                                <input type="radio" title="Rank Tracker Starter" name="accountType" data-amount='0' value="starter" id="accountTypeRanktrackerStarter"
-                                       class="css-checkbox subscription-plan"/>
-                                <label for="accountTypeRanktrackerStarter" title="Rank Tracker Starter" class="css-label">Starter Plan</label>
-                            </div>
-
-                            <div class="pricingcheckbox paidRanktracker">
-                                <label>Payment method</label>
-                                <input type="radio" name="paymentType" id="paymentTypeRanktrackerPaypal" value="paypal" title="PayPal Payment" class="css-checkbox payment-type paypal-cbx"/>
-                                <label for="paymentTypeRanktrackerPaypal" title="PayPal Payment" class="css-label paypal-lbl">PayPal</label>
-                                <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentTypeRanktrackerStripe" class="css-checkbox payment-type"/>
-                                <label for="paymentTypeRanktrackerStripe" title="Stripe Payment" class="css-label">Credit Card / Stripe</label>
-                            </div>
-
-                            <div class="profilesave right-sided">
-                                <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
-                                    <div class="spinner"></div>
+                <?php
+                foreach ($services as $serviceName => $plans) {
+                    $tempVar = $$serviceName;
+                    ?>
+                    <div class="tabContent" id="<?= $serviceName ?>tab">
+                        <div class="promembership-wrap">
+                            <div class="settings-whitearea">
+                                <div class="<?= ( ! $tempVar['expired'] ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
+                                <div class="<?= ( ! $tempVar['expired'] ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
+                                    ACCOUNT LEVEL: <b><?= strtoupper( $tempVar['plan'] ); ?></b> <?= ( $tempVar['pending'] ) ? '(until payment is confirmed)' : ''; ?><br/>
+                                    NUMBER OF KEYWORDS: <b><?= $tempVar['usage_number']; ?></b>
+                                    <?php if ($tempVar['expired']) : ?>
+                                        <br/>Your subscription to <?= ucfirst( $serviceName ); ?> expired/canceled.
+                                    <?php endif; ?>
                                 </div>
-                                <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
-                                <input type="hidden" value="ranktracker" name="service">
-                                <input type="submit" value="" id="submitBillingRanktracker" style="margin-top:12px;">
                             </div>
-                        </form>
-                    </div>
-
-                </div>
-                <!-- end last tab div -->
-
-                <div class="tabContent" id="seocrawltab">
-                    <div class="promembership-wrap">
-                        <div class="settings-whitearea">
-                            <div class="<?= ( ! $seocrawl['expired'] ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
-                            <div class="<?= ( ! $seocrawl['expired'] ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
-                                ACCOUNT LEVEL: <b><?= strtoupper( $seocrawl['plan'] ); ?></b> <?= ( $seocrawl['pending'] ) ? '(until payment is confirmed)' : ''; ?><br/>
-                                NUMBER OF PROJECTS: <b><?= $seocrawl['usage_number']; ?></b>
-                                <?php if ($seocrawl['expired']) : ?>
-                                    <br/>Your subscription to Seocrawl expired/canceled.
-                                <?php endif; ?>
+                            <div class="promembership-text"><?= strtoupper( $serviceNames[$serviceName] ) . ' subscription.' ?></div>
+                            <div class="promembership-line"></div>
+                            <div class="keywordsenough">Are you ready to change your plan?</div>
+                            <div class="keywordsenough-small">
+                                We have made it incredibly simple to do so. Just select your new plan on the right, choose your payment method, and then follow the payment instructions there after.
+                            </div>
+                            <div class="profile-keywordsenoughbottom" style="margin-top:24px;,margin-bottom:10px;">
+                                Not sure what you get with each plan? No problem! You can view them <a href="http://rankalytics.com/<?= $serviceName; ?>" target="_blank" style="color:#6CC797;">Here</a>
+                            </div>
+                            <div class="profile-keywordsenoughbottomsmall">
+                                *All paid plans will recur on a monthly basis. All Invoices are auto-generated, emailed to you, and downloadable from your 'Invoices' page.
                             </div>
                         </div>
-                        <div class="promembership-text">SEO CRAWL SUBSCRIPTION</div>
-                        <div class="promembership-line"></div>
-                        <div class="keywordsenough">Are you ready to change your plan?</div>
-                        <div class="keywordsenough-small">
-                            We have made it incredibly simple to do so. Just select your new plan on the right, choose your payment method, and then follow the payment instructions there after.
-                        </div>
-                        <div class="profile-keywordsenoughbottom" style="margin-top:24px;margin-bottom:10px;">
-                            Not sure what you get with each plan? No problem! You can view them <a href="http://rankalytics.com/seor" target="_blank" style="color:#6CC797;">Here</a>
-                        </div>
-                        <div class="profile-keywordsenoughbottomsmall">
-                            *All paid plans will recur on a monthly basis. All Invoices are auto-generated, emailed to you, and downloadable from your 'Invoices' page.
-                        </div>
-                    </div>
 
-                    <div class="promembership-formwrap">
-                        <div id="form-msgs4-seocrawl" class="form-errors"></div>
-                        <div id="info-body-seocrawl" class="form-extra-info"></div>
+                        <div class="promembership-formwrap">
+                            <div id="form-msgs4-<?= $serviceName; ?>" class="form-errors"></div>
+                            <div id="info-body-<?= $serviceName; ?>" class="form-extra-info"></div>
 
-                        <form action="/users/subscription" method="POST" class="subscription-form">
-                            <div class="pricingcheckbox">
-                                <label>Subscription plan</label>
-                                <input type="radio" name="accountType" id="accountTypeSeocrawlStarter" value="starter" data-amount='<?= Subscriptions_Lib::$_service_prices['seocrawl']['starter']; ?>' title="SEO Crawl Starter"
-                                       class="css-checkbox subscription-plan"/>
-                                <label for="accountTypeSeocrawlStarter" title="SEO Crawl Starter" class="css-label">Starter PLan (<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['starter']; ?>)</label>
-                                <input type="radio" title="SEO Crawl Pro" name="accountType" value="pro" data-amount='<?= Subscriptions_Lib::$_service_prices['seocrawl']['pro']; ?>' id="accountTypeSeocrawlPro" class="css-checkbox subscription-plan"/>
-                                <label for="accountTypeSeocrawlPro" title="SEO Crawl Pro" class="css-label">Pro Plan(<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['pro']; ?>)</label>
-                                <input type="radio" name="accountType" id="accountTypeSeocrawlEnterprise" value="enterprise" data-amount='<?= Subscriptions_Lib::$_service_prices['seocrawl']['enterprise']; ?>' title="Seo Crawl Enterprise"
-                                       class="css-checkbox subscription-plan"/>
-                                <label for="accountTypeSeocrawlEnterprise" title="SEO Crawl Enterprise" class="css-label">Enterprise Plan(<?= Subscriptions_Lib::$_currency_symbol . Subscriptions_Lib::$_service_prices['seocrawl']['enterprise']; ?>
-                                    )</label>
-                                <input type="radio" name="accountType" id="accountTypeSeocrawlFree" value="free" data-amount='0' title="Seo Crawl Free" class="css-checkbox subscription-plan"/>
-                                <label for="accountTypeSeocrawlFree" title="SEO Crawl Free" class="css-label">Free Plan</label>
-                            </div>
+                            <!-- #for 2 plans - RANK TRACKER -->
+                            <form action="/users/subscription" method="POST" class="subscription-form">
+                                <div class="pricingcheckbox">
+                                    <label>Subscription plan</label>
+                                    <?php
+                                    foreach ($plans as $planName => $amount) {
+                                        $title = $serviceLimits[$serviceName][$planName]['text'] . ' Keywords';
 
-                            <div class="pricingcheckbox paidSeocrawl">
-                                <label>Payment method</label>
-                                <input type="radio" name="paymentType" id="paymentTypeSeocrawlPaypal" value="paypal" title="Paypal Payment" class="css-checkbox payment-type paypal-cbx"/>
-                                <label for="paymentTypeSeocrawlPaypal" title="Paypal Payment" class="css-label paypal-lbl">Paypal</label>
-                                <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentTypeSeocrawlStripe" class="css-checkbox payment-type"/>
-                                <label for="paymentTypeSeocrawlStripe" title="Stripe Payment" class="css-label">Credit Card / Stripe</label>
-                            </div>
-
-                            <div class="profilesave right-sided">
-                                <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
-                                    <div class="spinner"></div>
+                                        ?>
+                                        <input type="radio" name="accountType" id="accountType<?= ucfirst( $serviceName ) . ucfirst( $planName ); ?>" value="<?= $planName ?>" data-amount='<?= $amount; ?>' title="<?= $title; ?>" class="css-checkbox subscription-plan"/>
+                                        <label for="accountType<?= ucfirst( $serviceName ) . ucfirst( $planName ); ?>" title="<?= $title; ?>" class="css-label"><?= ucfirst( $planName ) ?> Plan
+                                            (<?= $currencySymbol . $amount ?>)</label>
+                                    <?php } ?>
                                 </div>
-                                <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
-                                <input type="hidden" value="seocrawl" name="service">
-                                <input type="submit" value="" id="submitBilling" style="margin-top:12px;">
-                            </div>
-                        </form>
+
+                                <div class="pricingcheckbox paid<?= ucfirst( $serviceName ) ?>">
+                                    <label>Payment method</label>
+                                    <input type="radio" name="paymentType" id="paymentType<?= ucfirst( $serviceName ); ?>Paypal" value="paypal" title="PayPal Payment" class="css-checkbox payment-type paypal-cbx"/>
+                                    <label for="paymentType<?= ucfirst( $serviceName ); ?>Paypal" title="PayPal Payment" class="css-label paypal-lbl">PayPal</label>
+                                    <input type="radio" title="Stripe Payment" name="paymentType" value="Stripe" id="paymentType<?= ucfirst( $serviceName ); ?>Stripe" class="css-checkbox payment-type"/>
+                                    <label for="paymentType<?= ucfirst( $serviceName ); ?>Stripe" title="Stripe Payment" class="css-label">Credit Card / Stripe</label>
+                                </div>
+
+                                <div class="profilesave right-sided">
+                                    <div align="left" style="float:left ;margin-right: 42px;" id="billingInfo-loading" class="save-loading">
+                                        <div class="spinner"></div>
+                                    </div>
+                                    <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
+                                    <input type="hidden" value="<?= $serviceName; ?>" name="service">
+                                    <input type="submit" value="" id="submitBilling<?= ucfirst( $serviceName ); ?>" style="margin-top:12px;">
+                                </div>
+                            </form>
+                        </div>
+
                     </div>
-
-                </div>
-                <!-- end last tab div -->
-
+                    <!-- end last tab div -->
+                <?php
+                }
+                ?>
             </div>
             <!-- END TABS -->
         </div>

@@ -15,6 +15,7 @@ class Subscriptions_Lib
      * */
 
     public static $_tax, $_month_days, $_service_prices, $_service_limits, $_currency_symbol, $_currency_code;
+    public static $_service_names;
 
     public static function loadConfig() {
         $sc = config_item('Subscriptions_Lib_Config');
@@ -25,6 +26,7 @@ class Subscriptions_Lib
         self::$_service_limits = $sc['limits'];
         self::$_currency_code = strtoupper($sc['currency']['code']);
         self::$_currency_symbol = $sc['currency']['symbol'];
+        self::$_service_names = $sc['names'];
     }
 
     /**
