@@ -231,6 +231,7 @@ $this->load->view( "include/settingsheader" );
                                     </div>
                                     <!--img src="<?php echo base_url() ?>assets/images/loading.gif" id="billingInfo-loading" align="left" class="save-loading"-->
                                     <input type="hidden" value="<?= $serviceName; ?>" name="serviceName">
+                                    <input type="hidden" value="" name="serviceAction" id="<?= $serviceName; ?>Action">
                                     <input type="submit" value="" id="submitBilling<?= ucfirst( $serviceName ); ?>" style="margin-top:12px;">
                                 </div>
                             </form>
@@ -260,8 +261,9 @@ $stripe     = config_item( 'stripe_config' );
 
             /* select subscription plans on load: */
             var forPayment = <?= $forPayment; ?>;
+            var current = <?= $current_options; ?>;
             (function () {
-                var current = <?= $current_options; ?>, temp, i;
+                var temp, i;
 
                 // first hide:
                 for (i = 0; i < forPayment.length; i++) {
@@ -279,33 +281,66 @@ $stripe     = config_item( 'stripe_config' );
                 }
             })();
 
+            function getCurrentByName(serviceName) {
+                for (var i = 0; i < current.length; i++) {
+                    if (current[i]['service'] == serviceName) {
+                        return current[i];
+                    }
+                }
+
+                console.log('getCurrentByName(): ' + serviceName + ' not found!');
+                return null;
+            }
+
+            function isAlreadyPaid(serviceName) {
+                var serviceInfo = getCurrentByName(serviceName);
+
+                if (serviceInfo == null) {
+                    return false;
+                }
+
+                return serviceInfo.isPaid;
+            }
+
+            function isDowngrade(serviceName, amount) {
+                var serviceInfo = getCurrentByName(serviceName);
+
+                if (serviceInfo == null) {
+                    return false;
+                }
+
+                return (serviceInfo.amount > amount);
+            }
+
             $('.subscription-plan').on('click', function () {
-                var i, j, tempSelector, tempAmount, whichPayed = [], tempService,
-                    subPlans = $('.subscription-plan');
+                var option = $(this),
+                    amount = option.data('amount'),
+                    service = option.data('service'),
+                    formInfo = $('#form-info-' + service.toLowerCase()),
+                    paymentOptions = $('.paid' + service),
+                    action = $('#' + service.toLowerCase() + 'Action')
+                    ;
 
-                for (i = 0; i < subPlans.length; i++) {
-                    tempSelector = $(subPlans[i]);
-                    tempAmount = tempSelector.data('amount');
-                    tempService = (tempSelector.data('service'));
+                formInfo.hide();
 
-                    if (tempAmount != undefined && parseInt(tempAmount) > 0 && tempSelector.is(':checked')) {
-                        whichPayed[whichPayed.length] = 'paid' + tempService;
+                if (amount == 0) {
+                    paymentOptions.hide();
+                    $('#stripe-' + service.toLowerCase()).hide();
+
+                    if (isAlreadyPaid(service)) {
+                        formInfo.html('Are you sure you want to cancel current subscription?').show();
+                        action.val('cancel');
                     }
+
+                    return;
                 }
 
-                $('.stripe-form').hide();
-
-                for (i = 0; i < forPayment.length; i++) {
-                    tempSelector = $('.' + forPayment[i]);
-                    tempSelector.hide();
-
-                    for (j = 0; j < whichPayed.length; j++) {
-                        if ((forPayment[i] == whichPayed[j])) {
-                            tempSelector.show();
-                            break;
-                        }
-                    }
+                if (isDowngrade(service, amount)) {
+                    formInfo.html('Are you sure you want to downgrade current subscription?').show();
+                    action.val('change');
                 }
+
+                paymentOptions.show();
             });
 
             $('input[name=paymentType]').on('click', function () {

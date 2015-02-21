@@ -252,6 +252,7 @@ class Users extends CI_Controller
                     'plan'    => ucfirst( $tempInfo['plan'] ),
                     'pType'   => ucfirst( $tempInfo['payment_type'] ),
                     'isPaid'  => Subscriptions_Lib::isPaid( $service, $tempInfo['plan'] ),
+                    'amount' => Subscriptions_Lib::$_service_prices[$service][$tempInfo['plan']],
                 );
                 $i ++;
 
