@@ -170,12 +170,12 @@ class Users extends CI_Controller
 
         // 0 check:
         $_disabled = true;
-        if (!$_disabled and isset( $user_data['paymentStep'] )) {
+        if ( ! $_disabled and isset( $user_data['paymentStep'] )) {
             $this->load->view( 'ranktracker/promembership', array( 'paymentData' => $user_data ) );
             return false;
         }
 
-        if($_disabled and isset($user_data['registered'])) {
+        if ($_disabled and isset( $user_data['registered'] )) {
             $this->load->view( 'ranktracker/promembership', array( 'registered' => $user_data['registered'] ) );
             return false;
         }
@@ -196,18 +196,19 @@ class Users extends CI_Controller
         $this->load->view( 'ranktracker/promembership', $this->data );
     }
 
-    public function subscriptions( ){
+    public function subscriptions()
+    {
         if ( ! $userId = $this->users->isLoggedIn()) {
             redirect( "ranktracker" );
         }
 
         $user_array = $this->users->getUserById( $userId );
-        $userData = $user_array[0];
+        $userData   = $user_array[0];
 
         // fetch subscriptions information:
         $i                       = 0;
         $data['current_options'] = array();
-        $default = false;
+        $default                 = false;
         foreach (Subscriptions_Lib::$_service_prices as $service => $null) {
             // 'internal' info:
             $tempInfo = $this->subscriptions->getSubscriptionInfo( $userId, $service );
@@ -215,7 +216,7 @@ class Users extends CI_Controller
             // if tempInfo is not array => there's no subscription. Apply default information:
             if ( ! is_array( $tempInfo )) {
                 $tempInfo = ( $userData['userRole'] == 'admin' ) ? Subscriptions_Lib::getDefaultForAdmin( $service ) : Subscriptions_Lib::getDefaultNotSubscribed( $service );
-                $default = true;
+                $default  = true;
             } else {
                 $paymentType_backup = $tempInfo['payment_type'];
             }
@@ -235,7 +236,7 @@ class Users extends CI_Controller
                 $tempInfo['limit'] = Subscriptions_Lib::$_service_limits[$service][$tempInfo['plan']]['text'];
 
                 //expiration date:
-                $tempInfo['expired'] = ( !$default and $tempInfo['status'] !== 'approved' );
+                $tempInfo['expired'] = ( ! $default and $tempInfo['status'] !== 'approved' );
 
                 // ..
                 if ($tempInfo['expired']) {
@@ -271,10 +272,10 @@ class Users extends CI_Controller
         // ..
         $data['current_options'] = json_encode( $data['current_options'] );
 
-        $data['current'] = 'subscriptions';
+        $data['current']       = 'subscriptions';
         $data['user_database'] = $userData;
 
-        $this->load->view( 'dashboard/subscriptions' , $data );
+        $this->load->view( 'dashboard/subscriptions', $data );
     }
 
     /**
@@ -318,38 +319,6 @@ class Users extends CI_Controller
     }
 
     /**
-     * @param $userId
-     *
-     * @return array|bool
-     */
-    private function subscriptionIsPaid( $userId )
-    {
-        $subscriptions = array();
-        $this->sub_id  = 'SUB-' . ( rand( 10000, 99999 ) . '-' . substr( time(), - 6 ) );
-
-        $services = Subscriptions_Lib::$_service_prices;
-        foreach ($services as $serviceName => $plans) {
-            $fieldValue = $this->input->post( ucfirst( $serviceName ) . 'Plan' );
-
-            if ($fieldValue and isset( $plans[$fieldValue] ) and (int) $plans[$fieldValue] > 0) {
-                $subscriptions[] = array(
-                    'user_id'  => $userId,
-                    'service'  => $serviceName,
-                    'plan'     => $fieldValue,
-                    'order_id' => $this->sub_id,
-                    'status'   => 'pending',
-                );
-            }
-        }
-
-        if ( ! count( $subscriptions )) {
-            return false;
-        }
-
-        return $subscriptions;
-    }
-
-    /**
      * validate and save user + subscriptions
      */
     public function save()
@@ -379,39 +348,7 @@ class Users extends CI_Controller
             }
         }
 
-        goto SKIP_TO_END;
-        // check if paid:
-        if ( ! ( $subscriptions = $this->subscriptionIsPaid( $userId ) )) {
-            $this->session->unset_userdata( 'tempData' );
-
-            $this->json_exit(
-                array(
-                    'error' => false,
-                    'paid'  => false,
-                )
-            );
-        }
-
-        # save subscriptions to db:
-        if ( ! isset( $user_data['paymentStep'] )) {
-            $this->subscriptions->doSave( $subscriptions );
-        } else {
-            $subscriptions = $user_data['subscriptions'];
-        }
-
-        # save to session:
-        $this->session->set_userdata(
-            array(
-                'subscriptionId'       => $this->sub_id,
-                'paymentStep'          => true,
-                'paymentUserId'        => $userId,
-                'emailAddress'         => $userArray['emailAddress'],
-                'paymentSubscriptions' => $subscriptions,
-            )
-        );
-
-        SKIP_TO_END:
-        # NEW step:
+        # next step:
         $this->session->set_userdata(
             array(
                 'registered' => $userArray['emailAddress']
@@ -447,25 +384,78 @@ class Users extends CI_Controller
     }
 
     /**
+     * @param $userId
+     *
+     * @return array|bool
+     */
+    private function createNewSubscription( $userId )
+    {
+        $services = Subscriptions_Lib::$_service_prices;
+
+        $serviceName = trim( $this->input->post( 'serviceName' ) );
+        $planName    = trim( $this->input->post( 'servicePlan' ) );
+        $paymentType = trim( $this->input->post( 'paymentType' ) );
+
+        if ( ! isset( $services[$serviceName] ) OR ! isset( $services[$serviceName][$planName] )) {
+            $this->json_exit( array(
+                'error' => true,
+                'msg'   => 'Unknown plan/service selected',
+            ) );
+        }
+
+        $this->sub_id    = 'SUB-' . ( rand( 10000, 99999 ) . '-' . substr( time(), - 6 ) );
+        $subscriptions[] = array(
+            'user_id'      => $userId,
+            'service'      => $serviceName,
+            'plan'         => $planName,
+            'order_id'     => $this->sub_id,
+            'status'       => 'pending',
+            'payment_type' => $paymentType,
+        );
+
+        $this->session->set_userdata(
+            array(
+                'subscriptionId' => $this->sub_id
+            )
+        );
+
+        $this->subscriptions->doSave( $subscriptions );
+
+        if ( ! count( $subscriptions )) {
+            return false;
+        }
+
+        return $subscriptions;
+    }
+
+    /**
      * Creates a link for user that sends him to paypal's page
      */
     public function paypalLink()
     {
-        $user_data = $this->session->all_userdata();
-        if ( ! isset( $user_data['paymentSubscriptions'] )) {
-            $this->json_exit( array(
-                'error' => true,
-                'msg'   => 'Session expired / operation completed.'
-            ) );
+        exit();
+        $generic = array(
+            'error' => true,
+            'msg'   => 'nothing to do here'
+        );
+
+        # check ig logged in:
+        $tempInfo = $this->session->all_userdata();
+        if ( ! isset( $tempInfo['logged_in'][0] )) {
+            $this->json_exit( $generic );
         }
+
+        $userData      = $tempInfo['logged_in'][0];
+        $subscriptions = $this->createNewSubscription( $userData['id'] );
 
         # load requirements and make settings:
         $this->load->library( 'paypalrest' );
-        $this->paypalrest->setSubscriptions( $user_data['paymentSubscriptions'] );
+        $this->paypalrest->setSubscriptions( $subscriptions );
 
         # step 1
         $response = $this->paypalrest->createBillingWithAccount();
         if (is_array( $response ) and $response['error']) {
+            $this->subscriptions->removeBySubId( $this->sub_id );
             $this->json_exit( $response );
         }
 
@@ -474,25 +464,44 @@ class Users extends CI_Controller
     }
 
     /**
-     *
+     * @param null $link
      */
     public function handlePaypal()
     {
+        exit();
         $generic = array(
             'error' => true,
             'msg'   => 'nothing to do here'
         );
 
+        # check ig logged in:
+        $tempInfo = $this->session->all_userdata();
+
+        if ( ! isset( $tempInfo['logged_in'][0] )) {
+            $this->json_exit( $generic );
+        }
+        $userData = $tempInfo['logged_in'][0];
+
+        $generic = array(
+            'error' => true,
+            'msg'   => 'nothing to do here'
+        );
+
+        # handle paypal's callback
         if ( ! isset( $_GET['success'] )) {
             $this->json_exit( $generic );
         }
 
         if (strtolower( $_GET['success'] ) !== 'true') {
             # canceled:
-            $this->json_exit( array(
-                'error' => true,
-                'msg'   => 'canceled',
-            ) );
+            $this->subscriptions->doUpdate(
+                array( 'status' => 'canceled' ),
+                array( 'order_id' => $tempInfo['subscriptionId'] )
+            );
+
+            $this->session->unset_userdata( 'subscriptionId' );
+            $this->subscriptions();
+            return;
         }
 
         if ( ! isset( $_GET['token'] )) {
@@ -523,15 +532,10 @@ class Users extends CI_Controller
         $this->load->library( 'stripe' );
 
         // ..
-        $userData = $this->session->all_userdata();
-        if ( ! isset( $userData['paymentStep'] )) {
-            $this->json_exit( array(
-                'error' => true,
-                'msg'   => 'Already processed',
-            ) );
-        }
+        $tempInfo = $this->session->all_userdata();
+        $userData = $tempInfo['logged_in'][0];
 
-        $subscriptions = $userData['paymentSubscriptions'];
+        $subscriptions = $this->createNewSubscription( $userData['id'] );
         $emailAddress  = $userData['emailAddress'];
         try {
             $this->stripe->makeSubscription( $token, $subscriptions, $emailAddress );
@@ -557,15 +561,11 @@ class Users extends CI_Controller
         foreach ($subscriptions as $s_no => $subscription) {
             $this->subscriptions->doUpdate(
                 array( 'status' => 'approved', 'external_id' => $external_ids[$s_no], 'payment_type' => 'stripe' ),
-                array( 'order_id' => $userData['subscriptionId'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
+                array( 'order_id' => $subscriptions[0]['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
             );
-        }
 
-        $this->session->unset_userdata( 'subscriptionId' );
-        $this->session->unset_userdata( 'paymentStep' );
-        $this->session->unset_userdata( 'paymentUserId' );
-        $this->session->unset_userdata( 'emailAddress' );
-        $this->session->unset_userdata( 'paymentSubscriptions' );
+            $this->session->unset_userdata('subscriptionId');
+        }
 
         $this->json_exit( $out );
     }
@@ -1280,9 +1280,9 @@ class Users extends CI_Controller
             $data['user_database']['companyName'] = $mainuser['0']['companyName'];
         }
 
-        $data['current']         = 'dashboard';
-        $data['meta_title']      = 'Rankalytics Settings';
-        $data['countries']       = $this->countries->getAll();
+        $data['current']    = 'dashboard';
+        $data['meta_title'] = 'Rankalytics Settings';
+        $data['countries']  = $this->countries->getAll();
 
         $this->load->view( 'dashboard/settings', $data );
     }

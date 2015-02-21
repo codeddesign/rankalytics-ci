@@ -100,8 +100,8 @@ class My_PaypalRest
              ->setType( 'fixed' );
 
         $merchantPreferences = new MerchantPreferences();
-        $merchantPreferences->setReturnUrl( $baseUrl . "/handlepaypal?success=true" )#todo link
-                            ->setCancelUrl( $baseUrl . "/handlepaypal?success=false" )
+        $merchantPreferences->setReturnUrl( $baseUrl . "?success=true" )
+                            ->setCancelUrl( $baseUrl . "?success=false" )
                             ->setAutoBillAmount( "yes" )
                             ->setInitialFailAmountAction( "CONTINUE" )
                             ->setMaxFailAttempts( "0" );
@@ -115,7 +115,7 @@ class My_PaypalRest
                ->setCycles( "12" )
                ->setAmount( new Currency( array( 'value' => Subscriptions_Lib::$_service_prices[$subscription['service']][$subscription['plan']], 'currency' => 'USD' ) ) );
 
-            $plan->addPaymentDefinition( $pd );
+            $plan->setPaymentDefinitions( array($pd) );
         }
 
         $plan->setMerchantPreferences( $merchantPreferences );
@@ -124,8 +124,6 @@ class My_PaypalRest
         try {
             $plan = $plan->create( $this->apiContext );
         } catch ( Exception $ex ) {
-            print_r( $ex );
-            exit;
             return array(
                 'error' => true,
                 'msg'   => $ex->getMessage()
@@ -262,7 +260,7 @@ class My_PaypalRest
         $host    = $_SERVER['HTTP_HOST'];
         $request = $_SERVER['PHP_SELF'];
 
-        return dirname( $protocol . '://' . $host . $request );
+        return dirname( $protocol . '://' . $host . str_replace( 'index.php/', '', $request ) );
     }
 
     /**

@@ -68,20 +68,7 @@ class Subscriptions_Model extends CI_Model
         // ..
         $this->db->select('*')->from($this->_tablename);
         $this->db->where($condition);
-        if($special) {
-            $special_ops = array('downgrade', 'extension');
-            $this->db->where_not_in('operation', $special_ops);
-
-            // or get last approved downgrade/extension:
-            foreach ($special_ops as $s_no => $special) {
-                $or_part = '(operation="' . $special . '" AND status="approved" AND user_id="' . $user_id . '"';
-                if ($service !== null) {
-                    $or_part .= ' AND service="' . $service . '"';
-                }
-                $or_part .= ')';
-                $this->db->or_where($or_part);
-            }
-        }
+        $this->db->where_not_in('status', array('canceled'));
 
         if ($single) {
             $this->db->limit(1);
@@ -152,5 +139,9 @@ class Subscriptions_Model extends CI_Model
         }
 
         return $this->db->get()->result_array();
+    }
+
+    public function removeBySubId( $subId ){
+        $this->db->delete($this->_tablename, array('order_id' => $subId));
     }
 }
