@@ -169,7 +169,12 @@ $this->load->view( "include/settingsheader" );
                         </div>
 
                         <div class="promembership-formwrap">
-                            <div id="form-info-<?= $serviceName; ?>" class="form-errors"></div>
+                            <?php
+                            if (( $flashMsg = $this->session->userdata( 'paypal_flash' ) )) {
+                                $this->session->unset_userdata( 'paypal_flash' );
+                            }
+                            ?>
+                            <div id="form-info-<?= $serviceName; ?>" class="form-errors" <?= ( $flashMsg ) ? 'style="display:block;"' : ''; ?>><?= $flashMsg ?></div>
 
                             <form action="/users/subscription" method="POST" class="subscription-form" data-service="<?= ucfirst( $serviceName ); ?>">
                                 <div class="pricingcheckbox">
@@ -378,8 +383,13 @@ $stripe     = config_item( 'stripe_config' );
                                 return false;
                             }
 
-                            formInfo.html('Please wait.. Redirecting..');
-                            //location.href = response.link;
+                            if (typeof response.link !== 'undefined') {
+                                formInfo.html('Please wait.. Redirecting..');
+                                location.href = response.link;
+                                return false;
+                            }
+
+                            console.log('internal error');
                         }
                     });
 

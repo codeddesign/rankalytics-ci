@@ -205,6 +205,9 @@ class Users extends CI_Controller
         $user_array = $this->users->getUserById( $userId );
         $userData   = $user_array[0];
 
+        # check if from paypal and do some work
+        $this->handlePaypal( $this->session->all_userdata() );
+
         // fetch subscriptions information:
         $i                       = 0;
         $data['current_options'] = array();
@@ -433,93 +436,115 @@ class Users extends CI_Controller
      */
     public function paypalLink()
     {
-        exit();
         $generic = array(
             'error' => true,
             'msg'   => 'nothing to do here'
         );
 
-        # check ig logged in:
+        # check if logged in:
         $tempInfo = $this->session->all_userdata();
         if ( ! isset( $tempInfo['logged_in'][0] )) {
             $this->json_exit( $generic );
         }
 
-        $userData      = $tempInfo['logged_in'][0];
-        $subscriptions = $this->createNewSubscription( $userData['id'] );
-
         # load requirements and make settings:
         $this->load->library( 'paypalrest' );
-        $this->paypalrest->setSubscriptions( $subscriptions );
+        $this->load->model( 'UserPaypalPlans_Model', 'existing_plans', true );
 
-        # step 1
+        # prepare data and save subscription to db:
+        $userData      = $tempInfo['logged_in'][0];
+        $subscriptions = $this->createNewSubscription( $userData['id'] );
+        $subscription  = $subscriptions[key( $subscriptions )];
+
+        # associate with paypal:
+        $this->paypalrest->setSubscription( $subscription );
+
+        # check for existing plan:
+        $planShort = My_PaypalRest::generatePlanId( $subscription );
+        $planLong  = My_PaypalRest::generatePlanName( $subscription );
+
+        $savedPlan = $this->existing_plans->getFirstWhere( array( 'plan_short' => $planShort ) );
+        if ($savedPlan !== false) {
+            $this->paypalrest->usePlanWithId( $savedPlan['id'] );
+        }
+
+        # step 1 - create billing agreement:
         $response = $this->paypalrest->createBillingWithAccount();
         if (is_array( $response ) and $response['error']) {
             $this->subscriptions->removeBySubId( $this->sub_id );
             $this->json_exit( $response );
         }
 
-        # step 2:
+        # step 2 - save plan if not yet saved:
+        if ($savedPlan == false) {
+            $this->existing_plans->doSave( array(
+                'id'         => $this->paypalrest->getSavedPlanId(),
+                'plan_short' => $planShort,
+                'plan_long'  => $planLong,
+            ) );
+        }
+
+        # step 3 - response:
         $this->json_exit( $response );
     }
 
     /**
-     * @param null $link
-     */
-    public function handlePaypal()
+     * @param $tempInfo
+     **/
+    private function handlePaypal( $tempInfo )
     {
-        exit();
-        $generic = array(
-            'error' => true,
-            'msg'   => 'nothing to do here'
-        );
-
-        # check ig logged in:
-        $tempInfo = $this->session->all_userdata();
-
-        if ( ! isset( $tempInfo['logged_in'][0] )) {
-            $this->json_exit( $generic );
+        if ( ! $this->session->userdata( 'subscriptionId' )) {
+            return false;
         }
-        $userData = $tempInfo['logged_in'][0];
 
-        $generic = array(
-            'error' => true,
-            'msg'   => 'nothing to do here'
-        );
+        # remove subscriptionId:
+        $this->session->unset_userdata( 'subscriptionId' );
 
         # handle paypal's callback
-        if ( ! isset( $_GET['success'] )) {
-            $this->json_exit( $generic );
+        if ( ! $this->input->get( 'success' )) {
+            return false;
         }
 
-        if (strtolower( $_GET['success'] ) !== 'true') {
+        if (strtolower( $this->input->get( 'success' ) ) !== 'true' OR ! $this->input->get( 'token' )) {
             # canceled:
             $this->subscriptions->doUpdate(
                 array( 'status' => 'canceled' ),
                 array( 'order_id' => $tempInfo['subscriptionId'] )
             );
 
-            $this->session->unset_userdata( 'subscriptionId' );
-            $this->subscriptions();
-            return;
-        }
-
-        if ( ! isset( $_GET['token'] )) {
-            # canceled ? :
-            $this->json_exit( $generic );
+            $this->session->set_userdata( array(
+                'paypal_flash' => 'Your subscription aplication has been canceled.'
+            ) );
+            redirect( '/users/subscriptions' );
+            return false;
         }
 
         # step ok:
         $this->load->library( 'paypalrest' );
 
-        $response = $this->paypalrest->handleAgreement( trim( $_GET['token'] ) );
+        $response = $this->paypalrest->handleAgreement( $this->input->get( 'token' ) );
         if (is_array( $response ) and $response['error']) {
-            $this->json_exit( $response );
+            $this->session->set_userdata( array(
+                    'paypal_flash' => 'Failed: ' . $response['msg'] . ' (contact support)'
+                )
+            );
+            redirect( '/users/subscriptions' );
+            return false;
         }
 
         # save info to db:
         $agreement = $response['agreement'];
+        $this->subscriptions->doUpdate(
+            array( 'status' => 'approved', 'external_id' => $agreement->id ),
+            array( 'order_id' => $tempInfo['subscriptionId'] )
+        );
 
+        $this->session->set_userdata( array(
+                'paypal_flash' => 'Your subscription application has been completed!'
+            )
+        );
+        redirect( '/users/subscriptions' );
+        return false;
     }
 
     public function handleStripe()
@@ -564,7 +589,7 @@ class Users extends CI_Controller
                 array( 'order_id' => $subscriptions[0]['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
             );
 
-            $this->session->unset_userdata('subscriptionId');
+            $this->session->unset_userdata( 'subscriptionId' );
         }
 
         $this->json_exit( $out );

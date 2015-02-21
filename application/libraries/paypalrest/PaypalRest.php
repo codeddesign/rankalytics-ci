@@ -20,8 +20,9 @@ class My_PaypalRest
     private $apiContext;
     private $config;
     private $approvalUrl;
-    private $paymentDefinitions;
-    private $subscriptions;
+    private $subscription;
+    private $baseUrl;
+    private $usePlan;
 
     public function __construct()
     {
@@ -32,7 +33,8 @@ class My_PaypalRest
         $this->details = $config;
 
         $this->approvalUrl = false;
-
+        $this->baseUrl     = $this->getBaseUrl();
+        $this->usePlan     = false;
         $this->setApiContext();
     }
 
@@ -59,9 +61,9 @@ class My_PaypalRest
     /**
      * @param array $subscriptions
      */
-    public function setSubscriptions( array $subscriptions )
+    public function setSubscription( array $subscription )
     {
-        $this->subscriptions = $subscriptions;
+        $this->subscription = $subscription;
     }
 
     /**
@@ -69,60 +71,55 @@ class My_PaypalRest
      *
      * @return string
      */
-    private function getPlanName( $subscription )
+    public static function generatePlanName( $subscription )
     {
         return ucfirst( $subscription['service'] ) . " " . strtoupper( $subscription['plan'] );
     }
 
     /**
+     * @param $subscription
+     *
      * @return string
      */
-    private function getPlanNameAll()
+    public static function generatePlanId( $subscription )
     {
-        $save = array();
-        foreach ($this->subscriptions as $s_no => $subscription) {
-            $save[] = $this->getPlanName( $subscription );
-        }
-
-        return implode( ' & ', $save );
+        return substr( $subscription['service'], 0, 3 ) . '_' . $subscription['plan'];
     }
 
     /**
-     * @return Plan|array
+     * @return array|Plan
      */
     private function createPlan()
     {
-        $baseUrl = $this->getBaseUrl();
+        $subscription = $this->subscription;
 
-        $plan = new Plan();
-        $plan->setName( $this->getPlanNameAll() )
-             ->setDescription( $this->details['plan']['description'] )
-             ->setType( 'fixed' );
+        # Create Plan
+        $createPlan = new Plan();
+        $createPlan->setName( $this->generatePlanName( $subscription ) )
+                   ->setDescription( $this->details['plan']['description'] )
+                   ->setType( 'fixed' );
 
         $merchantPreferences = new MerchantPreferences();
-        $merchantPreferences->setReturnUrl( $baseUrl . "?success=true" )
-                            ->setCancelUrl( $baseUrl . "?success=false" )
+        $merchantPreferences->setReturnUrl( $this->baseUrl . "/subscriptions/?success=true" )
+                            ->setCancelUrl( $this->baseUrl . "/subscriptions/?success=false" )
                             ->setAutoBillAmount( "yes" )
                             ->setInitialFailAmountAction( "CONTINUE" )
                             ->setMaxFailAttempts( "0" );
 
-        foreach ($this->subscriptions as $s_no => $subscription) {
-            $pd = new PaymentDefinition();
-            $pd->setName( $this->getPlanName( $subscription ) )
-               ->setType( 'Regular' )
-               ->setFrequency( 'Month' )
-               ->setFrequencyInterval( "1" )
-               ->setCycles( "12" )
-               ->setAmount( new Currency( array( 'value' => Subscriptions_Lib::$_service_prices[$subscription['service']][$subscription['plan']], 'currency' => 'USD' ) ) );
+        $pd = new PaymentDefinition();
+        $pd->setName( $this->generatePlanId( $subscription ) )
+           ->setType( 'Regular' )
+           ->setFrequency( 'Month' )
+           ->setFrequencyInterval( "1" )
+           ->setCycles( "12" )
+           ->setAmount( new Currency( array( 'value' => Subscriptions_Lib::$_service_prices[$subscription['service']][$subscription['plan']], 'currency' => 'USD' ) ) );
 
-            $plan->setPaymentDefinitions( array($pd) );
-        }
+        $createPlan->setPaymentDefinitions( array( $pd ) );
 
-        $plan->setMerchantPreferences( $merchantPreferences );
+        $createPlan->setMerchantPreferences( $merchantPreferences );
 
-        # Create Plan
         try {
-            $plan = $plan->create( $this->apiContext );
+            $createPlan = $createPlan->create( $this->apiContext );
         } catch ( Exception $ex ) {
             return array(
                 'error' => true,
@@ -130,18 +127,8 @@ class My_PaypalRest
             );
         }
 
-        return $plan;
-    }
-
-    /**
-     * @param Plan $createdPlan
-     *
-     * @return Plan|array
-     */
-    private function updatePlan( Plan $createdPlan )
-    {
+        # Update Plan
         try {
-
             $patch = new Patch();
             $patch->setOp( 'replace' )
                   ->setPath( '/' )
@@ -156,9 +143,9 @@ class My_PaypalRest
             $patchRequest = new PatchRequest();
             $patchRequest->addPatch( $patch );
 
-            $createdPlan->update( $patchRequest, $this->apiContext );
+            $createPlan->update( $patchRequest, $this->apiContext );
 
-            $plan = Plan::get( $createdPlan->getId(), $this->apiContext );
+            $updatePlan = Plan::get( $createPlan->getId(), $this->apiContext );
 
         } catch ( Exception $ex ) {
             return array(
@@ -167,7 +154,9 @@ class My_PaypalRest
             );
         }
 
-        return $plan;
+        $this->usePlan = $updatePlan;
+
+        return $updatePlan;
     }
 
     /**
@@ -186,13 +175,11 @@ class My_PaypalRest
     public function createBillingWithAccount()
     {
         # step 1:
-        $thePlan = $this->createPlan();
-        if (is_array( $thePlan ) and $thePlan['error']) {
-            return $thePlan;
+        if ($this->usePlan == false) {
+            $this->createPlan();
         }
 
-        # step 2:
-        $thePlan = $this->updatePlan( $thePlan );
+        $thePlan = $this->usePlan;
         if (is_array( $thePlan ) and $thePlan['error']) {
             return $thePlan;
         }
@@ -295,5 +282,23 @@ class My_PaypalRest
             'error'     => false,
             'agreement' => $agreement
         );
+    }
+
+    /**
+     * @param $planId
+     */
+    public function usePlanWithId( $planId )
+    {
+        $plan = Plan::get( $planId, $this->apiContext );
+
+        $this->usePlan = $plan;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSavedPlanId()
+    {
+        return $this->usePlan->getId();
     }
 }

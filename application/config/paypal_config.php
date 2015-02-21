@@ -2,8 +2,8 @@
 $config['paypal_config'] = array(
     'sandbox' => array(
         'client' => array(
-            'id' => 'AY3HihB-rbuPggyVBVgoDg7joIUjfmbnuoeRQhCIzuFNOc8RP5H634Yt8JlM',
-            'secret' => 'EKgzPBDRiXUxUcur71v6TRceVqpGc4pF687AOo7ZT8zfhWMKtGTP8ZMvuQf6',
+            'id' => 'AfV0AWcmP57Rh17YA-7cgL-gr17RsEDjJprUT8bs2XZaHDH2H7tTnJ-wmlxnXsB-Qdzlk0EcCvmSiZKS',
+            'secret' => 'EHTefL4FAwvNN13-qMY3iwj1nkRJa_qGyYDlbQ3xcq9qsX3w8DHF7bc27q2rm_bV1P9zng-plQeKsGZ3',
         ),
         'config' => array(
             'mode'             => 'sandbox',
