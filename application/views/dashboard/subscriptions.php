@@ -312,6 +312,16 @@ $stripe     = config_item( 'stripe_config' );
                 return (serviceInfo.amount > amount);
             }
 
+            function noChange(serviceName, amount) {
+                var serviceInfo = getCurrentByName(serviceName);
+
+                if (serviceInfo == null) {
+                    return false;
+                }
+
+                return (serviceInfo.amount == amount);
+            }
+
             $('.subscription-plan').on('click', function () {
                 var option = $(this),
                     amount = option.data('amount'),
@@ -338,6 +348,10 @@ $stripe     = config_item( 'stripe_config' );
                 if (isDowngrade(service, amount)) {
                     formInfo.html('Are you sure you want to downgrade current subscription?').show();
                     action.val('change');
+                }
+
+                if(noChange(service, amount)) {
+                    formInfo.html('You are already subscribed to this plan.').show();
                 }
 
                 paymentOptions.show();
