@@ -571,7 +571,7 @@ clicky_site_ids.push(100773884);
 <div class="pricingwrap">
     <div class="priceenterpriceoutline" style="height:330px;">
         <div class="ranktrackerprice-name">Enterprise</div>
-        <div class="ranktrackerprice-cost">$299/month</div>
+        <div class="ranktrackerprice-cost">$149/month</div>
         <div class="ranktrackerprice-sub">up to 1 million pages per crawl</div>
         <ul>
             <li>
@@ -587,13 +587,13 @@ clicky_site_ids.push(100773884);
                 <div class="line"></div>
             </li>
             <a onclick="signupoverlay(); return false;" href="#">
-                <div class="startsmall" style="margin-top:24px;">Jetzt bestellen</div>
+                <div class="startsmall" style="margin-top:24px;">Signup Now</div>
             </a>
         </ul>
     </div>
     <div class="pricegoldoutline" style="height:354px;">
         <div class="ranktrackerprice-name">Pro</div>
-        <div class="ranktrackerprice-cost">$129/month</div>
+        <div class="ranktrackerprice-cost">$99/month</div>
         <div class="ranktrackerprice-sub">up to 250,000 pages per crawl</div>
         <ul>
             <li>
@@ -609,13 +609,13 @@ clicky_site_ids.push(100773884);
                 <div class="line"></div>
             </li>
             <a onclick="signupoverlay(); return false;" href="#">
-                <div class="startbig" style="margin-top:39px;">Jetzt bestellen</div>
+                <div class="startbig" style="margin-top:39px;">Signup Now</div>
             </a>
         </ul>
     </div>
     <div class="pricefreeoutline" style="height:330px;">
         <div class="ranktrackerprice-name">Starter</div>
-        <div class="ranktrackerprice-cost">$59/month</div>
+        <div class="ranktrackerprice-cost">$29/month</div>
         <div class="ranktrackerprice-sub">up to 35,000 pages per crawl</div>
         <ul>
             <li>
@@ -631,7 +631,7 @@ clicky_site_ids.push(100773884);
                 <div class="line"></div>
             </li>
             <a onclick="signupoverlay(); return false;" href="#">
-                <div class="startsmall" style="margin-top:24px;">Jetzt bestellen</div>
+                <div class="startsmall" style="margin-top:24px;">Signup Now</div>
             </a>
         </ul>
     </div>
