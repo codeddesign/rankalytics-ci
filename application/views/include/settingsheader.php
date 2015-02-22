@@ -2,9 +2,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
-    <META http-equiv="Cache-Control" content="no-cache">
-    <META http-equiv="Pragma" content="no-cache">
-    <META http-equiv="Expires" content="0">
+    <!-- viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- end viewport -->
+    
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
     <title><?php echo ( isset( $meta_title ) && $meta_title != '' ) ? $meta_title : "Ranktracker"; ?></title>
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>assets/style.css"/>

@@ -9,7 +9,9 @@
 <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
 <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
 <!-- end favicon -->
-
+<!-- viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- end viewport -->
 
 <title>Privacy Policy | Rankalytics Real-time SEO Marketing Analysis</title>
 <meta name="description" content="Rankalytics is operated under Coded Design, LLC, located in Charlotte, NC">

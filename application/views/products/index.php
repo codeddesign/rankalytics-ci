@@ -7,7 +7,9 @@
 <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
 <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
 <!-- end favicon -->
-
+<!-- viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- end viewport -->
 
 <title>SEO Marketing Products | Rankalytics Complete SEO Marketing</title>
 <meta name="description" content="Real-time Enterprise SEO Tools for the expert marketer, to help you track, improve, and monitor your online marketing and search engine competition.">

@@ -9,7 +9,10 @@
 <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
 <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
 <!-- end favicon -->
-
+<!-- viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- end viewport -->
+	
 <?= lang('ranktracker.contenttype');?>
 <title><?= lang('ranktracker.title');?></title>
 <meta name="description" content="<?= lang('ranktracker.description');?>">
@@ -310,6 +313,15 @@ clicky_site_ids.push(100773884);
 				</a>	
 			</ul>
 		</div>
+		
+		<div class="seocrawl-freewrap">
+	    	<div class="seocrawl-freetitle">or Try Rank Tracker R/T for Free</div>
+	    	<div class="seocrawl-freedesc">Are you still not sure about Rank Tracker R/T?  No problem!  Our trial version includes up to 10 keywords and unlimited domains.</div>
+	    	<a onclick="signupoverlay(); return false;" href="#">
+	    		<div class="seocrawl-trialbutton">Begin Your Trial</div>
+	    	</a>	
+		</div>
+		
 	</div>
 	<div class="homefeatures-smallline"></div>
 	<div class="checkoutfeatures">There are many great reasons to choose Rankalytics. <a href="/products"><span>View all products now</span></a></div>

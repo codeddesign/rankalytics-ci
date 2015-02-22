@@ -9,7 +9,9 @@
 <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
 <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
 <!-- end favicon -->
-
+<!-- viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- end viewport -->
 
 <title>Products Roadmap | Rankalytics Complete SEO Marketing</title>
 <meta name="description" content="Our SEO products roadmap shows our upcoming products and changes, and when you should expect them to be available.">

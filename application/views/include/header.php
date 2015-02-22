@@ -5,7 +5,9 @@
     <META http-equiv="Cache-Control" content="no-cache">
     <META http-equiv="Pragma" content="no-cache">
     <META http-equiv="Expires" content="0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- end viewport -->
 
     <!-- favicon -->
     <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">

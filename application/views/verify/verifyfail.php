@@ -9,9 +9,11 @@
 <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
 <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
 <!-- end favicon -->
+<!-- viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- end viewport -->
 
-
-<title>Failed!</title>
+<title>Verification Failed!</title>
 <meta name="robots" content="noindex">
 
 
