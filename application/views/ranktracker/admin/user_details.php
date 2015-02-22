@@ -76,7 +76,7 @@
         }
     });
 
-    $('.approveSub').on('click', function() {
+    /*$('.approveSub').on('click', function() {
         var btn = $(this), subId = btn.attr('id'), tdId = $('#status_' + subId);
 
         $.ajax({
@@ -87,5 +87,5 @@
                 tdId.html('APPROVED');
             }
         });
-    });
+    });*/
 </script>

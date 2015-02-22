@@ -14,6 +14,9 @@ class Hooks extends CI_Controller
 
     public function stripe()
     {
+        $input = @file_get_contents("php://input");
+        $event_json = json_decode($input, 1);
 
+        print_r($event_json);
     }
 }

@@ -112,9 +112,7 @@ $google_temps_data .= "var graphData = { temps: [" . $temp . "],dates: [" . $dat
     <div class="subscription-keywordlimit">Crawl limit: <span><?= $sub_info['crawl_limit']; ?></span></div>
     <div class="subscription-keywordsused">Projects created: <span id="total_projects"><?= $campaigns_no; ?></span></div>
     <?php if($sub_info['plan'] !== 'free'): ?>
-    <div class="subscription-billingrenewal" style="width:223px;">
-        <?= 'Subscription: ' . strtoupper( ( $sub_info['expired'] ) ? 'expired' : 'active' ); ?>
-    </div>
+    <div class="subscription-billingrenewal" style="width:223px;"><?= 'Subscription: ' . strtoupper( $sub_info['status'] ); ?></div>
     <?php endif; ?>
 </div>
 

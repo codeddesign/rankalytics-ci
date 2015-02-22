@@ -211,40 +211,18 @@ class Users extends CI_Controller
         // fetch subscriptions information:
         $i                       = 0;
         $data['current_options'] = array();
-        $default                 = false;
         foreach (Subscriptions_Lib::$_service_prices as $service => $null) {
             // 'internal' info:
-            $tempInfo = $this->subscriptions->getSubscriptionInfo( $userId, $service );
+            $tempInfo           = $this->subscriptions->getSubscriptionInfo( $userId, $service );
 
             // if tempInfo is not array => there's no subscription. Apply default information:
             if ( ! is_array( $tempInfo )) {
                 $tempInfo = ( $userData['userRole'] == 'admin' ) ? Subscriptions_Lib::getDefaultForAdmin( $service ) : Subscriptions_Lib::getDefaultNotSubscribed( $service );
-                $default  = true;
-            } else {
-                $paymentType_backup = $tempInfo['payment_type'];
-            }
-
-            // handle pending:
-            $pending = false;
-            if ($tempInfo['status'] !== 'approved') {
-                $tempInfo = Subscriptions_Lib::getDefaultNotSubscribed( $service );
-
-                if (( isset( $paymentType_backup ) AND $paymentType_backup !== 'none' ) OR $tempInfo['payment_type'] !== 'none') {
-                    $pending = true;
-                }
             }
 
             // rest of workflow:
             if (is_array( $tempInfo )) {
                 $tempInfo['limit'] = Subscriptions_Lib::$_service_limits[$service][$tempInfo['plan']]['text'];
-
-                //expiration date:
-                $tempInfo['expired'] = ( ! $default and $tempInfo['status'] !== 'approved' );
-
-                // ..
-                if ($tempInfo['expired']) {
-                    $tempInfo = array_merge( $tempInfo, Subscriptions_Lib::getDefaultNotSubscribed( $service ) );
-                }
 
                 // 'JavaScript' info:
                 $data['current_options'][$i] = array(
@@ -252,13 +230,12 @@ class Users extends CI_Controller
                     'plan'    => ucfirst( $tempInfo['plan'] ),
                     'pType'   => ucfirst( $tempInfo['payment_type'] ),
                     'isPaid'  => Subscriptions_Lib::isPaid( $service, $tempInfo['plan'] ),
-                    'amount' => Subscriptions_Lib::$_service_prices[$service][$tempInfo['plan']],
+                    'amount'  => Subscriptions_Lib::$_service_prices[$service][$tempInfo['plan']],
                 );
                 $i ++;
 
                 //save stuff:
-                $tempInfo['pending'] = $pending;
-                $data[$service]      = $tempInfo;
+                $data[$service] = $tempInfo;
 
                 // fetch current stats of services:
                 if ($service == 'seocrawl') {
@@ -516,6 +493,7 @@ class Users extends CI_Controller
             $this->session->set_userdata( array(
                 'paypal_flash' => 'Your subscription aplication has been canceled.'
             ) );
+
             redirect( '/users/subscriptions' );
             return false;
         }
@@ -529,6 +507,7 @@ class Users extends CI_Controller
                     'paypal_flash' => 'Failed: ' . $response['msg'] . ' (contact support)'
                 )
             );
+
             redirect( '/users/subscriptions' );
             return false;
         }
@@ -536,7 +515,7 @@ class Users extends CI_Controller
         # save info to db:
         $agreement = $response['agreement'];
         $this->subscriptions->doUpdate(
-            array( 'status' => 'approved', 'external_id' => $agreement->id ),
+            array( 'status' => 'active', 'external_id' => $agreement->id ),
             array( 'order_id' => $tempInfo['subscriptionId'] )
         );
 
@@ -544,8 +523,9 @@ class Users extends CI_Controller
                 'paypal_flash' => 'Your subscription application has been completed!'
             )
         );
+
         redirect( '/users/subscriptions' );
-        return false;
+        return true;
     }
 
     public function handleStripe()
@@ -586,7 +566,7 @@ class Users extends CI_Controller
         $external_ids = $this->stripe->getExternalIds();
         foreach ($subscriptions as $s_no => $subscription) {
             $this->subscriptions->doUpdate(
-                array( 'status' => 'approved', 'external_id' => $external_ids[$s_no], 'payment_type' => 'stripe' ),
+                array( 'status' => 'active', 'external_id' => $external_ids[$s_no], 'payment_type' => 'stripe' ),
                 array( 'order_id' => $subscriptions[0]['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
             );
 

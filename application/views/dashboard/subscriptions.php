@@ -132,6 +132,7 @@ $this->load->view( "include/settingsheader" );
                 <?php
                 foreach ($services as $serviceName => $plans) {
                     $tempVar = $$serviceName;
+                    $active  = ( $tempVar['status'] == 'active' ) ? true : false;
 
                     if ($serviceName == 'ranktracker') {
                         $numberOf = 'keywords';
@@ -148,10 +149,11 @@ $this->load->view( "include/settingsheader" );
                     <div class="tabContent" id="<?= $serviceName ?>tab">
                         <div class="promembership-wrap">
                             <div class="settings-whitearea">
-                                <div class="<?= ( ! $tempVar['expired'] ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
-                                <div class="<?= ( ! $tempVar['expired'] ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
-                                    ACCOUNT LEVEL: <b><?= strtoupper( $tempVar['plan'] ); ?></b> <?= ( $tempVar['pending'] ) ? '(until payment is confirmed)' : ''; ?><br/>
-                                    NUMBER OF <?= strtoupper( $numberOf ); ?>: <b><?= $tempVar['usage_number']; ?></b>
+                                <div class="<?= ( $active ) ? 'activesubscription' : 'nonactivesubscription'; ?>"></div>
+                                <div class="<?= ( $active ) ? 'activesubscription-text' : 'nonactivesubscription-text'; ?>">
+                                    LEVEL: <b><?= strtoupper( $tempVar['plan'] ); ?></b>
+                                    <?= ( ! $active ) ? '| Status: <b>' . strtoupper( $tempVar['status'] ) . '</b>' : ''; ?>
+                                    <br/>NUMBER OF <?= strtoupper( $numberOf ); ?>: <b><?= $tempVar['usage_number']; ?></b>
                                 </div>
                             </div>
                             <div class="promembership-text"><?= strtoupper( $serviceNames[$serviceName] ) . ' subscription'; ?></div>
@@ -350,7 +352,7 @@ $stripe     = config_item( 'stripe_config' );
                     action.val('change');
                 }
 
-                if(noChange(service, amount)) {
+                if (noChange(service, amount)) {
                     formInfo.html('You are already subscribed to this plan.').show();
                 }
 

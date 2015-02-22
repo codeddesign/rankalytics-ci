@@ -43,8 +43,7 @@ class Subscriptions_Lib
             'limit' => self::$_service_limits[$service][$plan]['text'],
             'months' => 12,
             'created_on' => date('Y-m-d'),
-            'status' => 'approved',
-            'main_status' => 'approved',
+            'status' => 'active',
         );
     }
 
@@ -61,8 +60,7 @@ class Subscriptions_Lib
             'limit' => self::$_service_limits[$service][$plan]['text'],
             'months' => 0,
             'created_on' => date('Y-m-d'),
-            'status' => 0,
-            'main_status' => 0,
+            'status' => 'active',
         );
     }
 
@@ -169,22 +167,10 @@ class Subscriptions_Lib
             $info = ($userInfo['userRole'] == 'admin') ? self::getDefaultForAdmin($service) : self::getDefaultNotSubscribed($service);
         }
 
-        // save status:
-        $main_status = $info['status'];
-
-        // handle 'expired'
-        $tempExpired = false;
-
-        // default to 'free' / 'starter' IF subscription is different than 'approved' / had 'expired':
-        if ($tempExpired OR $info['status'] !== 'approved') {
-            $info = self::getDefaultNotSubscribed($service);
-        }
-
         // handle 'extra information':
-        $info['expired'] = $tempExpired;
+        $info['expired'] = false;
         $info['crawl_limit'] = self::$_service_limits[$service][$info['plan']]['text'];
         $info['crawl_limit_no'] = self::$_service_limits[$service][$info['plan']]['number'];
-        $info['main_status'] = $main_status;
 
         return $info;
     }

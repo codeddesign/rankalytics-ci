@@ -262,7 +262,7 @@ class API
         }
 
         // handle 'pending':
-        if ($sub_info['status'] !== 'approved') {
+        if (trim($sub_info['status']) == '') {
             $sub_info = Subscriptions_Lib::getDefaultNotSubscribed( $service );
         }
 
