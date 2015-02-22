@@ -9,11 +9,17 @@ class Users extends CI_Controller
 {
     private $sendMail;
     private $sub_id;
+    private $ajaxGeneric;
 
     public function __construct()
     {
         parent::__construct();
         Subscriptions_Lib::loadConfig();
+
+        $this->ajaxGeneric = array(
+            'error' => true,
+            'msg'   => 'Not logged in',
+        );
 
         // load requirements:
         $this->load->helper( 'form' );
@@ -410,19 +416,67 @@ class Users extends CI_Controller
     }
 
     /**
+     * Cancels a user's subscription - if active.
+     *
+     */
+    public function cancelSubscription()
+    {
+        $tempInfo = $this->session->userdata( 'logged_in' );
+        if ( ! $tempInfo) {
+            $this->json_exit( $this->ajaxGeneric );
+        }
+        $tempInfo = $tempInfo[0];
+
+        # check current subscription:
+        $current    = $this->subscriptions->getSubscriptionInfo( $tempInfo['id'], $this->input->post( 'serviceName' ) );
+        $externalId = $current['external_id'];
+        if ( ! is_array( $current ) OR $current['status'] !== 'active') {
+            $this->json_exit( array(
+                'error' => true,
+                'msg'   => 'You don\'t have an active subscription',
+            ) );
+        }
+
+        switch ($current['payment_type']) {
+            case 'stripe':
+                $fromDb     = $this->users->getUserById( $tempInfo['id'] );
+                $customerId = $fromDb[0]['stripe_id'];
+
+                $this->load->library( 'stripe' );
+                try {
+                    $this->stripe->cancelSubscription( $customerId, $externalId );
+                } catch ( Exception $e ) {
+                    $this->json_exit( array(
+                        'error' => true,
+                        'msg'   => 'Something went wrong while canceling subscription', // for dev.: $e->getMessage()
+                    ) );
+                }
+                break;
+            case 'paypal':
+                break;
+        }
+
+        # update status:
+        $this->subscriptions->doUpdate(
+            array( 'status' => 'canceled' ),
+            array( 'external_id' => $externalId )
+        );
+
+        $this->json_exit( array(
+            'error' => false,
+            'msg'   => 'Your subscription has been successfully canceled',
+        ) );
+    }
+
+    /**
      * Creates a link for user that sends him to paypal's page
      */
     public function paypalLink()
     {
-        $generic = array(
-            'error' => true,
-            'msg'   => 'nothing to do here'
-        );
-
         # check if logged in:
         $tempInfo = $this->session->all_userdata();
         if ( ! isset( $tempInfo['logged_in'][0] )) {
-            $this->json_exit( $generic );
+            $this->json_exit( $this->ajaxGeneric );
         }
 
         # load requirements and make settings:
@@ -536,16 +590,61 @@ class Users extends CI_Controller
 
         // sets and loads:
         $this->load->library( 'stripe' );
+        $serviceAction = $this->input->post( 'serviceAction' );
 
         // prepare data:
-        $tempInfo      = $this->session->all_userdata();
+        $tempInfo = $this->session->all_userdata();
+        if ( ! isset( $tempInfo['logged_in'][0] )) {
+            $this->json_exit( $this->ajaxGeneric );
+        }
         $userData      = $tempInfo['logged_in'][0];
         $subscriptions = $this->createNewSubscription( $userData['id'] );
         $subscription  = $subscriptions[0];
 
         $emailAddress = $userData['emailAddress'];
         try {
-            $this->stripe->makeSubscription( $token, $subscription, $emailAddress );
+            switch ($serviceAction) {
+                case 'update':
+                    # check current subscription:
+                    $current    = $this->subscriptions->getSubscriptionInfo( $userData['id'], $this->input->post( 'serviceName' ) );
+                    $externalId = $current['external_id'];
+                    if ( ! is_array( $current ) OR $current['status'] !== 'active') {
+                        $this->json_exit( array(
+                            'error' => true,
+                            'msg'   => 'You don\'t have an active subscription',
+                        ) );
+                    }
+
+                    # check if they are the same plans:
+                    if ($current['plan'] == $subscription['plan']) {
+                        $this->json_exit( array(
+                            'error' => true,
+                            'msg'   => 'You are already subscribed to this plan',
+                        ) );
+                    }
+
+                    $fromDb     = $this->users->getUserById( $userData['id'] );
+                    $customerId = $fromDb[0]['stripe_id'];
+
+                    $this->stripe->updateSubscription( $subscription, $externalId, $customerId, $token );
+
+                    # change status for current one:
+                    $this->subscriptions->doUpdate(
+                        array( 'status' => 'active', 'external_id' => $externalId ),
+                        array( 'order_id' => $subscription['order_id'] )
+                    );
+
+                    # change status for old one:
+                    $this->subscriptions->doUpdate(
+                        array( 'status' => 'updated' ),
+                        array( 'order_id' => $current['order_id'] )
+                    );
+                    break;
+                default:
+                    $this->stripe->makeSubscription( $token, $subscription, $emailAddress );
+                    break;
+            }
+
             $out = array(
                 'error' => false,
                 'msg'   => 'Your payment has been processed. Thank you!'
@@ -558,21 +657,23 @@ class Users extends CI_Controller
 
             $this->subscriptions->doUpdate(
                 array( 'status' => 'failed', 'payment_type' => 'stripe' ),
-                array( 'order_id' => $subscription['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
+                array( 'order_id' => $subscription['order_id'] )
             );
 
             $this->json_exit( $out );
         }
 
-        # save client's id:
-        $stripe_id = $this->stripe->getCustomerId();
-        $this->users->updateTable( compact( 'stripe_id' ), array( 'emailAddress' => $emailAddress ), 1 );
+        if ($serviceAction !== 'update') {
+            # save client's id:
+            $stripe_id = $this->stripe->getCustomerId();
+            $this->users->updateTable( compact( 'stripe_id' ), array( 'emailAddress' => $emailAddress ), 1 );
 
-        # update subscription/s:
-        $this->subscriptions->doUpdate(
-            array( 'status' => 'active', 'external_id' =>  $this->stripe->getExternalId(), 'payment_type' => 'stripe' ),
-            array( 'order_id' => $subscription['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
-        );
+            # update subscription:
+            $this->subscriptions->doUpdate(
+                array( 'status' => 'active', 'external_id' => $this->stripe->getExternalId(), 'payment_type' => 'stripe' ),
+                array( 'order_id' => $subscription['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
+            );
+        }
 
         $this->session->unset_userdata( 'subscriptionId' );
 

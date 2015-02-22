@@ -258,196 +258,221 @@ $forPayment = json_encode( $forPayment );
 $stripe     = config_item( 'stripe_config' );
 ?>
     <script>
-        $(document).ready(function () {
-            Stripe.setPublishableKey('<?= $stripe['public_key'];?>');
+    $(document).ready(function () {
+        Stripe.setPublishableKey('<?= $stripe['public_key'];?>');
 
-            /* select subscription plans on load: */
-            var forPayment = <?= $forPayment; ?>;
-            var current = <?= $current_options; ?>;
-            (function () {
-                var temp, i;
+        /* select subscription plans on load: */
+        var forPayment = <?= $forPayment; ?>;
+        var current = <?= $current_options; ?>;
+        (function () {
+            var temp, i;
 
-                // first hide:
-                for (i = 0; i < forPayment.length; i++) {
-                    $('.' + forPayment[i]).hide();
-                }
-
-                for (i = 0; i < current.length; i++) {
-                    temp = current[i];
-                    $('#servicePlan' + temp['service'] + temp['plan']).attr('checked', 'checked');
-                    $('#paymentType' + temp['service'] + temp['pType']).attr('checked', 'checked');
-
-                    if (temp['isPaid']) {
-                        $('.paid' + temp['service']).show();
-                    }
-                }
-            })();
-
-            function getCurrentByName(serviceName) {
-                for (var i = 0; i < current.length; i++) {
-                    if (current[i]['service'] == serviceName) {
-                        return current[i];
-                    }
-                }
-
-                console.log('getCurrentByName(): ' + serviceName + ' not found!');
-                return null;
+            // first hide:
+            for (i = 0; i < forPayment.length; i++) {
+                $('.' + forPayment[i]).hide();
             }
 
-            function isAlreadyPaid(serviceName) {
-                var serviceInfo = getCurrentByName(serviceName);
+            for (i = 0; i < current.length; i++) {
+                temp = current[i];
+                $('#servicePlan' + temp['service'] + temp['plan']).attr('checked', 'checked');
+                $('#paymentType' + temp['service'] + temp['pType']).attr('checked', 'checked');
 
-                if (serviceInfo == null) {
-                    return false;
+                if (temp['isPaid']) {
+                    $('.paid' + temp['service']).show();
                 }
+            }
+        })();
 
-                return serviceInfo.isPaid;
+        function getCurrentByName(serviceName) {
+            for (var i = 0; i < current.length; i++) {
+                if (current[i]['service'] == serviceName) {
+                    return current[i];
+                }
             }
 
-            function isDowngrade(serviceName, amount) {
-                var serviceInfo = getCurrentByName(serviceName);
+            console.log('getCurrentByName(): ' + serviceName + ' not found!');
+            return null;
+        }
 
-                if (serviceInfo == null) {
-                    return false;
-                }
+        function isAlreadyPaid(serviceName) {
+            var serviceInfo = getCurrentByName(serviceName);
 
-                return (serviceInfo.amount > amount);
+            if (serviceInfo == null) {
+                return false;
             }
 
-            function noChange(serviceName, amount) {
-                var serviceInfo = getCurrentByName(serviceName);
+            return serviceInfo.isPaid;
+        }
 
-                if (serviceInfo == null) {
-                    return false;
-                }
+        function isDowngrade(serviceName, amount) {
+            var serviceInfo = getCurrentByName(serviceName);
 
-                return (serviceInfo.amount == amount);
+            if (serviceInfo == null) {
+                return false;
             }
 
-            $('.subscription-plan').on('click', function () {
-                var option = $(this),
-                    amount = option.data('amount'),
-                    service = option.data('service'),
-                    formInfo = $('#form-info-' + service.toLowerCase()),
-                    paymentOptions = $('.paid' + service),
-                    action = $('#' + service.toLowerCase() + 'Action')
-                    ;
+            return (serviceInfo.amount > amount);
+        }
 
-                formInfo.hide();
+        function noChange(serviceName, amount) {
+            var serviceInfo = getCurrentByName(serviceName);
 
-                if (amount == 0) {
-                    paymentOptions.hide();
-                    $('#stripe-' + service.toLowerCase()).hide();
+            if (serviceInfo == null) {
+                return false;
+            }
 
-                    if (isAlreadyPaid(service)) {
-                        formInfo.html('Are you sure you want to cancel current subscription?').show();
-                        action.val('cancel');
-                    }
+            return (serviceInfo.amount == amount);
+        }
 
-                    return;
+        $('.subscription-plan').on('click', function () {
+            var option = $(this),
+                amount = option.data('amount'),
+                service = option.data('service'),
+                formInfo = $('#form-info-' + service.toLowerCase()),
+                paymentOptions = $('.paid' + service),
+                action = $('#' + service.toLowerCase() + 'Action')
+                ;
+
+            formInfo.hide();
+
+            if (amount == 0) {
+                paymentOptions.hide();
+                $('#stripe-' + service.toLowerCase()).hide();
+
+                if (isAlreadyPaid(service)) {
+                    formInfo.html('Are you sure you want to cancel current subscription?').show();
+                    action.val('cancel');
                 }
 
-                if (isDowngrade(service, amount)) {
-                    formInfo.html('Are you sure you want to downgrade current subscription?').show();
-                    action.val('change');
-                }
+                return;
+            }
 
-                if (noChange(service, amount)) {
-                    formInfo.html('You are already subscribed to this plan.').show();
-                }
+            if (isDowngrade(service, amount)) {
+                formInfo.html('Are you sure you want to downgrade current subscription?').show();
+            }
 
-                paymentOptions.show();
-            });
+            if (noChange(service, amount)) {
+                formInfo.html('You are already subscribed to this plan.').show();
+            }
 
-            $('input[name=paymentType]').on('click', function () {
-                var el = $(this),
-                    val = el.val(),
-                    service = el.data('service');
-
-                $('.stripe-form').hide();
-
-                if (val == 'stripe') {
-                    $('#' + val + '-' + service).show();
-                }
-            });
-
-            $('.subscription-form').submit(function (ev) {
-                ev.preventDefault();
-
-                var form = $(this);
-                var service = form.data('service');
-                var formData = form.serializeArray();
-                var paymentType = form.find('input[name=paymentType]:checked').val();
-                var btn = form.find('input[type=submit]');
-
-                var formInfo = $('#form-info-' + service.toLowerCase());
-
-                formInfo.hide();
-
-                if (paymentType == 'stripe') {
-                    Stripe.card.createToken(form, function (status, response) {
-                        btn.prop('disabled', true);
-                        if (response.error) {
-                            formInfo.html(response.error.message).show();
-
-                            btn.prop('disabled', false);
-                        } else {
-                            formInfo.html('Please wait. Processing.. ').show();
-
-                            formData[formData.length] = {
-                                name: 'stripeToken',
-                                value: response.id
-                            };
-
-                            $.ajax({
-                                url: '/users/handleStripe',
-                                method: 'post',
-                                data: formData,
-                                success: function (response) {
-                                    if (response.error) {
-                                        formInfo.show().text(response.msg);
-                                        return false;
-                                    }
-
-                                    formInfo.html(response.msg).show();
-                                    form.find('div.stripe-form').hide();
-                                }
-                            })
-                        }
-                    });
-
-                    return false;
-                }
-
-                if (paymentType == 'paypal') {
-                    formInfo.html('Please wait.. Processing..').show();
-                    btn.prop('disabled', true);
-
-                    $.ajax({
-                        url: '/users/paypalLink',
-                        method: 'post',
-                        data: formData,
-                        success: function (response) {
-                            if (response.error) {
-                                formInfo.html(response.msg);
-                                btn.prop('disabled', false);
-                                return false;
-                            }
-
-                            if (typeof response.link !== 'undefined') {
-                                formInfo.html('Please wait.. Redirecting..');
-                                location.href = response.link;
-                                return false;
-                            }
-
-                            console.log('internal error');
-                        }
-                    });
-
-                    return false;
-                }
-            });
+            if (isAlreadyPaid(service)) {
+                action.val('update');
+            }
+            
+            paymentOptions.show();
         });
+
+        $('input[name=paymentType]').on('click', function () {
+            var el = $(this),
+                val = el.val(),
+                service = el.data('service');
+
+            $('.stripe-form').hide();
+
+            if (val == 'stripe') {
+                $('#' + val + '-' + service).show();
+            }
+        });
+
+        $('.subscription-form').submit(function (ev) {
+            ev.preventDefault();
+
+            var form = $(this);
+            var service = form.data('service');
+            var formData = form.serializeArray();
+            var paymentType = form.find('input[name=paymentType]:checked').val();
+            var btn = form.find('input[type=submit]');
+            var action = $('#' + service.toLowerCase() + 'Action').val();
+
+            var formInfo = $('#form-info-' + service.toLowerCase());
+
+            formInfo.hide();
+
+            if (action == 'cancel') {
+                formInfo.html('Please wait.. Saving changes..').show();
+                $.ajax({
+                    url: '/users/cancelSubscription',
+                    method: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.error) {
+                            formInfo.html(response.msg);
+                            return false;
+                        }
+
+                        formInfo.html(response.msg);
+                    }
+                });
+                return false;
+            }
+
+            if (paymentType == 'stripe') {
+                Stripe.card.createToken(form, function (status, response) {
+                    btn.prop('disabled', true);
+                    if (response.error) {
+                        formInfo.html(response.error.message).show();
+
+                        btn.prop('disabled', false);
+                    } else {
+                        formInfo.html('Please wait. Processing.. ').show();
+
+                        formData[formData.length] = {
+                            name: 'stripeToken',
+                            value: response.id
+                        };
+
+                        $.ajax({
+                            url: '/users/handleStripe',
+                            method: 'post',
+                            data: formData,
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.error) {
+                                    formInfo.show().text(response.msg);
+                                    return false;
+                                }
+
+                                formInfo.html(response.msg).show();
+                                form.find('div.stripe-form').hide();
+                            }
+                        })
+                    }
+                });
+
+                return false;
+            }
+
+            if (paymentType == 'paypal') {
+                formInfo.html('Please wait.. Processing..').show();
+                btn.prop('disabled', true);
+
+                $.ajax({
+                    url: '/users/paypalLink',
+                    method: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.error) {
+                            formInfo.html(response.msg);
+                            btn.prop('disabled', false);
+                            return false;
+                        }
+
+                        if (typeof response.link !== 'undefined') {
+                            formInfo.html('Please wait.. Redirecting..');
+                            location.href = response.link;
+                            return false;
+                        }
+
+                        console.log('internal error');
+                    }
+                });
+
+                return false;
+            }
+        });
+    });
     </script>
 
     <!-- JS FOR TABS -->

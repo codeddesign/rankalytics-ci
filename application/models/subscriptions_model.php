@@ -68,7 +68,7 @@ class Subscriptions_Model extends CI_Model
         // ..
         $this->db->select('*')->from($this->_tablename);
         $this->db->where($condition);
-        $this->db->where_not_in('status', array('canceled'));
+        $this->db->where_not_in('status', array('canceled', 'pending'));
 
         if ($single) {
             $this->db->limit(1);

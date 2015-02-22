@@ -1,4 +1,5 @@
 <?php
+
 class My_Stripe
 {
     private $customerId;
@@ -96,11 +97,41 @@ class My_Stripe
     }
 
     /**
+     * @param $customerId
+     *
+     * @return Stripe_Customer
+     */
+    private function getCustomerById( $customerId )
+    {
+        return Stripe_Customer::retrieve( $customerId );
+    }
+
+    /**
      * @param array $newSubscription
+     * @param $subscriptionId
      * @param $customerId
      * @param $token
      */
-    public function updateSubscription(array $newSubscription, $customerId, $token){
+    public function updateSubscription( array $newSubscription, $subscriptionId, $customerId, $token )
+    {
+        $customer     = $this->getCustomerById( $customerId );
+        $subscription = $customer->subscriptions
+            ->retrieve( $subscriptionId );
 
+        $subscription->source = $token;
+        $subscription->plan   = $this->getPlanId( $newSubscription['service'], $newSubscription['plan'] );
+        $subscription->save();
+    }
+
+    /**
+     * @param $customerId
+     * @param $subscriptionId
+     */
+    public function cancelSubscription( $customerId, $subscriptionId )
+    {
+        $customer = $this->getCustomerById( $customerId );
+        $customer->subscriptions
+            ->retrieve( $subscriptionId )
+            ->cancel();
     }
 }
