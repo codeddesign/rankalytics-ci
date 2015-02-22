@@ -213,7 +213,7 @@ class Users extends CI_Controller
         $data['current_options'] = array();
         foreach (Subscriptions_Lib::$_service_prices as $service => $null) {
             // 'internal' info:
-            $tempInfo           = $this->subscriptions->getSubscriptionInfo( $userId, $service );
+            $tempInfo = $this->subscriptions->getSubscriptionInfo( $userId, $service );
 
             // if tempInfo is not array => there's no subscription. Apply default information:
             if ( ! is_array( $tempInfo )) {
@@ -537,14 +537,15 @@ class Users extends CI_Controller
         // sets and loads:
         $this->load->library( 'stripe' );
 
-        // ..
-        $tempInfo = $this->session->all_userdata();
-        $userData = $tempInfo['logged_in'][0];
-
+        // prepare data:
+        $tempInfo      = $this->session->all_userdata();
+        $userData      = $tempInfo['logged_in'][0];
         $subscriptions = $this->createNewSubscription( $userData['id'] );
-        $emailAddress  = $userData['emailAddress'];
+        $subscription  = $subscriptions[0];
+
+        $emailAddress = $userData['emailAddress'];
         try {
-            $this->stripe->makeSubscription( $token, $subscriptions, $emailAddress );
+            $this->stripe->makeSubscription( $token, $subscription, $emailAddress );
             $out = array(
                 'error' => false,
                 'msg'   => 'Your payment has been processed. Thank you!'
@@ -555,6 +556,11 @@ class Users extends CI_Controller
                 'msg'   => $this->stripe->getExceptionNicerMessage( $e ),
             );
 
+            $this->subscriptions->doUpdate(
+                array( 'status' => 'failed', 'payment_type' => 'stripe' ),
+                array( 'order_id' => $subscription['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
+            );
+
             $this->json_exit( $out );
         }
 
@@ -563,15 +569,12 @@ class Users extends CI_Controller
         $this->users->updateTable( compact( 'stripe_id' ), array( 'emailAddress' => $emailAddress ), 1 );
 
         # update subscription/s:
-        $external_ids = $this->stripe->getExternalIds();
-        foreach ($subscriptions as $s_no => $subscription) {
-            $this->subscriptions->doUpdate(
-                array( 'status' => 'active', 'external_id' => $external_ids[$s_no], 'payment_type' => 'stripe' ),
-                array( 'order_id' => $subscriptions[0]['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
-            );
+        $this->subscriptions->doUpdate(
+            array( 'status' => 'active', 'external_id' =>  $this->stripe->getExternalId(), 'payment_type' => 'stripe' ),
+            array( 'order_id' => $subscription['order_id'], 'service' => $subscription['service'], 'plan' => $subscription['plan'] )
+        );
 
-            $this->session->unset_userdata( 'subscriptionId' );
-        }
+        $this->session->unset_userdata( 'subscriptionId' );
 
         $this->json_exit( $out );
     }

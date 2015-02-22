@@ -2,7 +2,7 @@
 class My_Stripe
 {
     private $customerId;
-    private $sub_external = array();
+    private $subExternalId = null;
 
     public function __construct()
     {
@@ -46,17 +46,15 @@ class My_Stripe
      * @param $emailAddress
      * @param $subscriptions
      */
-    public function makeSubscription( $token, $subscriptions, $emailAddress )
+    public function makeSubscription( $token, $subscription, $emailAddress )
     {
         $this->createCustomer( $emailAddress, $token );
 
         $cu = Stripe_Customer::retrieve( $this->customerId );
 
-        foreach ($subscriptions as $s_no => $subscription) {
-            $external = $cu->subscriptions->create( array( 'plan' => $this->getPlanId( $subscription['service'], $subscription['plan'] ) ) );
+        $external = $cu->subscriptions->create( array( 'plan' => $this->getPlanId( $subscription['service'], $subscription['plan'] ) ) );
 
-            $this->sub_external[$s_no] = $external->id;
-        }
+        $this->subExternalId = $external->id;
     }
 
     /**
@@ -92,8 +90,17 @@ class My_Stripe
     /**
      * @return array
      */
-    public function getExternalIds()
+    public function getExternalId()
     {
-        return $this->sub_external;
+        return $this->subExternalId;
+    }
+
+    /**
+     * @param array $newSubscription
+     * @param $customerId
+     * @param $token
+     */
+    public function updateSubscription(array $newSubscription, $customerId, $token){
+
     }
 }

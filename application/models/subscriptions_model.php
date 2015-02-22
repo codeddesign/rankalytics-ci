@@ -84,7 +84,7 @@ class Subscriptions_Model extends CI_Model
             $paymentType_backup = $tempInfo = $response[0];
             if (trim( $tempInfo['status'] ) !== 'active') {
                 $tempInfo           = Subscriptions_Lib::getDefaultNotSubscribed( $service );
-                $tempInfo['status'] = $paymentType_backup['status'].' to '.$paymentType_backup['plan'];
+                $tempInfo['status'] = '<b>'.strtoupper($paymentType_backup['status']).'</b> update to '.strtoupper($paymentType_backup['plan']);
             }
 
             return $tempInfo;
