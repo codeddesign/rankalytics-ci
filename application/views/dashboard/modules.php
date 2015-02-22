@@ -11,8 +11,11 @@
 <link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
 <link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
 <!-- end favicon -->
-
-    <title><?php echo (isset($meta_title) && $meta_title != '') ? $meta_title : "Ranktracker"; ?></title>
+	
+	<title>Rankalytics Modules</title>
+    <!--
+	    <title><?php echo (isset($meta_title) && $meta_title != '') ? $meta_title : "Ranktracker"; ?></title>
+	-->    
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>assets/style.css"/>
 
     <!--link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>assets/js/jquery.horizontal.scroll.css"/-->
@@ -52,8 +55,11 @@
         function closeSelf() {
             document.getElementById("dashglobaloverlay").style.visibility = 'hidden';
         }
-
-
+        $(document).ready(function(){
+			$("#freeuser-nope").click(function(){
+			    $("#freeuser-overlayback").hide();
+			});
+		});
     </script>
     <style type="text/css">
         label {
@@ -69,6 +75,18 @@
     </style>
 </head>
 <body onload="init()">
+
+<div id="freeuser-overlayback">
+	<div class="freeuser-overlay">
+		<div class="freeuser-name">Hello Free user!</div>
+		<div class="freeuser-desc">WE LOVE TO SEE YOU USING RANKALYTICS,<br>BUT THERE IS SO MUCH MORE THAT WE CAN OFFER YOU!</div>
+		<div class="freeuser-sub">UPGRADE YOUR MODULES NOW!</div>
+		<a href="users/subscriptions">
+			<div id="freeuser-subscribe">I WAN’T TO UPDADE!</div>
+		</a>
+		<div id="freeuser-nope">NOPE</div>
+	</div>
+</div>
 
 <div class="headerline"></div>
 <div class="bodywrap">

@@ -21,7 +21,7 @@
 				<a href="<?php echo base_url();?>seocrawl/dashboard" style="color:#000">SEO CRAWL</a>
 			</div>
 			<div class="largeaccountpopup-text">
-				<a href="<?php echo base_url();?>roadmap" target="_blank" style="color:#000">ROADMAP</a>
+				<a href="<?php echo base_url();?>products/roadmap" target="_blank" style="color:#000">ROADMAP</a>
 			</div>
 	</div>
 
@@ -30,7 +30,7 @@
 
 			<a style="cursor:pointer;" onclick="toggle_visibility('accountpopup');"><li>Account<div class="headerarrow"></div></li></a>
 
-            <a href="/contactus">
+            <a href="/contactus" target="_blank">
 				<li <?php echo ($current=="support"? 'class="active"':''); ?> >Support</li>
 			</a>
 			<a href="<?php echo base_url();?>seocrawl/dashboard"><li <?php echo ($current=="dashboard"? 'class="active"':''); ?>>Dashboard</li></a>

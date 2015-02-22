@@ -4,6 +4,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+    <!-- favicon -->
+	<link rel="icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png">
+	<link rel="shortcut icon" type="image/png" href="https://rankalytics.com/assets/images/favicon.png"/>
+	<!-- end favicon -->
     <?= lang( 'home.contenttype' ); ?>
     <TITLE><?= lang( 'home.title' ); ?></TITLE>
     <META NAME="Description" CONTENT="<?= lang( 'home.description' ); ?>">
@@ -35,7 +39,7 @@
     <!-- end Facebook meta -->
     <!-- open graph contact info -->
     <meta name="go:email" content="support@rankalytics.com"/>
-    <meta name="go:phone_number" content="0800-181-8613"/>
+    <meta name="go:phone_number" content="704-665-7765"/>
     <!-- end og contact info -->
     <!-- og address info -->
     <meta name="go:locality" content="Charlotte"/>

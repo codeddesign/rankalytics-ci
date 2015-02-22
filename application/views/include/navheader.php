@@ -22,7 +22,7 @@ if (isset($user['0']['id']) && $user['0']['id'] >= 1)
                 <a href="<?php echo base_url(); ?>seocrawl/dashboard" style="color:#000">SEO CRAWL</a>
             </div>
             <div class="largeaccountpopup-text">
-                <a href="<?php echo base_url(); ?>roadmap" target="_blank" style="color:#000">ROADMAP</a>
+                <a href="<?php echo base_url(); ?>products/roadmap" target="_blank" style="color:#000">ROADMAP</a>
             </div>
         </div>
 

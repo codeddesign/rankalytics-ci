@@ -37,6 +37,9 @@ $(document).ready(function(){
 		</a>
 		<a href='#' onclick='loginoverlay()'>
 			<div class="listheader">Dashboard Login</div>
+		</a>
+		<a href='#' onclick='signupoverlay()'>
+			<div class="listheader">Create Account</div>
 		</a>	
 		<div class="headernavwrap">
 			<!--

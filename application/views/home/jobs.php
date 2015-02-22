@@ -10,7 +10,7 @@
     <!-- end favicon -->
 
 
-    <title><?= lang( 'jobs.title' ); ?></title>
+    <title>We are Hiring! | Jobs @ Rankalytics SEO</title>
     <meta name="description" content="<?= lang( 'jobs.desc' ); ?>">
 
     <link rel="author" href="https://plus.google.com/u/0/107956745270665771232/">

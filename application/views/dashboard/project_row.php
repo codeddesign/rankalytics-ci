@@ -29,7 +29,7 @@ if(is_array($project_data) && !empty($project_data)) {foreach ($project_data as 
         </div>
 <?php endforeach;
 }else{
-    echo '<div class="nocurrentprojects" ><div class="glowalert"></div> You have no active projects. Please create a new project to begin.</div>';
+    echo '<div class="nocurrentprojects" ><div class="glowalert"></div> You have no active campaigns. Please create a new campaign to begin.</div>';
     
 }
 

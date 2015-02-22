@@ -42,7 +42,7 @@
 	
 	<div class="verify-buttonswrap">
 		<div class="verify-buttonsmargin">
-			<a href="https://rankalytics.com">
+			<a href='#' onclick='loginoverlay()'>
 				<div class="verify-bluebutton">Login to Rankalytics</div>
 			</a>
 			<a href="https://rankalytics.com/contactus">	

@@ -35,7 +35,7 @@ $lang = array(
 	'promembership.failedinfo' => 'Failed! Please review your information.',
 	'promembership.failedpayment' => 'Failed! Please select payment method.',
 	'promembership.infomsgone' => 'Please check your inbox at <i>',
-	'promembership.infomsgtwo' => '</i>, to active your new account.<br/>',
+	'promembership.infomsgtwo' => '</i>, to activate your new account.<br/>',
 	'promembership.ifpaid' => 'Please wait.. You are being redirected to PayPal!',
 	'promembership.ifmanual' => '<br/>A member of the rankalytics team will be in contact with you shortly to finalize your account.',
     'promembership.ifstripe' => '<span id="span_loading">Loading stripe gateway.. Please wait..</span>',

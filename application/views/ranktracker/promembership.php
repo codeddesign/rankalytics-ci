@@ -44,8 +44,10 @@
 
 
         <div class="headernavwrap">
+            <!--
             <div class="aflag"></div>
             <div class="gflag"></div>
+            -->
             <a href="#" class="navdotlink"><?= lang( 'promembership.contactus' ); ?></a>
             <a href="#" class="navdotlink"><?= lang( 'promembership.products' ); ?></a>
             <a href="#" class="navdotlink"><?= lang( 'promembership.developers' ); ?></a>
@@ -57,12 +59,12 @@
 <div class="bodywrapper">
     <div class="ranktracker-bottomwhitetitle">Rankalytics Membership Signup</div>
     <div class="payment-monthlycharge paymentremoveme">
-        <?= ( isset( $temp ) ) ? 'Choose your membership packages' : ''; ?>
+        <?= ( isset( $temp ) ) ? 'Enter your account details' : ''; ?>
         <?= ( isset( $paymentData ) ) ? 'Please select a payment method' : ''; ?>
     </div>
     <div class="ranktracker-bottomwhitewrapper">
         <?php if (isset( $temp )) : ?>
-        <div class="billing-maintitle" style="font-weight: bold;"><?= lang( 'promembership.billingtitle' ); ?></div>
+        <div class="billing-maintitle" style="font-weight: bold;">Account Details</div>
 
         <?php echo form_open( "users/save", array( "class" => "billing-form", "id" => "proMembership", "onsubmit" => "return false;" ) ); ?>
         <input type="text" name="firstName" id="firstName" class="billing-forminputleft" placeholder="<?= lang( 'promembership.name' ); ?>" value="<?php if (isset( $temp['firstName'] )) {

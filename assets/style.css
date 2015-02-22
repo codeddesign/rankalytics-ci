@@ -4103,3 +4103,85 @@ ul.listofcrawl li.completed {
 .newcrawl-form button {
 	border: none;
 }
+
+#freeuser-overlayback {
+	background: rgba(57, 68, 84, 0.8);
+	position: fixed;
+	z-index: 999999;
+	width: 100%;
+	height: 100%;
+}
+
+.freeuser-overlay {
+	position: absolute;
+	background: #2B343F;
+	width: 410px;
+	height: 241px;
+	margin: auto;
+	left: 0;
+	right: 0;
+	margin-top:60px;
+	border-top: 4px solid #5CC08B;
+}
+
+.freeuser-name {
+	float: left;
+	width: 100%;
+	margin-top: 30px;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 16px;
+	font-family: "brandon-grotesque",sans-serif;
+	text-transform: uppercase;
+}
+
+.freeuser-desc {
+	float: left;
+	width: 100%;
+	margin-top: 24px;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 13px;
+	font-family: "brandon-grotesque",sans-serif;
+	line-height: 25px;
+}
+
+.freeuser-sub {
+	float: left;
+	width: 100%;
+	margin-top: 30px;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 13px;
+	font-family: "brandon-grotesque",sans-serif;
+}
+
+#freeuser-subscribe {
+	position: absolute;
+	width: 241px;
+	height: 49px;
+	background: #5CC08B;
+	text-align: center;
+	line-height: 49px;
+	font-size: 12px;
+	font-family: "brandon-grotesque",sans-serif;
+	color: #FFFFFF;
+	margin-top: 205px;
+	cursor: pointer;
+	border-bottom: 3px solid #449169;
+}
+#freeuser-nope {
+	position: absolute;
+	width: 169px;
+	height: 49px;
+	background: #F25F28;
+	text-align: center;
+	line-height: 49px;
+	font-size: 12px;
+	font-family: "brandon-grotesque",sans-serif;
+	color: #FFFFFF;
+	margin-top: 205px;
+	margin-left: 241px;
+	cursor: pointer;
+	border-bottom: 3px solid #B74928;
+}

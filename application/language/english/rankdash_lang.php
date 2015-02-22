@@ -1,7 +1,7 @@
 <?php
 $lang = array(
 	'rankdash.reallydelete' => 'Are you sure?',
-	'rankdash.error' => 'An error occurred while deleting the project. Please try again at a later date!',
+	'rankdash.error' => 'An error occurred while deleting the campaign. Please try again at a later date!',
 	'rankdash.campover' => 'Campaign Overview',
 	'rankdash.campname' => 'CAMPAIGN NAME',
 	'rankdash.avgpos' => 'AVG POSITION',
@@ -25,7 +25,7 @@ $lang = array(
 	'rankdash.keyplace' => 'Keywords: 1 keyword per line',
 	'rankdash.keyplacetwo' => 'No keywords - file is currently being uploaded',
 	'rankdash.keyconfirm' => 'Are you sure?',
-	'rankdash.deleteerror' => 'An error occurred while deleting the project. Please try again at a later!',
+	'rankdash.deleteerror' => 'An error occurred while deleting the campaign. Please try again at a later!',
 	'rankdash.deleteproj' => 'Delete this project?',
 	'rankdash.keyupload' => 'Please Enter keywords or Upload File.',
 	'rankdash.upfile' => 'Uploaded File type is not csv or text Please Upload  Correct type !',

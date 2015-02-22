@@ -518,5 +518,5 @@ $this->load->view( "include/settingsheader" );
     });
 
     </script>
-
+</div>
 <?php $this->load->view( "dashboard/common/footer" ) ?>
