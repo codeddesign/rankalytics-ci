@@ -453,6 +453,11 @@ class Users extends CI_Controller
                 }
                 break;
             case 'paypal':
+                $this->load->library( 'paypalrest' );
+                $response = $this->paypalrest->cancelAgreement($externalId);
+                if($response['error']) {
+                    $this->json_exit($response);
+                }
                 break;
         }
 

@@ -15,6 +15,8 @@ use PayPal\Api\Agreement;
 use PayPal\Api\Payer;
 use Carbon\Carbon;
 
+use PayPal\Api\AgreementStateDescriptor;
+
 class My_PaypalRest
 {
     private $apiContext;
@@ -164,7 +166,7 @@ class My_PaypalRest
      */
     private function getStartDate()
     {
-        $date = Carbon::now()->addMinutes( 10 );
+        $date = Carbon::now();//->addMinutes( 10 );
 
         return (string) str_replace( '+0000', 'Z', $date->toIso8601String() );
     }
@@ -300,5 +302,31 @@ class My_PaypalRest
     public function getSavedPlanId()
     {
         return $this->usePlan->getId();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function cancelAgreement( $id )
+    {
+        $agreementStateDescriptor = new AgreementStateDescriptor();
+        $agreementStateDescriptor->setNote( "Canceling subscription to rankalytics" );
+
+        try {
+            $agreement = Agreement::get( $id, $this->apiContext );
+            $agreement->cancel( $agreementStateDescriptor, $this->apiContext );
+        } catch ( Exception $ex ) {
+            return array(
+                'error' => true,
+                'msg'   => $ex->getMessage(),
+            );
+        }
+
+        return array(
+            'error'     => false,
+            'agreement' => $agreement
+        );
     }
 }
