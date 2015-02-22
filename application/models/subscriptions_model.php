@@ -80,7 +80,7 @@ class Subscriptions_Model extends CI_Model
 
         $response = $this->db->get()->result_array();
 
-        if (count($response) == 1) {
+        if (count($response) == 1 and $service !== null) {
             $paymentType_backup = $tempInfo = $response[0];
             if (trim( $tempInfo['status'] ) !== 'active') {
                 $tempInfo           = Subscriptions_Lib::getDefaultNotSubscribed( $service );
@@ -90,7 +90,7 @@ class Subscriptions_Model extends CI_Model
             return $tempInfo;
         }
 
-        if (count($response) > 1) {
+        if (count($response)) {
             return $response;
         }
 

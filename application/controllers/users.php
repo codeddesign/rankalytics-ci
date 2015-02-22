@@ -1364,7 +1364,7 @@ class Users extends CI_Controller
                     $subscriptions[$i] = $tInfo;
 
                     // determine amount:
-                    $subscriptions[$i]['paid'] = Subscriptions_Lib::$_service_prices[$service][$plan];//Subscriptions_Lib::getPaidAmount( $tInfo ) - ( $tInfo['charged_diff'] + Subscriptions_Lib::addTaxes( $tInfo['charged_diff'] ) );
+                    $subscriptions[$i]['paid'] = Subscriptions_Lib::$_service_prices[$service][$plan];
                     $i ++;
                 }
             }
