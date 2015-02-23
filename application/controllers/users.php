@@ -454,9 +454,9 @@ class Users extends CI_Controller
                 break;
             case 'paypal':
                 $this->load->library( 'paypalrest' );
-                $response = $this->paypalrest->cancelAgreement($externalId);
-                if($response['error']) {
-                    $this->json_exit($response);
+                $response = $this->paypalrest->cancelAgreement( $externalId );
+                if ($response['error']) {
+                    $this->json_exit( $response );
                 }
                 break;
         }
@@ -484,9 +484,35 @@ class Users extends CI_Controller
             $this->json_exit( $this->ajaxGeneric );
         }
 
+        $serviceAction = $this->input->post( 'serviceAction' );
+        $planName      = $this->input->post( 'servicePlan' );
+
         # load requirements and make settings:
         $this->load->library( 'paypalrest' );
         $this->load->model( 'UserPaypalPlans_Model', 'existing_plans', true );
+
+        if ($serviceAction == 'update') {
+            $current = $this->subscriptions->getSubscriptionInfo( $tempInfo['logged_in'][0]['id'], $this->input->post( 'serviceName' ) );
+            $externalId = $current['external_id'];
+
+            # check if they are the same plans:
+            if ($current['plan'] == $planName) {
+                $this->json_exit( array(
+                    'error' => true,
+                    'msg'   => 'You are already subscribed to this plan',
+                ) );
+            }
+
+            $response = $this->paypalrest->cancelAgreement( $externalId );
+            if ($response['error']) {
+                $this->json_exit( $response );
+            }
+
+            $this->subscriptions->doUpdate(
+                array( 'status' => 'canceled' ),
+                array( 'external_id' => $externalId )
+            );
+        }
 
         # prepare data and save subscription to db:
         $userData      = $tempInfo['logged_in'][0];
@@ -550,7 +576,7 @@ class Users extends CI_Controller
             );
 
             $this->session->set_userdata( array(
-                'paypal_flash' => 'Your subscription aplication has been canceled.'
+                'paypal_flash' => 'Your subscription has been canceled.'
             ) );
 
             redirect( '/users/subscriptions' );
@@ -579,7 +605,7 @@ class Users extends CI_Controller
         );
 
         $this->session->set_userdata( array(
-                'paypal_flash' => 'Your subscription application has been completed!'
+                'paypal_flash' => 'Your subscription has been completed!'
             )
         );
 
@@ -622,6 +648,8 @@ class Users extends CI_Controller
 
                     # check if they are the same plans:
                     if ($current['plan'] == $subscription['plan']) {
+                        $this->subscriptions->removeBySubId( $subscription['order_id'] );
+
                         $this->json_exit( array(
                             'error' => true,
                             'msg'   => 'You are already subscribed to this plan',

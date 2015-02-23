@@ -330,8 +330,8 @@ $stripe     = config_item( 'stripe_config' );
                 service = option.data('service'),
                 formInfo = $('#form-info-' + service.toLowerCase()),
                 paymentOptions = $('.paid' + service),
-                action = $('#' + service.toLowerCase() + 'Action')
-                ;
+                action = $('#' + service.toLowerCase() + 'Action'),
+                paymentType = $('form[data-service=' + service + ']').find('input[name=paymentType]:checked').val();
 
             formInfo.hide();
 
@@ -356,9 +356,13 @@ $stripe     = config_item( 'stripe_config' );
             }
 
             if (isAlreadyPaid(service)) {
+                if (!isDowngrade(service, amount) && !noChange(service, amount) && paymentType == 'paypal') {
+                    formInfo.html('By choosing this plan your current paypal subscription will be canceled.').show();
+                }
+
                 action.val('update');
             }
-            
+
             paymentOptions.show();
         });
 

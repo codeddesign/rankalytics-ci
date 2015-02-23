@@ -166,7 +166,7 @@ class My_PaypalRest
      */
     private function getStartDate()
     {
-        $date = Carbon::now();//->addMinutes( 10 );
+        $date = Carbon::now()->addMinutes( 10 );
 
         return (string) str_replace( '+0000', 'Z', $date->toIso8601String() );
     }
@@ -214,9 +214,10 @@ class My_PaypalRest
             );
 
         } catch ( Exception $ex ) {
+            //print_r($ex);
             return array(
                 'error' => true,
-                'msg'   => $ex->getMessage()
+                'msg'   => 'An error occurred. If it persists please contact support ', //$ex->getMessage()
             );
         }
     }
@@ -312,7 +313,7 @@ class My_PaypalRest
     public function cancelAgreement( $id )
     {
         $agreementStateDescriptor = new AgreementStateDescriptor();
-        $agreementStateDescriptor->setNote( "Canceling subscription to rankalytics" );
+        $agreementStateDescriptor->setNote( "Canceling subscription" );
 
         try {
             $agreement = Agreement::get( $id, $this->apiContext );
