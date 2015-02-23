@@ -1,6 +1,6 @@
 <?php
 $config['paypal_config'] = array(
-    'sandbox' => array(
+    'api' => array(
         'client' => array(
             'id' => 'AcGmoTTVuDx_GNVn8jZTP-GuDrT-_Qi0jZ4_l0IpUC8K7qxIyBBQxjY_FMdzYPpHygsuvYBcm-sc4_qR',
             'secret' => 'EEisSAiYRhNxEsaq6q0RraLV4wDy97jeZOVJe6j16Sml67O8P8sc_YvHikYGZGLArhVpwIO1RUmPpu0J',
@@ -13,16 +13,6 @@ $config['paypal_config'] = array(
             'validation.level' => 'log',
             'cache.enabled'    => true,*/
         ),
-    ),
-    'live' => array(
-        'client' => array(
-            'id' => '', # todo
-            'secret' => '', #todo
-        ),
-        'config' => array(
-            'mode' => 'live',
-            /*'cache.enabled' => 'true',*/
-        )
     ),
     'agreement' => array(
         'name' => 'Rankalytics.com Base Agreement',

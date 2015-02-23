@@ -31,7 +31,7 @@ class My_PaypalRest
         require_once __DIR__ . '/vendor/autoload.php';
 
         $config        = config_item( 'paypal_config' );
-        $this->config  = $config['sandbox'];
+        $this->config  = $config['api'];
         $this->details = $config;
 
         $this->approvalUrl = false;
