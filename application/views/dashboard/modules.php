@@ -22,12 +22,13 @@
     <link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>assets/style.css"/>
 
     <!--link rel="stylesheet" type="text/css" media="all" href="<?php echo base_url(); ?>assets/js/jquery.horizontal.scroll.css"/-->
-    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/js/jquery-ui-datepicker/css/smoothness/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
 
     <!-- Google CDN jQuery with fallback to local -->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript" src="//use.typekit.net/pjn4zge.js"></script>
     <script type="text/javascript">
         try {
@@ -58,10 +59,26 @@
         function closeSelf() {
             document.getElementById("dashglobaloverlay").style.visibility = 'hidden';
         }
+        
+        // create free-user modal
         $(document).ready(function(){
-			$("#freeuser-nope").click(function(){
+			// add cookie
+			// check cookie
+		    var freevisited = $.cookie("freevisited")
+			if (freevisited == null) {
+				// show modal and hide onClick
+		        $("#freeuser-overlayback").show();
+		        $("#freeuser-nope").click(function(){
+				    $("#freeuser-overlayback").hide();
+				});
+				$.cookie('freevisited', 'yes'); 
+		        alert($.cookie("freevisited")); 
+		    } else {
+			    // hide modal if cookie present
 			    $("#freeuser-overlayback").hide();
-			});
+		    }
+		    $.cookie('freevisited', 'yes', { expires: 1, path: '/' });
+			// end add cookie
 		});
     </script>
     <style type="text/css">
