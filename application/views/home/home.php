@@ -148,7 +148,7 @@
 			<div class="rankscale-subtitle"><?= lang('home.rankscalesub');?></div>
 			<div class="rankscale-content"><?= lang('home.rankscalecontent');?></div>
 			<div class="rankscale-video">
-				<img src="<?php echo base_url(); ?>assets/images/rankscalevideo.png"></img>
+				<img src="<?php echo base_url(); ?>assets/images/rankscalevideo.png" title="Enterprise SEO Software"></img>
 			</div>
 			<div class="rankscale-videotext"><?= lang('home.rankscalevideo');?></div>
 		</div>
@@ -159,7 +159,7 @@
 	<div class="homefeatures-left">
 		<div class="homefeaturesbox">
 			<div class="homefeaturesimage">
-				<img itemprop="image" src="<?php echo base_url(); ?>assets/images/trafficanalysis.png">
+				<img itemprop="image" src="<?php echo base_url(); ?>assets/images/trafficanalysis.png" title="Real Time Keyword Rank Tracking">
 			</div>
 			<a href="/ranktracker" class="homefeatures-title"><?= lang('home.featurestitle');?></a>
 			<div class="homefeatures-content"><?= lang('home.featurescontent');?></div>
@@ -167,7 +167,7 @@
 		
 		<div class="homefeaturesbox">
 			<div class="homefeaturesimage">
-				<img src="<?php echo base_url(); ?>assets/images/completeapi.png">
+				<img src="<?php echo base_url(); ?>assets/images/completeapi.png" title="SEO Metrics API">
 			</div>
 			<a href="/developers/rankalytics-api" class="homefeatures-title"><?= lang('home.featurestitletwo');?></a>
 			<div class="homefeatures-content"><?= lang('home.featurescontenttwo');?></div>
@@ -177,7 +177,7 @@
 	<div class="homefeatures-right">
 		<div class="homefeaturesbox">
 			<div class="homefeaturesimage">
-				<img src="<?php echo base_url(); ?>assets/images/comptracking.png">
+				<img src="<?php echo base_url(); ?>assets/images/comptracking.png" title="SEO Spider and Crawling Tool">
 			</div>
 			<a href="/seocrawl" class="homefeatures-title"><?= lang('home.featurestitlethree');?></a>
 			<div class="homefeatures-content"><?= lang('home.featurescontentthree');?></div>
