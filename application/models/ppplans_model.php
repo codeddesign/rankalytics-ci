@@ -1,6 +1,6 @@
 <?php
 
-class Pplans_Model extends CI_Model
+class Ppplans_model extends CI_Model
 {
 
     function __construct()

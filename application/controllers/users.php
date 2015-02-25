@@ -489,7 +489,7 @@ class Users extends CI_Controller
 
         # load requirements and make settings:
         $this->load->library( 'pp' );
-        $this->load->model( 'pplans_Model', 'existing_plans' );
+        $this->load->model( 'ppplans_model', 'existing_plans' );
 
         if ($serviceAction == 'update') {
             $current = $this->subscriptions->getSubscriptionInfo( $tempInfo['logged_in'][0]['id'], $this->input->post( 'serviceName' ) );
