@@ -8,14 +8,15 @@ $config['Subscriptions_Lib_Config'] = array(
     'month_days' => 28,
     'prices'     => array(
         'ranktracker' => array(
-            'pro'        => 49,
-            'enterprise' => 199,
-            'starter'    => 0,
+            'starter'    => 29,
+            'pro'        => 99,
+            'enterprise' => 449,
+            'free'    => 0,
         ),
         'seocrawl'    => array(
-            'starter'    => 59,
-            'pro'        => 129,
-            'enterprise' => 299,
+            'starter'    => 29,
+            'pro'        => 99,
+            'enterprise' => 149,
             'free'       => 0,
         ),
     ),
@@ -25,15 +26,19 @@ $config['Subscriptions_Lib_Config'] = array(
     ),
     'limits'     => array(
         'ranktracker' => array(
+            'starter'        => array(
+                'number' => '200',
+                'text'   => '200',
+            ),
             'pro'        => array(
-                'number' => '2000',
-                'text'   => '2,000',
+                'number' => '1000',
+                'text'   => '1,000',
             ),
             'enterprise' => array(
                 'number' => '10000',
                 'text'   => '10,000',
             ),
-            'starter'    => array(
+            'free'    => array(
                 'number' => '30',
                 'text'   => '30',
             ), // not-paid
