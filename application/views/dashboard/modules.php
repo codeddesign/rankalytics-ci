@@ -100,7 +100,7 @@
 		<div class="freeuser-name">Hello Free user!</div>
 		<div class="freeuser-desc">WE LOVE TO SEE YOU USING RANKALYTICS,<br>BUT THERE IS SO MUCH MORE THAT WE CAN OFFER YOU!</div>
 		<div class="freeuser-sub">WOULD YOU LIKE TO UPGRADE YOUR MODULES?</div>
-		<a href="/users/subscription">
+		<a href="/users/subscriptions">
 			<div id="freeuser-subscribe">I WAN’T TO UPDADE!</div>
 		</a>
 		<div id="freeuser-nope">NOPE</div>
