@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 use PayPal\Api\AgreementStateDescriptor;
 
-class My_PaypalRest
+class My_Pp
 {
     private $apiContext;
     private $config;

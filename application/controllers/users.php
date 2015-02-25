@@ -453,8 +453,8 @@ class Users extends CI_Controller
                 }
                 break;
             case 'paypal':
-                $this->load->library( 'paypalrest' );
-                $response = $this->paypalrest->cancelAgreement( $externalId );
+                $this->load->library( 'pp' );
+                $response = $this->pp->cancelAgreement( $externalId );
                 if ($response['error']) {
                     $this->json_exit( $response );
                 }
@@ -488,7 +488,7 @@ class Users extends CI_Controller
         $planName      = $this->input->post( 'servicePlan' );
 
         # load requirements and make settings:
-        $this->load->library( 'paypalrest' );
+        $this->load->library( 'pp' );
         $this->load->model( 'UserPaypalPlans_Model', 'existing_plans', true );
 
         if ($serviceAction == 'update') {
@@ -503,7 +503,7 @@ class Users extends CI_Controller
                 ) );
             }
 
-            $response = $this->paypalrest->cancelAgreement( $externalId );
+            $response = $this->pp->cancelAgreement( $externalId );
             if ($response['error']) {
                 $this->json_exit( $response );
             }
@@ -520,19 +520,19 @@ class Users extends CI_Controller
         $subscription  = $subscriptions[key( $subscriptions )];
 
         # associate with paypal:
-        $this->paypalrest->setSubscription( $subscription );
+        $this->pp->setSubscription( $subscription );
 
         # check for existing plan:
-        $planShort = My_PaypalRest::generatePlanId( $subscription );
-        $planLong  = My_PaypalRest::generatePlanName( $subscription );
+        $planShort = My_Pp::generatePlanId( $subscription );
+        $planLong  = My_pp::generatePlanName( $subscription );
 
         $savedPlan = $this->existing_plans->getFirstWhere( array( 'plan_short' => $planShort ) );
         if ($savedPlan !== false) {
-            $this->paypalrest->usePlanWithId( $savedPlan['id'] );
+            $this->pp->usePlanWithId( $savedPlan['id'] );
         }
 
         # step 1 - create billing agreement:
-        $response = $this->paypalrest->createBillingWithAccount();
+        $response = $this->pp->createBillingWithAccount();
         if (is_array( $response ) and $response['error']) {
             $this->subscriptions->removeBySubId( $this->sub_id );
             $this->json_exit( $response );
@@ -541,7 +541,7 @@ class Users extends CI_Controller
         # step 2 - save plan if not yet saved:
         if ($savedPlan == false) {
             $this->existing_plans->doSave( array(
-                'id'         => $this->paypalrest->getSavedPlanId(),
+                'id'         => $this->pp->getSavedPlanId(),
                 'plan_short' => $planShort,
                 'plan_long'  => $planLong,
             ) );
@@ -584,9 +584,9 @@ class Users extends CI_Controller
         }
 
         # step ok:
-        $this->load->library( 'paypalrest' );
+        $this->load->library( 'pp' );
 
-        $response = $this->paypalrest->handleAgreement( $this->input->get( 'token' ) );
+        $response = $this->pp->handleAgreement( $this->input->get( 'token' ) );
         if (is_array( $response ) and $response['error']) {
             $this->session->set_userdata( array(
                     'paypal_flash' => 'Failed: ' . $response['msg'] . ' (contact support)'
