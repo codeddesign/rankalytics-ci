@@ -178,7 +178,7 @@ $this->load->view( "include/settingsheader" );
                             ?>
                             <div id="form-info-<?= $serviceName; ?>" class="form-errors" <?= ( $flashMsg ) ? 'style="display:block;"' : ''; ?>><?= $flashMsg ?></div>
 
-                            <form action="/users/subscription" method="POST" class="subscription-form" data-service="<?= ucfirst( $serviceName ); ?>">
+                            <form action="" method="POST" class="subscription-form" data-service="<?= ucfirst( $serviceName ); ?>">
                                 <div class="pricingcheckbox">
                                     <label>Subscription plan</label>
                                     <?php
