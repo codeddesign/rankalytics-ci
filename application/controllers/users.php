@@ -489,7 +489,7 @@ class Users extends CI_Controller
 
         # load requirements and make settings:
         $this->load->library( 'pp' );
-        $this->load->model( 'UserPaypalPlans_Model', 'existing_plans', true );
+        $this->load->model( 'PaypalPlans_Model', 'existing_plans', true );
 
         if ($serviceAction == 'update') {
             $current = $this->subscriptions->getSubscriptionInfo( $tempInfo['logged_in'][0]['id'], $this->input->post( 'serviceName' ) );

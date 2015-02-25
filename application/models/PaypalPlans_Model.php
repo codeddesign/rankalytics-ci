@@ -1,6 +1,6 @@
 <?php
 
-class UserPaypalPlans_Model extends CI_Model
+class PaypalPlans_Model extends CI_Model
 {
 
     function __construct()
