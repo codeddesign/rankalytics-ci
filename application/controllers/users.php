@@ -1020,55 +1020,6 @@ class Users extends CI_Controller
     }
 
     /**
-     * handles subscription submissions from users/settings/
-     */
-    public function subscription()
-    {
-        // defaults:
-        $userInfo       = null;
-        $out            = array(
-            'error'       => true,
-            'redirect_to' => '/',
-        );
-        $payment_type   = 'none';
-        $payment_status = 0;
-        $alreadyPaid    = array();
-
-        // first pre-checks
-        $userId = $this->users->isLoggedIn();
-        if ( ! $userId OR strtolower( $this->input->server( 'REQUEST_METHOD' ) ) !== 'post' OR ! $this->users->isVerified( $userId )) {
-            $this->json_exit( $out );
-        } else {
-            // grab user information:
-            $user     = $this->users->getUserById( $userId );
-            $userInfo = $user[0];
-            unset( $out['redirect_to'] );
-        }
-
-        // submit checks:
-        $service = strtolower( trim( $this->input->post( 'service' ) ) );
-        $plan    = strtolower( trim( $this->input->post( 'accountType' ) ) );
-        $isPaid  = Subscriptions_Lib::isPaid( $service, $plan );
-
-        if ( ! array_key_exists( $service, Subscriptions_Lib::$_service_limits )) {
-            $out['msg'] = 'Service does not exist. Please contact admin.';
-            $this->json_exit( $out );
-        }
-
-        if ($isPaid AND ! isset( $_POST['paymentType'] )) {
-            $out['msg'] = 'Please select payment method.';
-            $this->json_exit( $out );
-        } else {
-            if (isset( $_POST['paymentType'] )) {
-                $payment_type = strtolower( trim( $this->input->post( 'paymentType' ) ) );
-            }
-        }
-
-        // ..
-        $this->json_exit( $out );
-    }
-
-    /**
      * getUserDetails()
      *
      * @desc for retrieving users details like name,emails and user history etc
