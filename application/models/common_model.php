@@ -50,7 +50,7 @@ class Common_Model extends CI_Model
             // Set some options - we are passing in a useragent too here
             curl_setopt_array($curl, array(
                 CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => 'http://104.236.73.120/run_adword.php?projectId='.$projectId,
+                CURLOPT_URL => 'http://45.56.78.107/run_adword.php?projectId='.$projectId,
                 CURLOPT_USERAGENT => 'Codular Sample cURL Request',
             ));
             // Send the request & save response to $resp
