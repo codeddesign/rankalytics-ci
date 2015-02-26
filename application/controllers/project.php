@@ -231,6 +231,7 @@ class Project extends CI_Controller
             'export' => 'api',
             'export_columns' => 'Ph,Po',
             'url' => 'http://' . $domain_url . '/',
+            'database' => 'us',
         );
 
         $finished = $keywords_found = false;

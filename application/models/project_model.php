@@ -204,7 +204,7 @@ class Project_Model extends CI_Model
         $this->pgsql->select("*");
         $this->pgsql->from("tbl_project");
         $this->pgsql->where('userId', $userId);
-        $this->pgsql->where_in(array("project_name" => array($project_name, str_replace(' ', '-', $project_name))));
+        $this->pgsql->where("project_name", str_replace(' ', '-', $project_name));
         $qry = $this->pgsql->get();
         $result_rows = $qry->result_array();
 
@@ -264,8 +264,7 @@ class Project_Model extends CI_Model
                 $this->pgsql->limit($limit[0]);
             }
         }
-        $query = $this->pgsql->get() or die(mysql_error());
-
+        $query = $this->pgsql->get();
         return $query->result_array();
     }
 

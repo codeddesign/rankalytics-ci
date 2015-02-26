@@ -70,8 +70,6 @@ class Ranktracker extends CI_Controller
             return false;
         }
 
-        error_reporting(E_STRICT | E_ALL);
-        ini_set('display_errors', 1);
         $this->load->model('common_model');
         $lastDate = $this->common_model->getFileLastModifiedDate($fileName = 'assets/screen/temp.png');
         //echo "last time is ".$lastDate;
