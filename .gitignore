@@ -1,3 +1,5 @@
 .idea
 .stuff
 uploads/temp/*
+csv/*
+dompdf/lib/fonts/log.htm

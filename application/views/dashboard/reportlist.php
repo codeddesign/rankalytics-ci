@@ -20,8 +20,8 @@ if ($data['reports']) {
                                     </div>
                                     <div class="report-reportselecteddate"><?php echo date('d, M. Y', strtotime($report_data['start_date'])) . " - " . date('d, M. Y', strtotime($report_data['end_date'])) ?></div>
                                     <div onclick="Delete(<?php echo $report_data['id'] . " , '" . $report_data['filename'] . "'"; ?>)" class="report-listdelete"></div>
-                                    <a target="_blank" href="http://rankalytics.com/csv/<?php echo $report_data['filename'] . ".csv"; ?>" class="report-listcsvbutton"></a>
-                                    <a target="_blank" href="http://rankalytics.com/csv/<?php echo $report_data['filename'] . ".pdf"; ?>" class="report-listpdfbutton"></a>
+                                    <a target="_blank" href="/csv/<?php echo $report_data['filename'] . ".csv"; ?>" class="report-listcsvbutton"></a>
+                                    <a target="_blank" href="/csv/<?php echo $report_data['filename'] . ".pdf"; ?>" class="report-listpdfbutton"></a>
                                 </div>
     <?php }
 } else {

@@ -403,12 +403,12 @@ if (isset($_POST['create_report'])) {
             $data[] = $project_name . '; ' . $domain_name . '; ' . $keyword . '; ' . $current_pos . '; ' . $day7 . '; ' . $day28 . '; ' . $ert . '; ' . $competition . '; ' . $kei . '; ' . $comp_pages . '; ' . $search_volume . '; ' . $cpc;
         }
 
-        $csvfile = 'csv/rank_cvs.csv';
+        #$csvfile = 'csv/rank_cvs.csv';
         $newfilename = $report_name . time();
         $newfilename = md5($newfilename);
         $target = "csv/" . $newfilename . ".csv";
-        copy($csvfile, $target);
-        chmod($target, 0777);
+        #copy($csvfile, $target);
+        #chmod($target, 0777);
         $report_array['report_name'] = $report_name;
         $report_array['domain_name'] = $domain_name;
         $report_array['userid'] = $user_database['id'];
@@ -432,8 +432,8 @@ if (isset($_POST['create_report'])) {
         }
         fclose($handle);
         $target_pdf = "csv/" . $newfilename . ".pdf";
-        copy("csv/report.pdf", $target_pdf);
-        chmod($target_pdf, 0777);
+        #copy("csv/report.pdf", $target_pdf);
+        #chmod($target_pdf, 0777);
         if ($report_graph == 1 and $list_report == 0) {
             $data_r['grabzIt'] = null;
             $pdf_content = $this->load->view("dashboard/report_format", $data_r, true);
@@ -448,8 +448,6 @@ if (isset($_POST['create_report'])) {
         $dompdf->render();
         file_put_contents($target_pdf, $dompdf->output());
         flush();
-
-
     }
 }
 
