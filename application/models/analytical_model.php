@@ -21,7 +21,7 @@ class Analytical_Model extends CI_Model
     {
         $this->pgsql->select('*');
         $this->pgsql->from('proxy');
-        $this->pgsql->where('google_blocked', 0);
+        #$this->pgsql->where('google_blocked', 0);
         $this->pgsql->where('for_crawler', "others");
         $this->pgsql->order_by("id", "random");
         $query = $this->pgsql->get();
