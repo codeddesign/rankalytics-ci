@@ -53,7 +53,7 @@ class Subscriptions_Lib
      */
     public static function getDefaultNotSubscribed($service)
     {
-        $plan = ($service == 'ranktracker') ? 'starter' : 'free';
+        $plan = 'free';
         return array(
             'plan' => $plan,
             'payment_type' => 'none',
