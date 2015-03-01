@@ -183,6 +183,7 @@ class Users extends CI_Controller
 
         if ($_disabled and isset( $user_data['registered'] )) {
             $this->load->view( 'ranktracker/promembership', array( 'registered' => $user_data['registered'] ) );
+            $this->session->unset_userdata('registered');
             return false;
         }
 
