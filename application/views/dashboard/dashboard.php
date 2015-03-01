@@ -335,7 +335,8 @@ if ($allowedOpt) {
                     $("#userfile").val('');
                     $("#kewords").val('');
                     $("#projectNM").text($("#project-name_" + (this.id).replace("project_", "")).text());
-                }); // for add keywords
+                });
+
                 $(".campaigndelete").click(function () {
                     del_id = this.id.replace("delete_", "");
                     if (confirm("<?= lang('rankdash.keyconfirm');?>")) {

@@ -6,70 +6,68 @@ class Project_Model extends CI_Model
 
     function __construct()
     {
-        $this->pgsql = $this->load->database('pgsql', true);
+        $this->pgsql = $this->load->database( 'pgsql', true );
     }
 
-    public function saveProject($domain_array)
+    public function saveProject( $domain_array )
     {
-        $this->pgsql->set($domain_array);
-        $this->pgsql->set("uploaded_date", "now()", FALSE);
-        $this->pgsql->insert('tbl_project');
+        $this->pgsql->set( $domain_array );
+        $this->pgsql->set( "uploaded_date", "now()", false );
+        $this->pgsql->insert( 'tbl_project' );
 
         return $domain_array['id'];
     }
 
-    public function isProjectExists($name, $userId)
+    public function isProjectExists( $name, $userId )
     {
-        $this->pgsql->select('*');
-        $this->pgsql->from('tbl_project');
+        $this->pgsql->select( '*' );
+        $this->pgsql->from( 'tbl_project' );
 
-        $this->pgsql->where(array('project_name' => $name, "userId" => $userId));
-        $this->pgsql->limit(1);
+        $this->pgsql->where( array( 'project_name' => $name, "userId" => $userId, 'deleted' => 0 ) );
+        $this->pgsql->limit( 1 );
         $query = $this->pgsql->get();
 
         return $query->num_rows();
     }
 
-    public function isDomainExists($url, $userId)
+    public function isDomainExists( $url, $userId )
     {
-        $this->pgsql->select('*');
-        $this->pgsql->from('tbl_project');
+        $this->pgsql->select( '*' );
+        $this->pgsql->from( 'tbl_project' );
 
-        $this->pgsql->where(array('domain_url' => $url, "userId" => $userId));
-        $this->pgsql->limit(1);
+        $this->pgsql->where( array( 'domain_url' => $url, "userId" => $userId, 'deleted' => 0 ) );
+        $this->pgsql->limit( 1 );
         $query = $this->pgsql->get();
         return $query->num_rows();
     }
 
-    public function insertKeywords($keyword_array)
+    public function insertKeywords( $keyword_array )
     {
-        $this->pgsql->insert_batch('tbl_project_keywords', $keyword_array);
+        $this->pgsql->insert_batch( 'tbl_project_keywords', $keyword_array );
     }
 
-    public function getProjectData($userId, $userRole, $limit = array())
+    public function getProjectData( $userId, $userRole, $limit = array() )
     {
-        $this->pgsql->select('tbl_project.*');
-        $this->pgsql->from('tbl_project');
+        $this->pgsql->select( 'tbl_project.*' );
+        $this->pgsql->from( 'tbl_project' );
 
-        if ($userRole != 'admin') {
-            $condition = array("userId" => $userId);
-            $this->pgsql->where($condition);
-        }
 
-        if (!empty($limit) && isset($limit[0])) {
-            if (isset($limit[1])) {
-                $this->pgsql->limit($limit[1], $limit[0]);
+        $this->pgsql->where( array( "userId" => $userId, 'deleted' => 0 ) );
+
+        if ( ! empty( $limit ) && isset( $limit[0] )) {
+            if (isset( $limit[1] )) {
+                $this->pgsql->limit( $limit[1], $limit[0] );
             } else {
-                $this->pgsql->limit($limit[0]);
+                $this->pgsql->limit( $limit[0] );
             }
         }
         $p_data = $this->pgsql->get()->result_array();
 
-        $this->db->select('users.*');
-        $this->db->from('users');
+        $this->db->select( 'users.*' );
+        $this->db->from( 'users' );
         if ($userRole != 'admin') {
-            $this->db->where(array('id' => $userId));
-            $this->db->limit(1);
+            $this->db->where( array( 'id' => $userId ) );
+            $this->db->limit( 1 );
         }
 
         $u_data = $this->db->get()->result_array();
@@ -85,25 +83,25 @@ class Project_Model extends CI_Model
         return $p_data;
     }
 
-    public function getProjectUsername($project_id)
+    public function getProjectUsername( $project_id )
     {
 
-        $project = $this->getProjectById($project_id);
+        $project = $this->getProjectById( $project_id );
 
         $userId = $project['0']['userId'];
-        $this->load->model("users_model");
+        $this->load->model( "users_model" );
 
-        $user_arr = $this->users_model->getUserById($userId);
+        $user_arr = $this->users_model->getUserById( $userId );
         return $user_arr['0']['userName'];
     }
 
     //
-    public function getProjectDataWithKeywords($userId, $userRole)
+    public function getProjectDataWithKeywords( $userId, $userRole )
     {
-        $project_data = $this->getProjectData($userId, $userRole);
-        if (is_array($project_data)) {
+        $project_data = $this->getProjectData( $userId, $userRole );
+        if (is_array( $project_data )) {
             foreach ($project_data as $key => $project) {
-                $project_data[$key]['keywords_array'] = $this->getProjectKeywords($project['id']);
+                $project_data[$key]['keywords_array'] = $this->getProjectKeywords( $project['id'] );
             }
 
         }
@@ -112,58 +110,64 @@ class Project_Model extends CI_Model
     }
 
     // Created By sudhir for fetching project Domain
-    public function getProjectDomain($project_id)
+    public function getProjectDomain( $project_id )
     {
-        if($project_id == 0) {
+        if ($project_id == 0) {
             return array();
         }
 
-        $this->pgsql->select("domain_url");
-        $this->pgsql->from("tbl_project");
-        $this->pgsql->where('id', $project_id);
-        $this->pgsql->limit(1);
+        $this->pgsql->select( "domain_url" );
+        $this->pgsql->from( "tbl_project" );
+        $this->pgsql->where( 'id', $project_id );
+        $this->pgsql->limit( 1 );
         $result = $this->pgsql->get();
         $result = $result->result_array();
-        if (is_array($result) && isset($result['0']))
+        if (is_array( $result ) && isset( $result['0'] )) {
             return $result['0'];
-        else return array();
+        } else {
+            return array();
+        }
 
     }
 
-    public function getProjectKeywordQuery($project_id, $like = array(), $where = array())
+    public function getProjectKeywordQuery( $project_id, $like = array(), $where = array() )
     {
-        $this->pgsql->select("tbl_project_keywords.*,tbl_project.domain_url,project_keyword_relation.project_id");
-        $this->pgsql->from("tbl_project");
+        $this->pgsql->select( "tbl_project_keywords.*,tbl_project.domain_url,project_keyword_relation.project_id" );
+        $this->pgsql->from( "tbl_project" );
 
-        $this->pgsql->join("project_keyword_relation", "project_keyword_relation.project_id=tbl_project.id");
-        $this->pgsql->join("tbl_project_keywords", "tbl_project_keywords.unique_id=project_keyword_relation.keyword_id");
-        $this->pgsql->where(array('project_keyword_relation.project_id' => $project_id));
-        if (!empty($where)) {
-            $this->pgsql->where($where);
+        $this->pgsql->join( "project_keyword_relation", "project_keyword_relation.project_id=tbl_project.id" );
+        $this->pgsql->join( "tbl_project_keywords", "tbl_project_keywords.unique_id=project_keyword_relation.keyword_id" );
+        $this->pgsql->where( array( 'project_keyword_relation.project_id' => $project_id ) );
+        if ( ! empty( $where )) {
+            $this->pgsql->where( $where );
         }
-        if (!empty($like)) {
-            $this->pgsql->like($like);
+
+        if ( ! empty( $like )) {
+            $this->pgsql->like( $like );
         }
+
         return;
     }
 
-    public function getProjectKeywordsCount($project_id, $like = array(), $where = array())
+    public function getProjectKeywordsCount( $project_id, $like = array(), $where = array() )
     {
-        if($project_id == 0) {
-            return 0;
-        }
-
-        $this->getProjectKeywordQuery($project_id, $like, $where);
+        $this->getProjectKeywordQuery( $project_id, $like, $where );
         $query = $this->pgsql->get();
+
         return $query->num_rows();
     }
 
-    public function delete($id)
+    public function delete( $id )
     {
+        $this->pgsql->where( array( 'id' => $id ) );
+        return $this->pgsql->update( 'tbl_project', array(
+            'deleted' => 1,
+        ) );
+
         /*$keyword_ids = $this->project_keywords->getKeywordIdsByProjectId($id);*/
 
-        $this->pgsql->where(array('id' => $id));
-        if ($this->pgsql->delete("tbl_project")) {
+        $this->pgsql->where( array( 'id' => $id ) );
+        if ($this->pgsql->delete( "tbl_project" )) {
             /*//remove 1
             $this->load->model('Project_Keywords_Model', 'project_keywords');
             $this->project_keywords->deleteKeywordByProjectId($id);
@@ -188,97 +192,93 @@ class Project_Model extends CI_Model
         }
     }
 
-    public function deleteProjectByUserid($userId)
+    public function deleteProjectByUserid( $userId )
     {
         if ($userId == '' || $userId == 0) {
             return;
         }
-        $projects = $this->getProjectData($userId, '');
+        $projects = $this->getProjectData( $userId, '' );
         foreach ($projects as $project) {
-            $this->delete($project['id']);
+            $this->delete( $project['id'] );
         }
     }
 
-    public function get_id_by_projectname($project_name, $userId)
+    public function get_id_by_projectname( $project_name, $userId )
     {
-        $this->pgsql->select("*");
-        $this->pgsql->from("tbl_project");
-        $this->pgsql->where('userId', $userId);
-        $this->pgsql->where("project_name", str_replace(' ', '-', $project_name));
-        $qry = $this->pgsql->get();
+        $this->pgsql->select( "*" );
+        $this->pgsql->from( "tbl_project" );
+        $this->pgsql->where( 'userId', $userId );
+        $this->pgsql->where( "project_name", str_replace( ' ', '-', $project_name ) );
+        $qry         = $this->pgsql->get();
         $result_rows = $qry->result_array();
 
-        if (isset($result_rows['0'])) {
+        if (isset( $result_rows['0'] )) {
             return $result_rows['0']['id'];
         }
         return 0;
     }
 
-    public function getProjectById($id)
+    public function getProjectById( $id )
     {
-        $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where(array('id' => $this->users->isLoggedIn()));
-        $result = $this->db->limit(1)->get()->result_array();
+        $this->db->select( '*' );
+        $this->db->from( 'users' );
+        $this->db->where( array( 'id' => $this->users->isLoggedIn() ) );
+        $result    = $this->db->limit( 1 )->get()->result_array();
         $user_info = $result[0];
 
-        $this->pgsql->select('*');
-        $this->pgsql->from('tbl_project');
+        $this->pgsql->select( '*' );
+        $this->pgsql->from( 'tbl_project' );
         $this->pgsql->where(
             array(
                 "tbl_project.id" => $id,
-                'userId' => $user_info['id'],
+                'userId'         => $user_info['id'],
             )
         );
-        $result = $this->pgsql->get()->result_array();
+        $result       = $this->pgsql->get()->result_array();
         $project_info = $result[0] + $user_info;
 
         return $project_info;
     }
 
-    public function getProjectByUserid($userId)
+    public function getProjectByUserid( $userId )
     {
-        $user = $this->users->getUserById($userId);
-        return $this->getProjectData($userId, $user[0]['userRole']);
+        $user = $this->users->getUserById( $userId );
+        return $this->getProjectData( $userId, $user[0]['userRole'] );
     }
 
-    public function getProjectKeyword($project_id, $like = array(), $where = array())
+    public function getProjectKeyword( $project_id, $like = array(), $where = array() )
     {
-        $this->getProjectKeywordQuery($project_id, $like, $where);
-        $query = $this->pgsql->get() or die(mysql_error());
+        $this->getProjectKeywordQuery( $project_id, $like, $where );
+        $query = $this->pgsql->get() or die( mysql_error() );
         return $query->result_array();
     }
 
 
-    public function getProjectKeywords($project_id, $like = array(), $limit = array())
+    public function getProjectKeywords( $project_id, $like = array(), $limit = array() )
     {
-        if($project_id == 0) {
-            return array();
-        }
-
-        $this->getProjectKeywordQuery($project_id, $like);
-        if (!empty($limit) && isset($limit[0])) {
-            if (isset($limit[1])) {
-                $this->pgsql->limit($limit[1], $limit[0]);
+        $this->getProjectKeywordQuery( $project_id, $like );
+        if ( ! empty( $limit ) && isset( $limit[0] )) {
+            if (isset( $limit[1] )) {
+                $this->pgsql->limit( $limit[1], $limit[0] );
             } else {
-                $this->pgsql->limit($limit[0]);
+                $this->pgsql->limit( $limit[0] );
             }
         }
-        $query = $this->pgsql->get();
-        return $query->result_array();
+
+        return $this->pgsql->get()->result_array();
     }
 
-    function get_project_keyword_details_by_keyword($keyword_array, $date, $date_mdY)
+    function get_project_keyword_details_by_keyword( $keyword_array, $date, $date_mdY )
     {
-        $total_rank = 0;
+        $total_rank       = 0;
         $estimated_trafic = 0;
-        $kei = 0;
+        $kei              = 0;
         foreach ($keyword_array as $key => $value2) {
-            $unique_id = $value2['unique_id'];
+            $unique_id  = $value2['unique_id'];
             $domain_url = $value2['domain_url'];
 
-            $info = $this->crawled_sites_model->getCrawledInfo(array('keyword_id' => $unique_id, 'crawled_date' => $date));
-            
+            $info = $this->crawled_sites_model->getCrawledInfo( array( 'keyword_id' => $unique_id, 'crawled_date' => $date ) );
+
             $total_rank = $total_rank + $info['rank']; //total rank calculation for further use to calculate average position
 
             switch ($info['rank']) {
@@ -376,19 +376,19 @@ class Project_Model extends CI_Model
                     $percent = 0;
             }
 
-            $keyword_info = $this->project_keywords_adwordinfo->get_dated_keywordinfo_by_keywordid($unique_id, $date);
+            $keyword_info = $this->project_keywords_adwordinfo->get_dated_keywordinfo_by_keywordid( $unique_id, $date );
 
-            if (isset($keyword_info['volume']) && $keyword_info['volume'] > 0) {
-                $estimated_trafic = $estimated_trafic + ($keyword_info['volume'] * $percent);
+            if (isset( $keyword_info['volume'] ) && $keyword_info['volume'] > 0) {
+                $estimated_trafic = $estimated_trafic + ( $keyword_info['volume'] * $percent );
             }
 
-            if (isset($keyword_info['volume']) && $keyword_info['volume'] > 0) {
-                $kei = $kei + round($info['total_records'] / $keyword_info['volume'], 2);
+            if (isset( $keyword_info['volume'] ) && $keyword_info['volume'] > 0) {
+                $kei = $kei + round( $info['total_records'] / $keyword_info['volume'], 2 );
             }
 
         } // end foreach for $value
 
-        $project_keywords_details_arr['average_position'] = $total_rank;
+        $project_keywords_details_arr['average_position']  = $total_rank;
         $project_keywords_details_arr['estimated_traffic'] = $estimated_trafic;
 
         if ($project_keywords_details_arr['average_position'] >= 1 && $project_keywords_details_arr['average_position'] <= 30) {
@@ -398,11 +398,11 @@ class Project_Model extends CI_Model
         }
 
         $project_keywords_details_arr['keyword_effectiveness_index'] = $kei;
-        $project_keywords_details_return_arr[] = $project_keywords_details_arr['average_position'];
-        $project_keywords_details_return_arr[] = $project_keywords_details_arr['estimated_traffic'];
-        $project_keywords_details_return_arr[] = $project_keywords_details_arr['keyword_effectiveness_index'];
-        $project_keywords_details_return_arr[] = $project_keywords_details_arr['visibility'];
-        $project_keywords_details_return_arr[] = $date_mdY;
+        $project_keywords_details_return_arr[]                       = $project_keywords_details_arr['average_position'];
+        $project_keywords_details_return_arr[]                       = $project_keywords_details_arr['estimated_traffic'];
+        $project_keywords_details_return_arr[]                       = $project_keywords_details_arr['keyword_effectiveness_index'];
+        $project_keywords_details_return_arr[]                       = $project_keywords_details_arr['visibility'];
+        $project_keywords_details_return_arr[]                       = $date_mdY;
 
         return $project_keywords_details_return_arr;
     }
