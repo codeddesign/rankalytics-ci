@@ -329,10 +329,8 @@ class Users extends CI_Controller
         // send email:
         $skip = true;
         if ($skip and $this->sendMail) {
-            if ( ! $this->sendVerficationEmail( $userArray )) {
-                # internal error:
-                // $this->json_exit( array('error'   => true, 'message' => 'Failed sending email.') );
-            }
+            $this->sendVerificationEmail( $userArray );
+            $this->sendRegistrationEmail( $userArray );
         }
 
         # next step:
@@ -492,7 +490,7 @@ class Users extends CI_Controller
         $this->load->model( 'ppplans_model', 'existing_plans' );
 
         if ($serviceAction == 'update') {
-            $current = $this->subscriptions->getSubscriptionInfo( $tempInfo['logged_in'][0]['id'], $this->input->post( 'serviceName' ) );
+            $current    = $this->subscriptions->getSubscriptionInfo( $tempInfo['logged_in'][0]['id'], $this->input->post( 'serviceName' ) );
             $externalId = $current['external_id'];
 
             # check if they are the same plans:
@@ -741,7 +739,7 @@ class Users extends CI_Controller
         $userArrayUpdate['verificationCodeSentDate'] = date( "Y-m-d" );
 
 
-        if ( ! $this->sendVerficationEmail( $userArray )) {
+        if ( ! $this->sendVerificationEmail( $userArray )) {
             echo json_encode( array( 'error' => 0, 'msg' => 'Mail sending failed!' ) );
         } else {
             echo json_encode( array( 'error' => 1, 'msg' => 'Mail sent!' ) );
@@ -770,16 +768,9 @@ class Users extends CI_Controller
         $this->load->view( 'users/regSuccess' );
     }
 
-    /**
-     * @param $userData
-     *
-     * @return bool
-     * @throws Exception
-     * @throws phpmailerException
-     */
-    public function sendVerficationEmail( $userData )
-    { // send email address verification email
-        $content = $this->load->view( 'users/validationEmail', $userData, true );
+    private function sendMail( $receiverAddress, $receiverName, $content, $subject )
+    {
+
         $this->load->library( 'mymailer' ); // this lilbrary includes a third party phpmailer class
         $this->config->load( 'email' );
         $email = $this->config->item( 'email' );
@@ -796,23 +787,46 @@ class Users extends CI_Controller
         $mail->Password   = $email['Password']; // SMTP account password
         $mail->SetFrom( 'support@rankalytics.com', 'Support' );
         $mail->AddReplyTo( "support@rankalytics.com", "Support" );
-        $mail->Subject = "Email Address verification on rankalytics.com";
+        $mail->Subject = $subject;
         $mail->AltBody = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
         $mail->Timeout = 60;
+
         // additional ends
         $mail->MsgHTML( $content );
-        $address = $userData['emailAddress'];
 
-        $name = $userData['firstName'] . " " . $userData['lastName'];
-        $mail->AddAddress( $address, $name );
+        $mail->AddAddress( $receiverAddress, $receiverName );
         if ( ! $mail->Send()) {
             //echo "Mailer Error: " . $mail->ErrorInfo;
             return false;
-        } else {
-            //echo "Message sent!";
-            return true;
         }
-        return;
+        return true;
+    }
+
+    /**
+     * @param $userData
+     *
+     * @return bool
+     */
+    public function sendVerificationEmail( $userData )
+    {
+        $userName = $userData['firstName'] . " " . $userData['lastName'];
+        $content  = $this->load->view( 'users/validationEmail', $userData, true );
+        $subject  = "Email Address verification on rankalytics.com";
+
+        return $this->sendMail( $userData['emailAddress'], $userName, $content, $subject );
+    }
+
+    /**
+     * @param $userData
+     *
+     * @return bool
+     */
+    private function sendRegistrationEmail( $userData )
+    {
+        $subject = 'New sign up';
+        $content = $userData['firstName'] . ' ' . $userData['lastName'] . ', ' . $userData['emailAddress'];
+
+        return $this->sendMail( 'accounts@rankalytics.com', 'Bryant Maroney', $content, $subject );
     }
 
     /**
