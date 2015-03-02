@@ -208,7 +208,7 @@ class Project_Model extends CI_Model
         $this->pgsql->select( "*" );
         $this->pgsql->from( "tbl_project" );
         $this->pgsql->where( 'userId', $userId );
-        $this->pgsql->where( "project_name", str_replace( ' ', '-', $project_name ) );
+        $this->pgsql->where( "project_name", $project_name );
         $qry         = $this->pgsql->get();
         $result_rows = $qry->result_array();
 

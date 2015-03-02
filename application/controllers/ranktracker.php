@@ -82,7 +82,7 @@ class Ranktracker extends CI_Controller
         $quicksearch = $this->input->post('quicksearch');
         $isAjax = $this->input->post('isAjax');
 
-        $project_name = str_replace("-", "+", $project_name);
+        $project_name = str_replace("-", " ", $project_name);
         $project_name = urldecode($project_name);
 
         $this->load->model('project_model', 'project', true);
