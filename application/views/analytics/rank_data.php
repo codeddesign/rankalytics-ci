@@ -43,14 +43,14 @@ if (!is_array($all_data)) {
         <div class="rankiconsep"></div>
         <div class="keyword-keyword"><?php echo $value['keyword'] ?></div>
         <div class="keyword-position">
-            <div class="keyword-positiontext"><?php echo isset($value['rank']) ? $value['rank'] : ' - ' ?></div>
+            <div class="keyword-positiontext"><?php echo isset($value['google_com_rank']) ? $value['google_com_rank'] : ' - ' ?></div>
         </div>
 
 
         <div class="keyword-estimatedtraffic"><?= $info7; ?></div>
         <div class="keyword-estimatedtraffic"><?= $info28; ?></div>
 
-        <div class="keyword-estimatedtraffic"><?php echo isset($value['google_com_rank']) ? $value['google_com_rank'] : ' - ' ?></div>
+        <div class="keyword-estimatedtraffic"><?php echo isset($value['rank']) ? $value['rank'] : ' - ' ?></div>
         <div class="keyword-estimatedtraffic"><?php echo isset($value['rank_local']) ? $value['rank_local'] : ' - ' ?></div>
 
 
@@ -64,9 +64,9 @@ if (!is_array($all_data)) {
             class="keyword-competition"><?php echo isset($keyword_info['competition']) ? "<img class='comp' src=" . base_url() . "assets/images/competition-" . ltrim(round($keyword_info['competition'], 1), '0.') . ".jpg alt='" . round($keyword_info['competition'], 1) . "'>" : '<img class="comp" src="http://rankalytics.com/assets/images/competition-.jpg">' ?></div>
         <div class="keyword-pagemeta">
             <div class="keyword-pagemetawrap">
-                <div class="keyword-pagemetatop"><?php echo isset($value['title']) ? $value['title'] : ' - ' ?></div>
-                <a href="<?php echo isset($value['site_url']) ? urldecode($value['site_url']) : '#' ?>"
-                   class="keyword-pagemetabottom"><?php echo isset($value['site_url']) ? urldecode($value['site_url']) : ' - ' ?></a>
+                <div class="keyword-pagemetatop"><?php echo isset($value['title_com']) ? $value['title_com'] : ' - ' ?></div>
+                <a href="<?php echo isset($value['url_com']) ? urldecode($value['url_com']) : '#' ?>"
+                   class="keyword-pagemetabottom"><?php echo isset($value['url_com']) ? urldecode($value['url_com']) : ' - ' ?></a>
             </div>
         </div>
         <?php
@@ -74,9 +74,9 @@ if (!is_array($all_data)) {
         ?>
         <div class="keyword-kei">
             <?php
-            if (isset($keyword_info['volume']) && $keyword_info['volume'] != 0 and isset($value['total_records'])) {
+            if (isset($keyword_info['volume']) && $keyword_info['volume'] != 0 and isset($value['total_records_com'])) {
                 $remove = array(',', '.');
-                $temp_rec = str_replace($remove, '', $value['total_records']);
+                $temp_rec = str_replace($remove, '', $value['total_records_com']);
                 $temp_vol = str_replace($remove, '', $keyword_info['volume']);
                 echo number_format($temp_vol * 2 / $temp_rec, 9, '.', ',');
             } else {
@@ -98,8 +98,8 @@ if (!is_array($all_data)) {
         }
         ?>
         <div class="keyword-competingpages">
-            <?php if (isset( $value['total_records'] ) AND $value['total_records'] != 0) {
-                echo $value['total_records'];
+            <?php if (isset( $value['total_records_com'] ) AND $value['total_records_com'] != 0) {
+                echo $value['total_records_com'];
             } else {
                 echo " - ";
             } ?>

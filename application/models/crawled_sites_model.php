@@ -33,9 +33,9 @@ class Crawled_sites_Model extends CI_Model
         }
 
         if (isset( $where['host'] ) AND $where['host'] != '') {
-            $condition['host'] = '("host" LIKE \'' . $where['host'] . '%\' ESCAPE \'!\'';
+            $condition['host'] = '("host" = \'' . $where['host'] . '\'';
             $host_alternative  = ( stripos( $where['host'], 'www.' ) === false ) ? ( 'www.' . $where['host'] ) : ( str_ireplace( 'www.', '', $where['host'] ) );
-            $condition['host'] .= ' OR "host" LIKE \'' . $host_alternative . '%\' ESCAPE \'!\')';
+            $condition['host'] .= ' OR "host" =\'' . $host_alternative . '\')';
         }
 
         if (count( $condition ) > 0) {
