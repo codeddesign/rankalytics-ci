@@ -1,7 +1,53 @@
 <script src="<?php echo base_url(); ?>assets/js/spiner.js" type="text/javascript"></script>
+<!-- Mailchimp js scripts -->
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/mailchimp/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/mailchimp/js/jquery.validate.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// jQuery Validation
+		$("#signup").validate({
+			// if valid, post data via AJAX
+			submitHandler: function(form) {
+				$.post("<?php echo base_url(); ?>assets/mailchimp/subscribe.php", { email: $("#email").val() }, function(data) {
+					$('#signup input').hide();
+					$('#response').html(data);
+				});
+			},
+			// all fields are required
+			rules: {
+				email: {
+					required: true,
+					email: true
+				}
+			}
+		});
+	});
+</script>
+<!-- end Mailchimp js scripts -->
 <div class="overlay">
     <div id="spinner"></div>
 </div>
+<!-- Mailchimp overlay -->
+<div id="mailchimpoverlay">
+    <div class="whiteoverlaybg">
+        <div id="reg-error"></div>
+        <!--div style="background:none repeat scroll 0 0 #EE613C;height:30px;width:423px;padding:15px;position:absolute;top:-65px;left:0px"></div-->
+        <div class="overlaytitle">Beta Sign up</div>
+        <div class="overlaysubtitle">Sign up to be added to the waitlist</div>
+
+        <form id="signup" class="formee" action="<?php echo base_url(); ?>assets/mailchimp/subscribe.php" method="post">
+			<input name="email" id="email" class="overlayurl" type="text" placeholder="Enter your Email Address..."/>
+			<input class="mailchimpoverlaysubmit" type="submit" title="Sign Up" value="Send" />
+		</form>
+		<div id="response"></div>
+		<div id="badresponse"></div>
+
+        <a href="javascript:signupclose()">
+            <div class="overlayclose"></div>
+        </a>
+    </div>
+</div>
+<!-- end Mailchimp overlay -->
 <!-- Signup overlay -->
 <div id="signupoverlay">
     <div class="whiteoverlaybg">
@@ -70,6 +116,7 @@ function signupoverlay() {
 }
 function signupclose() {
     document.getElementById("signupoverlay").style.visibility = 'hidden';
+    document.getElementById("mailchimpoverlay").style.visibility = 'hidden';
 }
 function loginoverlay() {
     signupclose();
@@ -79,6 +126,9 @@ function loginoverlay() {
 
 function loginclose() {
     document.getElementById("loginoverlay").style.visibility = 'hidden';
+}
+function mailchimpoverlay() {
+    document.getElementById("mailchimpoverlay").style.visibility = 'visible';
 }
 $(document).ready(function () {
     $("input[type=text],input[type=password]").blur(function () {

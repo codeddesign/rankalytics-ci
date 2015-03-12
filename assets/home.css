@@ -992,6 +992,55 @@ a.ranktracker-signupbutton {
 
 .close { text-decoration: underline }
 
+#mailchimpoverlay {
+     visibility: hidden;
+     position: fixed;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+     text-align:center;
+     z-index: 200;
+     background:url('images/overlaybg.png');
+     z-index: 9999;
+}
+
+#mailchimpoverlay .whiteoverlaybg {
+     width:423px;
+     position:relative;
+     height: 208px;
+     margin: 100px auto;
+     background: #FFFFFF;
+/*   border:1px solid #000; */
+     padding:15px;
+     text-align:center;
+}
+
+#mailchimpoverlay form {
+	margin-left:-15px;
+}
+
+#mailchimpoverlay #response {
+	float: left;
+	width: 453px;
+	height: 50px;
+	margin-left: -15px;
+	margin-top: 0px;
+	color: #66B6D5;
+	font-size: 17px;
+	font-family: "brandon-grotesque",sans-serif;
+}
+
+#mailchimpoverlay #badresponse {
+	float: left;
+	font-size: 21px;
+	width: 100%;
+	height: 50px;
+	font-family: "brandon-grotesque",sans-serif;
+	margin-top: -5px;
+	color: #EE613C;
+}
+
 #signupoverlay {
      visibility: hidden;
      position: fixed;
@@ -1191,6 +1240,24 @@ a.ranktracker-signupbutton {
 
 .overlayneedaccount a:hover {
 	color: #6BB9DE;
+}
+
+.mailchimpoverlaysubmit {
+	float: left;
+	width: 453px;
+	border: none;
+	background: #EE613C;
+	height: 54px;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: sans-serif;
+	text-align: center;
+	line-height: 54px;
+	cursor: pointer;
+}
+
+.mailchimpoverlaysubmit:hover {
+	background: #CE5434;
 }
 
 .overlaysubmit {

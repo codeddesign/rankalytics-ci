@@ -96,7 +96,22 @@
     <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/100773884ns.gif"/></p></noscript>
     <!-- End clicky tracking -->
 </head>
-<body>
+<!-- <body> -->
+<body style="margin-top:139px;">
+<!-- start beta div -->
+<div class="ranktracker-whitearea">
+	<div class="bodywrapper">
+		<div class="whitetitlewrapper" style="margin-left:24px;">
+			<div class="ranktracker-whitetitle" style="font-size:22px;">Currently in Private Beta</div>
+			<div class="ranktracker-whitesubtitle" style="font-size:16px;line-height:24px;">To offer the best experience possible, we are currently working out the kinks in our system.<br><span style="font-size:17px;font-weight:500;">Sign up now to be added to the private beta wait-list.</span></div>
+		</div>
+		<a href='#' onclick='mailchimpoverlay();return false;'>
+			<div class="ranktracker-signupbutton">Sign up now</div>
+		</a>	
+	</div>
+</div>
+<!-- end beta div -->
+	
 <div class="rankbg"></div>
 
 <?php $this->load->view('home/navplacement.php');?>
