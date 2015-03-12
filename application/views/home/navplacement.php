@@ -31,7 +31,7 @@ $(document).ready(function(){
 <div class="ranktracker-top">
 	<div class="bodywrapper">
 		<a href="/" class="logo"></a>
-		
+		<!-- HIDE LOGIN AND SIGNUP
 		<a href="/contactus">
 			<div class="listheader">Support</div>
 		</a>
@@ -40,7 +40,8 @@ $(document).ready(function(){
 		</a>
 		<a href='#' onclick='signupoverlay()'>
 			<div class="listheader">Create Account</div>
-		</a>	
+		</a>
+		-->	
 		<div class="headernavwrap">
 			<!--
 			<a href="/en">

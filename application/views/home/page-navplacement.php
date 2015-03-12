@@ -32,12 +32,14 @@ $(document).ready(function(){
 	<div class="bodywrapper">
 		<a href="/" class="logo"></a>
 		
+		<!-- HIDE LOGIN
 		<a href="/contactus">
 			<div class="listheader">Support</div>
 		</a>
 		<a href='#' onclick='loginoverlay()'>
 			<div class="listheader">Dashboard Login</div>
 		</a>
+		-->
 		<div class="headernavwrap">
 			<!--
 			<a href="/en">
