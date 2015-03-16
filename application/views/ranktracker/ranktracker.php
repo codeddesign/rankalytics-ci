@@ -119,10 +119,13 @@ clicky_site_ids.push(100773884);
 			<div class="ranktracker-signuptitle"><?= lang('ranktracker.signuptitle');?></div>
 			<!--
 				<div class="ranktracker-signupsub">*Pro & Enterprise Keyword plans available!</div>
-			-->	
-				<div class="ranktracker-signupsub">*100% Free with no restrictions for up to 20 keywords while Rank Tracker R/T is in Beta!</div>
-			<a href='#' onclick='signupoverlay(); return false;'>
-				<div class="ranktracker-signupbluebutton"><?= lang('ranktracker.signupblue');?></div>
+			-->
+			<div class="ranktracker-signupsub">Rank Tracker R/T is currently in Private Beta.  Sign up to get added to the list!</div>
+			<!--<div class="ranktracker-signupsub">*100% Free with no restrictions for up to 20 keywords while Rank Tracker R/T is in Beta!</div>
+				<a href='#' onclick='signupoverlay(); return false;'>-->
+			<a href="#" onclick='mailchimpoverlay();return false;'>
+				<!--<div class="ranktracker-signupbluebutton"><?= lang('ranktracker.signupblue');?></div>-->
+				<div class="ranktracker-signupbluebutton">Sign up now</div>
 			</a>	
 		</div>
 	</div>
@@ -218,7 +221,8 @@ clicky_site_ids.push(100773884);
 		</video>
 	</div>
 	<div class="homefeatures-smallline"></div>
-	<div class="ranktracker-pricingtitle">Rank Tracker R/T Pricing</div>
+	<!--<div class="ranktracker-pricingtitle">Rank Tracker R/T Pricing</div>-->
+	<div class="ranktracker-pricingtitle">Rank Tracket R/T is in Private Beta</div>
 	<div class="pricingwrap">
 		<!-- HIDING PRICES FOR NOW
 		<div class="priceenterpriceoutline" style="height:475px;">
@@ -326,11 +330,10 @@ clicky_site_ids.push(100773884);
 	    	</a>	
 		</div>
 		-->
-		
 		<div class="seocrawl-freewrap" style="margin-top:-10px;">
-	    	<div class="seocrawl-freetitle">Try Rank Tracker R/T Now</div>
-	    	<div class="seocrawl-freedesc">Rank Tracker R/T is currently in Beta, allowing you no-restrictions for up to 20 keywords!</div>
-	    	<a onclick="signupoverlay(); return false;" href="#">
+	    	<div class="seocrawl-freetitle">Sign up for Rank Tracker R/T Private Beta</div>
+	    	<div class="seocrawl-freedesc">To offer the best experience possible, we are currently working out the kinks in our system.</div>
+	    	<a onclick="mailchimpoverlay();return false;" href="#">
 	    		<div class="seocrawl-trialbutton">Sign Up Now</div>
 	    	</a>	
 		</div>
